@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  /* Font Family */
+  --font-poppins: 'Poppins', sans-serif;
+
+  /* Font Weights */
+  --font-weight-300: 300;
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+  --font-weight-700: 700;
+
+  /* Font Sizes */
+  --font-size-display-01: 64px;
+  --font-size-heading-01: 48px;
+  --font-size-heading-02: 40px;
+  --font-size-heading-03: 32px;
+  --font-size-heading-04: 24px;
+  --font-size-heading-05: 20px;
+
+  /* Body Font Sizes */
+  --font-size-body-xxl: 20px;
+  --font-size-body-xl: 18px;
+  --font-size-body-large: 16px;
+  --font-size-body-medium: 14px;
+  --font-size-body-small: 12px;
+  --font-size-body-tiny: 10px;
+
+  /* Line Heights */
+  --line-height-display: 1.25;
+  --line-height-heading: 1.5;
+  --line-height-body: 1.6;
+
+
+
+  /* Primary Colors */
+  --soft-primary: #84d187;
+  --primary: #00b207;
+  --hard-primary: #2c742f;
+  --warning: #ff8a00;
+  --danger: #ea4b48;
+  --white: #ffffff;
+
+  /* Gray Scale */
+  --gray-9: #000000;
+  --gray-8: #1a1a1a;
+  --gray-7: #333333;
+  --gray-6: #4d4d4d;
+  --gray-5: #666666;
+  --gray-4: #808080;
+  --gray-3: #999999;
+  --gray-2: #b3b3b3;
+  --gray-1: #cccccc;
+  --gray-05: #e5e5e5;
+
+  /* Green-Gray Scale */
+  --green-gray-9: #002600;
+  --green-gray-8: #003300;
+  --green-gray-7: #004d00;
+  --green-gray-6: #006600;
+  --green-gray-5: #008000;
+  --green-gray-4: #009900;
+  --green-gray-3: #00b300;
+  --green-gray-2: #00cc00;
+  --green-gray-1: #00e600;
+  --green-gray-05: #f2fff2;
+}
+
+

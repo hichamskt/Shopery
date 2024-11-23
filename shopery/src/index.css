@@ -1,0 +1,65 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #000;
+  line-height: 1.6;
+  font-weight: 400;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+img,
+video,
+svg {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+ul,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+button,
+a {
+  background-color: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  text-decoration: none;
+}
+button:active:not(:disabled) {
+  scale: 0.98;
+}
+button {
+  transition: 0.2s;
+}
+.overlay-black{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100dvh;
+  width: 100dvw;
+  background-color: #0009;
+  z-index: 999;
+  transition: .1s;
+}
