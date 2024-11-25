@@ -1,0 +1,10 @@
+{ 
+    "welcome": "Bienvenue",
+      "description": "Ceci est un exemple de prise en charge multilingue.",
+      "storelocation":"Emplacement du magasin : Lincoln- 344, Illinois, Chicago, États-Unis",
+      "loginregidter":"Se connecter / S'inscrire",
+      "shopingcard":"Panier",
+      "Search":"recherche"
+
+
+}

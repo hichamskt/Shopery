@@ -1,0 +1,8 @@
+{
+     "welcome": "Welcome",
+      "description": "This is an example of multi-language support.",
+      "storelocation":"Store Location: Lincoln- 344, Illinois, Chicago, USA",
+      "loginregidter":"Sign In / Sign Up",
+      "shopingcard":"Shopping cart:",
+      "Search":"Search"
+}
