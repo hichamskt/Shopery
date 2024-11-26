@@ -16,6 +16,7 @@ import pop5 from "../assets/pop5.png"
 import pop6 from "../assets/pop6.png"
 import pop7 from "../assets/pop7.png"
 import ProductCard from '../components/ProductCard/ProductCard'
+import SecondBanner from '../components/SecondBanner/SecondBanner'
 
 
 function HomePage() {
@@ -28,6 +29,7 @@ function HomePage() {
         <Categories />
         <Heading heading='Popular Products' navigatto='/'/>
         <PopularProducts />
+        <SecondBanner />
     </div>
   )
 }
@@ -134,3 +136,6 @@ function PopularProducts (){
     </div>
   </div>)
 }
+
+
+

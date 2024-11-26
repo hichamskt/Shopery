@@ -1,0 +1,11 @@
+.bannerbtn{
+    padding: .6rem 1.5rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    cursor: pointer;
+    color: var(--primary);
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-600);
+}
