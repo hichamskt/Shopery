@@ -1,0 +1,124 @@
+.productcard{
+    padding: .4rem;
+    border: 1px solid var(--gray-1);
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    position: relative;
+}
+
+.productcard .productcard-discount{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--danger);
+    color: var(--white);
+    font-size: var(--font-size-body-small);
+    padding: .2rem;
+    border-radius: .2rem;
+    font-weight: var(--font-weight-400);
+}
+
+.productcard .eye{
+    position: absolute;
+    top: 80px;
+    right:  5px;
+    background-color: var(--white);
+    padding: .4rem;
+    border-radius: 50%;
+    cursor: pointer;
+    border: .1px solid var(--gray-1);
+    margin: 0 auto;
+    color: var(--gray-9);
+    opacity: 0;
+    transition:.3s;
+    
+}
+.productcard .heart{
+    position: absolute;
+    top: 40px;
+    margin: 0 auto;
+    right:  5px;
+    background-color: var(--white);
+    padding: .4rem;
+    border-radius: 50%;
+    cursor: pointer;
+    border: .1px solid var(--gray-1);
+    opacity: 0;
+    transition:.3s;
+    
+}
+
+.productcard .productcard-bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.productcard-texts .pname{
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+}
+
+.productcard-bottom .productcard-texts .pcprices{
+    display: flex;
+    gap: .2rem;
+    align-items: center;
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-500);
+    line-height: var(--line-height-body);
+}
+.productcard-bottom .productcard-texts .pcprices p:nth-of-type(2){
+    color: var( --gray-4);
+    text-decoration: line-through;
+}
+
+.productcard .productcard-bottom .p-price{
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-500);
+    line-height: var(--line-height-body);
+}
+
+.productcard .productcard-bottom .pc-rating{
+    display: flex;
+    gap: .1rem;
+}
+.productcard .productcard-bottom .pc-rating svg{
+    font-size: .6rem;
+}
+
+.productcard .productcard-bottom .start-yellow{
+    color: var(--warning);
+}
+.productcard .productcard-bottom .star-grey{
+    color: var(--gray-2);
+}
+.pc-shopingcard{
+    background-color: var(--gray-05);
+    padding: .5rem;
+    font-size: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+.productcard:hover{
+    box-shadow: 0px 0px 12px 0px rgba(32, 181, 38, 0.32);
+    border-color: rgba(32, 181, 38, 0.32);
+}
+
+
+.productcard:hover .eye,
+.productcard:hover .heart {
+    opacity: 1;
+}
+.productcard:hover .pc-shopingcard{
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.productcard:hover .productcard-texts .pname {
+    color: var(--primary);
+
+}

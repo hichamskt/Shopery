@@ -47,8 +47,8 @@ function Categories() {
         <div className='categories'>
             {
                 dummydata.map((item,index)=>(
-                    <Link to=''>
-                    <Categorie name={item.name} key={index} image={item.image} />
+                    <Link to='' key={index}>
+                    <Categorie name={item.name}  image={item.image} />
                     </Link> 
                 ))
             }

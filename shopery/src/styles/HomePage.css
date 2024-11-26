@@ -1,0 +1,9 @@
+
+
+.popularproducts{
+    margin: 1rem;
+    display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+       
+        justify-items: center;
+}
