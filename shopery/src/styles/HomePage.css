@@ -198,3 +198,21 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 }
+
+/* latestnews */
+
+.latestnews{
+    margin-top: 3rem;
+}
+.latestnews .platest{
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: var(--font-size-heading-05);
+    font-weight: var(--font-weight-600);
+    line-height: var(--line-height-heading);
+}
+.latestnews .news{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+}

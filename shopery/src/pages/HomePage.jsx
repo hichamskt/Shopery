@@ -19,10 +19,13 @@ import pop5 from "../assets/pop5.png"
 import pop6 from "../assets/pop6.png"
 import pop7 from "../assets/pop7.png"
 import new1 from "../assets/news1.png"
+import new2 from "../assets/news2.png"
+import new3 from "../assets/news3.png"
 
 import ProductCard from '../components/ProductCard/ProductCard'
 import SecondBanner from '../components/SecondBanner/SecondBanner'
 import DiscountBannar from '../components/DiscountBannar/DiscountBannar'
+import NewsCard from '../components/NewsCard/NewsCard'
 
 
 function HomePage() {
@@ -53,17 +56,38 @@ export default HomePage
 
 const dummyNewsData =[
   {
-    title:"Oranges are more than just a sweet, tangy fruit—they’re nature's powerhouse of flavor and nutrition! Here's why you should grab one today",
-
-  }
+    title:"Oranges are more than just a sweet, tangy fruit—they’re nature's powerhouse of flavor and nutrition!",
+    images:new1,
+    topic:"Food",
+    createdAt:"17",
+    comments:3,
+  },
+  {
+    title:"Did you know that eggs are one of the most nutritious foods on the planet? ",
+    images:new2,
+    topic:"Food",
+    createdAt:"17",
+    comments:4,
+  },
+  {
+    title:"Salads are the perfect blend of health and taste, offering endless possibilities to keep your meals exciting.",
+    images:new3,
+    topic:"Food",
+    createdAt:"17",
+    comments:3,
+  },
 ]
 
 function LatestNews (){
   return(
     <div className='container'>
       <div className='latestnews'>
-      <p>Latest News</p>
-
+      <p className='platest'>Latest News</p>
+      <div className='news'>
+        {dummyNewsData.map((news,i)=>(
+          <NewsCard news={news} key={i} />
+        ))}
+      </div>
       </div>
 
     </div>
