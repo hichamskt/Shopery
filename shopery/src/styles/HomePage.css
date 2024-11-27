@@ -218,3 +218,79 @@
     gap: 1rem;
 }
 
+/* companylogo */
+
+.companylogo{
+    
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+    justify-items: center;
+    gap: 2rem;
+}
+.companylogo span{
+    height: 1rem;
+    width: .1rem;
+    background-color: var(--gray-1);
+    opacity: .5;
+}
+.companylogo img{
+    object-fit: contain;
+}
+@media (max-width:500px) {
+    .companylogo span{
+        display: none;
+    }
+}
+
+
+/* folowus */
+
+.folowus{
+    margin: 4rem 1rem;
+    
+}
+.folowus p{
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: var(--font-size-heading-05);
+    font-weight: var(--font-weight-600);
+    line-height: var(--line-height-heading);
+
+}
+.folowus .folowusgallary{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+    justify-items: center;
+    gap: 1rem;
+}
+.folowus .folowusgallary .instaimgbox{
+    position: relative;
+    border-radius: .5rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.folowus .folowusgallary svg{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    color: var(--white);
+    font-size: 2rem;
+    transform: translate(50%, -50%);
+    z-index: 1;
+    display: none;
+}
+
+.folowus .folowusgallary .overlaygreen{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(43, 87, 46, 0.8);
+    top: 0;
+    border-radius: .5rem;
+    transition: all 0.3s ease;
+}
+

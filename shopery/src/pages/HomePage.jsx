@@ -10,6 +10,7 @@ import { FiEye, FiHeart } from "react-icons/fi";
 import { CiHeart } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { IoBagHandleOutline } from "react-icons/io5";
+import { FaInstagram } from "react-icons/fa";
 
 import pop1 from "../assets/pop1.png"
 import pop2 from "../assets/pop2.png"
@@ -21,12 +22,26 @@ import pop7 from "../assets/pop7.png"
 import new1 from "../assets/news1.png"
 import new2 from "../assets/news2.png"
 import new3 from "../assets/news3.png"
+import company1 from "../assets/line0.png"
+import company2 from "../assets/line1.png"
+import company3 from "../assets/line3.png"
+import company4 from "../assets/line4.png"
+import company5 from "../assets/line5.png"
+import company6 from "../assets/line2.png"
+
+import insta1 from "../assets/instapost.png"
+import insta6 from "../assets/instapost6.png"
+import insta3 from "../assets/instapost2.png"
+import insta4 from "../assets/instapost3.png"
+import insta5 from "../assets/instapost4.png"
+import insta2 from "../assets/instapost5.png"
 
 import ProductCard from '../components/ProductCard/ProductCard'
 import SecondBanner from '../components/SecondBanner/SecondBanner'
 import DiscountBannar from '../components/DiscountBannar/DiscountBannar'
 import NewsCard from '../components/NewsCard/NewsCard'
 import TestimonialsCarousel from '../components/TestimonialsCarousel/TestimonialsCarousel'
+import Footer from '../components/Footer/Footer'
 
 
 function HomePage() {
@@ -51,7 +66,9 @@ function HomePage() {
         <div className='greybackground'>
         <TestimonialsCarousel />
         </div>
-        
+        <CompanyLogo />
+        <FollowUs />
+        <Footer />
     </div>
   )
 }
@@ -451,4 +468,65 @@ function FeaturedProducts (){
       ))}
     </div>
   </div>)
+}
+
+
+function CompanyLogo(){
+
+  return<div className='container'>
+<div className='companylogo'>
+<img src={company1} alt='logo'/>
+<span></span>
+<img src={company2} alt='logo'/>
+<span></span>
+<img src={company3} alt='logo'/>
+<span></span>
+<img src={company4} alt='logo'/>
+<span></span>
+<img src={company5} alt='logo'/>
+<span></span>
+<img src={company6} alt='logo'/>
+
+</div>
+  </div>
+}
+
+const arr = [insta1,insta2,insta3,insta4,insta5,insta6];
+function FollowUs (){
+
+  return(
+    <div className='container'>
+      <div className='folowus'>
+        <p>Follow us on Instagram</p>
+        <div className='folowusgallary'>
+        {arr.map((image,i)=>(
+          <InstaImagBox key={i}  image={image}/>
+        ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function InstaImagBox({image}){
+const [isHovered, setIsHovered] = useState(false);
+
+const handleMouseEnter = () => {
+  setIsHovered(true); 
+};
+
+const handleMouseLeave = () => {
+  setIsHovered(false); 
+};
+
+  return(
+    <div className='instaimgbox'
+    onMouseEnter={handleMouseEnter}  
+      onMouseLeave={handleMouseLeave} 
+    >
+          <img src={image} alt='gallery' />
+          <div className='overlaygreen' style={{display:isHovered?'block':"" } }></div>
+          <FaInstagram   style={{display:isHovered?'block':""}}/>
+        </div>
+  )
 }
