@@ -13,7 +13,7 @@ function ProductCard({product}) {
     :0
   );
   
-  console.log(rating)
+  
     
 
   return (

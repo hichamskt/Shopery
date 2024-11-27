@@ -7,3 +7,194 @@
        
         justify-items: center;
 }
+.greybackground{
+    background-color: #F7F7F7;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+
+/* hotdeals */
+
+.hotdeals{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    background-color: var(--white);
+}
+
+.hotdealsBigcard{
+    grid-row:1/3 ;
+    grid-column:1/3 ;
+    padding: 1rem;
+    border: .1px solid var(--gray-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.hotdealsBigcard img{
+    width: 100%;
+    object-fit: cover;
+}
+.hotdealsBigcard .bigcard-hd{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--danger);
+    color: var(--white);
+    font-size: var(--font-size-body-small);
+    padding: .2rem;
+    border-radius: .2rem;
+    font-weight: var(--font-weight-400);
+}
+.hotdealsBigcard .bg-bestseller{
+    position: absolute;
+    top: 10px;
+    left: 80px;
+    background-color: #2388FF;
+    color: var(--white);
+    font-size: var(--font-size-body-small);
+    padding: .2rem;
+    border-radius: .2rem;
+    font-weight: var(--font-weight-400);
+}
+
+.hotdealsBigcard .bg-midsection{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.hotdealsBigcard .bg-midsection button{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .6rem;
+    border-radius: 1rem;
+    gap: .4rem;
+    background-color: var(--primary);
+    color: var(--white);
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-600);
+}
+
+.hotdealsBigcard .bg-icons{
+    display: flex;
+    justify-content: center;
+    background-color: var(--green-gray-05);
+    padding: .7rem;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.hotdealsBigcard .bg-pdname{
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-400);
+    margin-top: .5rem;
+}
+
+
+.hotdealsBigcard .bg-prices{
+    display: flex;
+    gap: .4rem;
+}
+.hotdealsBigcard .bg-prices p,
+.hotdealsBigcard .bg-pricez
+{
+    font-size: var(--font-size-body-xxl);
+    font-weight: var(--font-weight-500);
+}
+.hotdealsBigcard .bg-prices p:last-of-type{
+    color: var(--gray-4);
+    text-decoration: line-through;
+}
+.hotdealsBigcard .bg-ratingnfb{
+    display: flex;
+    gap: .4rem;
+}
+
+
+
+.hotdealsBigcard .pc-rating{
+    display: flex;
+    gap: .1rem;
+}
+.hotdealsBigcard .pc-rating svg{
+    font-size: .6rem;
+}
+
+.hotdealsBigcard .start-yellow{
+    color: var(--warning);
+}
+.hotdealsBigcard.star-grey{
+    color: var(--gray-2);
+}
+
+.hotdealsBigcard .bg-feedback{
+    font-size: var(--font-size-body-tiny);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-5);
+}
+.hotdealsBigcard .bg-catch{
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-5);
+}
+
+.hotdealsBigcard .countdown{
+    display: flex;
+    gap: 1rem;
+    text-align: center;
+}
+
+.hotdealsBigcard .countdown .counttop{
+    font-size: var(--font-size-body-xxl);
+    font-weight: var( --font-weight-400);
+}
+
+.hotdealsBigcard .countdown .countbtm{
+    font-size: var(--font-size-body-tiny);
+    font-weight: var( --font-weight-300);
+}
+
+.hotdealsBigcard .bg-bsection{
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    align-items: center;
+}
+
+.hotdealsBigcard:hover{
+    box-shadow: 0px 0px 12px 0px rgba(32, 181, 38, 0.32);
+    border-color: rgba(32, 181, 38, 0.32);
+}
+
+.hotdealsBigcard:hover  .bg-pdname
+{ color: var(--primary);
+
+}
+
+@media (max-width:750px) {
+    .hotdeals{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width:560px) {
+    .hotdeals{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media (max-width:450px) {
+    .hotdeals{
+        grid-template-columns: 1fr 1fr ;
+    }
+}
+
+/* FeaturedProducts */
+
+.FeaturedProducts{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}

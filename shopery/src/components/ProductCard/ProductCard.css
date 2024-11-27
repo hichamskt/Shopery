@@ -94,7 +94,7 @@
     color: var(--gray-2);
 }
 .pc-shopingcard{
-    background-color: var(--gray-05);
+    background-color: var(--green-gray-05);
     padding: .5rem;
     font-size: 1rem;
     border-radius: 50%;
