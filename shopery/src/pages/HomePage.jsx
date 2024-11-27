@@ -26,6 +26,7 @@ import ProductCard from '../components/ProductCard/ProductCard'
 import SecondBanner from '../components/SecondBanner/SecondBanner'
 import DiscountBannar from '../components/DiscountBannar/DiscountBannar'
 import NewsCard from '../components/NewsCard/NewsCard'
+import TestimonialsCarousel from '../components/TestimonialsCarousel/TestimonialsCarousel'
 
 
 function HomePage() {
@@ -47,11 +48,26 @@ function HomePage() {
         <Heading heading='Featured Products' navigatto='/'/>
         <FeaturedProducts />
         <LatestNews />
+        <div className='greybackground'>
+        <TestimonialsCarousel />
+        </div>
+        
     </div>
   )
 }
 
 export default HomePage
+
+
+
+
+
+
+
+
+
+
+
 
 
 const dummyNewsData =[

@@ -203,6 +203,7 @@
 
 .latestnews{
     margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 .latestnews .platest{
     text-align: center;
@@ -216,3 +217,4 @@
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 1rem;
 }
+
