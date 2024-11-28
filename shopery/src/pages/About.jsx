@@ -178,7 +178,7 @@ function AboutThirdHero(){
 <p className="ab-ckeck">✅ Fast & Reliable Delivery</p>
 <p className="ab-ckeck">✅ Supporting Sustainable Farming Practices</p>
 <div>
-<GreenButton />
+<GreenButton text={'Shop Now'} />
   </div>
     </div>
    <img src={forthheroimg} alt="img"/>

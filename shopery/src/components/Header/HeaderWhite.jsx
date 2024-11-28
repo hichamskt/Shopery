@@ -164,15 +164,16 @@ function HeaderBottomPart(){
     <div className="headerbottompart" style={{color:"black"}}>
       <ul style={{color:"black"}}>
         <li>
-          <NavLink to="/Home">
-            </NavLink>Home</li>
+          <NavLink to="/">
+          Home </NavLink></li>
         <li><NavLink to="/shop">Shop</NavLink></li>
         <li><NavLink to="/blogs" >Blogs</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
+        <li><NavLink to="/faqs">FaQs</NavLink></li>
         <li><NavLink to="contactus">Contact Us</NavLink></li>
       </ul>
       <div className="hb-rightside">
-        <span>
+      <span className="headerphone">
 
       <FiPhone/>
       <p>(219) 555-0114</p>

@@ -167,3 +167,9 @@
     }
 }
 
+@media (max-width:450px) {
+    .header .headerbottompart .hb-rightside span{
+        display: none;
+    }
+}
+

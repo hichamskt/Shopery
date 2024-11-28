@@ -1,11 +1,11 @@
 import React from 'react'
 import { FaArrowRightLong } from 'react-icons/fa6'
 import '../GreenButton/GreenButton.css'
-function GreenButton() {
+function GreenButton({text}) {
  
     return (
         <button className='greenbtn'>
-                Shop now <FaArrowRightLong />{" "}
+                {text} <FaArrowRightLong />{" "}
               </button>
       )
   
