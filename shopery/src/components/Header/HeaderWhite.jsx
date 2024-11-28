@@ -13,20 +13,30 @@ import logo from "../../assets/Logo.png"
 import { useCurrencyContex } from "../../contexts/CurrencyContex";
 import { useTranslation } from "react-i18next";
 
-function Header() {
+function HeaderWhite() {
   const { t, i18n } = useTranslation();
   
 
   return (
     <div className="header">
+        <div style={{backgroundColor:'black',
+                color:'white'
+        }}>
         <div className="container">
             <HeaderTopSide t={t} i18n={i18n} />
+        </div>
         </div>
         <hr></hr>
         <div className="container">
             <HeaderMidPart t={t}/>
         </div>
-        <div style={{backgroundColor:"black"}}>
+        <div 
+        style={{
+            backgroundColor: "white", 
+            borderTop: "0.3px solid #E6E6E6",
+            borderBottom: "0.3px solid #E6E6E6"
+          }}
+        >
           <div className="container">
             <HeaderBottomPart />
           </div>
@@ -35,7 +45,7 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderWhite;
 
 function HeaderTopSide({t,i18n}) {
   const [selectedCurrency, setSelectedCurrency] = useState(
@@ -76,7 +86,7 @@ function HeaderTopSide({t,i18n}) {
 
   return (
     <div className="headertopside">
-      <span className="locationside">
+      <span className="locationside" style={{color:"white"}}>
         <FiMapPin />
         <p>{t('storelocation')}</p>
       </span>
@@ -88,6 +98,9 @@ function HeaderTopSide({t,i18n}) {
             id="currency"
                value={langue}
               onChange={(e) => changeLanguage(e)}
+              style={{color:'white'
+                ,backgroundColor:'black'
+              }}
           >
             <option value="en"> Eng</option>
             <option value="fr"> Fr</option>
@@ -100,6 +113,9 @@ function HeaderTopSide({t,i18n}) {
             id="currency"
               value={selectedCurrency}
               onChange={(e) => hundleSelectedCurrency(e)}
+              style={{color:'white'
+                ,backgroundColor:'black'
+              }}
           >
             <option value="USD"> USD</option>
             <option value="MAD"> MAD</option>
@@ -108,7 +124,7 @@ function HeaderTopSide({t,i18n}) {
           </select>
         </div>
         <NavLink to="/login">
-        <p>{t('loginregidter')}</p>
+        <p style={{color:"white"}}>{t('loginregidter')}</p>
         </NavLink>
       </div>
     </div>
@@ -145,8 +161,8 @@ function HeaderBottomPart(){
 
 
   return(
-    <div className="headerbottompart">
-      <ul>
+    <div className="headerbottompart" style={{color:"black"}}>
+      <ul style={{color:"black"}}>
         <li>
           <NavLink to="/Home">
             </NavLink>Home</li>

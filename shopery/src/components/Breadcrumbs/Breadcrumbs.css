@@ -1,0 +1,21 @@
+
+
+.breadcramb{
+    background-image: url('../../assets/Breadcrumbs.png');
+    background-size: cover;
+    background-position: center;
+}
+.breadlocation{
+    color: var(--white);
+    font-size: var( --font-size-body-medium);
+    font-weight: var(--font-weight-400);
+    display: flex;
+    gap: .5rem;
+    height: 100PX;
+    align-items: center;
+    margin: 0 1rem;
+}
+
+.breadlocation p:last-of-type{
+    color: var(--primary);
+}

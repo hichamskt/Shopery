@@ -22,12 +22,7 @@ import pop7 from "../assets/pop7.png"
 import new1 from "../assets/news1.png"
 import new2 from "../assets/news2.png"
 import new3 from "../assets/news3.png"
-import company1 from "../assets/line0.png"
-import company2 from "../assets/line1.png"
-import company3 from "../assets/line3.png"
-import company4 from "../assets/line4.png"
-import company5 from "../assets/line5.png"
-import company6 from "../assets/line2.png"
+
 
 import insta1 from "../assets/instapost.png"
 import insta6 from "../assets/instapost6.png"
@@ -42,6 +37,7 @@ import DiscountBannar from '../components/DiscountBannar/DiscountBannar'
 import NewsCard from '../components/NewsCard/NewsCard'
 import TestimonialsCarousel from '../components/TestimonialsCarousel/TestimonialsCarousel'
 import Footer from '../components/Footer/Footer'
+import CompanyLogo from '../components/CompanyLogo/CompanyLogo'
 
 
 function HomePage() {
@@ -471,25 +467,7 @@ function FeaturedProducts (){
 }
 
 
-function CompanyLogo(){
 
-  return<div className='container'>
-<div className='companylogo'>
-<img src={company1} alt='logo'/>
-<span></span>
-<img src={company2} alt='logo'/>
-<span></span>
-<img src={company3} alt='logo'/>
-<span></span>
-<img src={company4} alt='logo'/>
-<span></span>
-<img src={company5} alt='logo'/>
-<span></span>
-<img src={company6} alt='logo'/>
-
-</div>
-  </div>
-}
 
 const arr = [insta1,insta2,insta3,insta4,insta5,insta6];
 function FollowUs (){

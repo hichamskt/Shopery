@@ -3,6 +3,7 @@ import './App.css';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import About from './pages/About';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <BrowserRouter>
     <Routes>
     <Route path="/" element={<HomePage />}></Route>
+    <Route path="/about" element={<About />}></Route>
     </Routes>
 
     </BrowserRouter>

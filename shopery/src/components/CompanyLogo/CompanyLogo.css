@@ -1,0 +1,23 @@
+.companylogo{
+    
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+    justify-items: center;
+    gap: 2rem;
+}
+.companylogo span{
+    height: 1rem;
+    width: .1rem;
+    background-color: var(--gray-1);
+    opacity: .5;
+}
+.companylogo img{
+    object-fit: contain;
+}
+@media (max-width:500px) {
+    .companylogo span{
+        display: none;
+    }
+}
