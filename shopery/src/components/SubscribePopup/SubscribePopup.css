@@ -1,0 +1,119 @@
+.popupsubscribe{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 10;
+    background-color: #000000b7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.popupcontainer{
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+}
+.popupcontainer img{
+    align-self: stretch;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.popuptext{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    position: relative;
+}
+
+.popuptext svg{
+    position: absolute;
+    top: -40px;
+    right: 0;
+    cursor: pointer;
+}
+
+.popuptext p:first-of-type{
+    font-size: var(--font-size-heading-03);
+    
+    font-weight: var(--font-weight-600);
+}
+.popuptext p:nth-of-type(2){
+    font-size: var(--font-size-body-medium);
+    
+    font-weight: var(--font-weight-400);
+    color: var(--gray-4);
+}
+
+.popupcontainer .popupinput{
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--gray-1);
+    border-radius: 6rem;
+    padding-left: 1rem;
+    
+}
+.popupcontainer .popupinput input{
+    flex-grow:1;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    padding-left: 1rem;
+}
+
+.popupcontainer .popupinput button{
+    background-color: var(--primary);
+    color: white;
+    height: 100%;
+    min-width: 7rem;
+    font-size: var(--font-size-body-medium);
+    
+    font-weight: var(--font-weight-400);
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+@media (max-width:750px) {
+    .popuptext p:first-of-type{
+        font-size: var(--font-size-heading-05);
+        
+    }
+    .popuptext p:nth-of-type(2){
+        font-size: var(--font-size-body-small);
+        
+    
+    }
+}
+
+
+@media (max-width:565px){
+    .popuptext svg{
+        top: -15px; 
+    }
+}
+@media (max-width:490px){
+    .popupcontainer{
+        grid-template-columns: 1fr;
+        align-content: center;
+        grid-template-rows: 336px 1fr;
+    }
+
+    .popuptext svg{
+        top: -366px; 
+    }
+    .popupcontainer img{
+        width: 100%;
+    }
+}

@@ -38,11 +38,13 @@ import NewsCard from '../components/NewsCard/NewsCard'
 import TestimonialsCarousel from '../components/TestimonialsCarousel/TestimonialsCarousel'
 import Footer from '../components/Footer/Footer'
 import CompanyLogo from '../components/CompanyLogo/CompanyLogo'
+import SubscribePopup from '../components/SubscribePopup/SubscribePopup'
 
 
 function HomePage() {
   return (
     <div>
+        {/* <SubscribePopup /> */}
         <Header/>
         <Bannar />
         <Featured />
