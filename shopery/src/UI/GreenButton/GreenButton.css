@@ -9,4 +9,5 @@
     font-size: var(--font-size-body-small);
     font-weight: var(--font-weight-600);
     background-color: var(--primary);
+    justify-content: center;
 }
