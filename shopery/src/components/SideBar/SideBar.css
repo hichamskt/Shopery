@@ -1,0 +1,21 @@
+.sidebar{
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: white;
+    height: 100vh;
+    border: 1px solid var(--gray-1);
+}
+
+.sidebar ul{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+.sidebar ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}

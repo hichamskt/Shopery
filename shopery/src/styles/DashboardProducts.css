@@ -1,0 +1,253 @@
+.dashboard-container{
+    display: grid;
+    grid-template-columns: 1fr 6fr ;
+    gap: 2rem;
+    background-color: #e5e5e597;
+    
+}
+
+.ProductsTopPart{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 90%;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: .5rem;
+    margin-top: 2rem;
+}
+
+.formTopside{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    margin-top: 1rem;
+    align-items: center;
+}
+.formTopside p:first-of-type{
+    font-size: var(--font-size-heading-05);
+    
+    font-weight: var(--font-weight-600);
+}
+
+.formTopside  button{
+    padding: .5rem 1rem;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+.formTopside >div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.formTopside  button:first-of-type{
+    background-color: white;
+    color: var(--primary);
+}
+.formTopside  button:last-of-type{
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+
+
+.pform-body{
+    margin: 1rem;
+    display: grid;
+    grid-template-rows: 374px 1fr 1fr;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 1rem;
+}
+
+.pf-leftside{
+    background-color: white;
+    padding: 1rem;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    grid-row: 1 / 4;
+    gap: 1rem;
+}
+
+.pf-heading{
+    font-size: var( --font-size-body-large);
+    font-weight: var(--font-weight-600);
+}
+
+.pf-label{
+    font-size: var( --font-size-body-small);
+    font-weight: var(--font-weight-500);
+    color: var(--gray-6);
+}
+
+.pform-body input {
+    height: 2rem;
+    width: 100%;
+    padding-left: 1rem;
+    border: 1px solid var(--gray-6);
+    font-size: var( --font-size-body-small);
+    font-weight: var(--font-weight-500);
+    border-radius: .3rem;
+    outline-color: var(--primary);
+}
+.pform-body textarea {
+    height: 5rem;
+    width: 100%;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    border: 1px solid var(--gray-6);
+    font-size: var( --font-size-body-small);
+    font-weight: var(--font-weight-500);
+    border-radius: .3rem;
+    outline-color: var(--primary);
+    resize: none;
+}
+
+
+.pform-body hr{
+    border: none; 
+  height: 1px; 
+  background-color: #ccc;
+}
+
+/* drag and drop image section */
+
+
+
+.ddp-card{
+    padding: 10px;
+}
+
+.ddp-top{
+    padding: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.drag-area{
+    height: 200px;
+    border-radius: 5px;
+    border: 2px dashed #6d31ed;
+    background-color: #6d31ed1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    -webkit-user-select: none;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.ddp-card input{
+    display: none;
+}
+
+.ddp-select{
+    padding: 5px 10px;
+    color: #6d31ed;
+    border: 1px solid #6d31ed;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ddp-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-height: 300px;
+    overflow: auto;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.ddp-container .ddp-image{
+    width: 150px;
+    height: 150px;
+    position: relative;
+    margin-bottom: 8px;
+    
+}
+.ddp-container .ddp-image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+.ddp-container .ddp-delete{
+    position: absolute;
+    top: -2px;
+    right: 0px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+
+
+.pf-price{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.pf-price >div{
+    flex-grow: 1;
+}
+
+.ddp-file{
+    display: none;
+}
+
+.addbrand{
+    width: 200px;
+    height: 200px;
+    border: 1px double var(--soft-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--soft-primary);
+    cursor: pointer;
+}
+
+.pf-brand{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+.pf-brand img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.pf-brand svg{
+    
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+
+
+.pf-righttop{
+    padding: 1rem;
+    background-color: white;
+    border-radius: .5rem;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.pf-righttop select {
+    height: 2rem;
+    width: 100%;
+    padding-left: 1rem;
+    border: 1px solid var(--gray-6);
+    font-size: var( --font-size-body-small);
+    font-weight: var(--font-weight-500);
+    border-radius: .3rem;
+    outline-color: var(--primary);
+}
