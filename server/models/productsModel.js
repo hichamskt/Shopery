@@ -3,17 +3,18 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String },
-    Sku: {
+    sku: {
         type: String,
         required: true,
         unique: true
     },
     price: { type: Number, required: true },
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
-    stock: { type: Number, default: 0 },
+    stock: { type: Number,  default: 0, min: 0 },
     likedCount:{type:Number, default: 0},
     tags: [{ type: String }],
-    images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
+    bulletPoint: [{ type: String }],
+    images: [{ type: String }],
     discount: {
         type:Number,
     },
@@ -21,7 +22,7 @@ const ProductSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
-    brand:{
+    branddescription:{
         type:String,
     },
     brandLogo:{
@@ -47,7 +48,7 @@ const ProductSchema = new mongoose.Schema({
     
 
     status:{type: String,
-        enum: ['Sold', 'Available'], 
+        enum: ['Sold', 'Available', 'OutOfStock'], 
         default: 'Available'},
     createdAt: { type: Date, default: Date.now }
 });

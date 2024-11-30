@@ -251,3 +251,78 @@
     border-radius: .3rem;
     outline-color: var(--primary);
 }
+
+.pftagsbox{
+    padding: 1rem;
+    background-color: white;
+    border-radius: .5rem;
+    min-height: 200px;
+}
+
+.pftags{
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+    flex-wrap: wrap;
+}
+
+.pftags span{
+    margin-top: 1rem;
+    display: flex;
+    padding: .3rem;
+    background-color: #e5e5e597;
+    border-radius: .3rem;
+    gap: .3rem;
+}
+
+.pftags span svg{
+    cursor: pointer;
+}
+
+.pf-bulletsbox{
+    display: flex;
+    flex-direction: column;
+    gap:.3rem;
+}
+
+.pf-bulletsbox >div{
+    margin-top: 1rem;
+    display: flex;
+    padding: .3rem;
+    background-color: #e5e5e597;
+    border-radius: .3rem;
+    gap: .3rem;
+    position: relative;
+}
+.pf-bulletsbox >div svg{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.pf-bulletsbox >div svg:hover{
+    color: var(--primary);
+}
+
+
+.form-buttom{
+    display: flex;
+    align-self: flex-end;
+    padding: 1rem;
+    gap: .5REM;
+}
+
+.form-buttom button{
+    padding: .5rem 1rem;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+
+.form-buttom  button:first-of-type{
+    background-color: white;
+    color: var(--primary);
+}
+.form-buttom  button:last-of-type{
+    background-color: var(--primary);
+    color: var(--white);
+}

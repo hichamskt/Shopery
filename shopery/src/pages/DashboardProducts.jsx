@@ -7,7 +7,6 @@ import { BsArrowLeft } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa";
 
-
 function DashboardProducts() {
   return (
     <div>
@@ -64,6 +63,8 @@ function ProductsTopPart() {
 function AddProductForm() {
   const [images, setImages] = useState([]);
   const [brandImg, setBrandImg] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [bulletPoint, setBulletPoint] = useState([]);
 
   const fileInputRef = useRef(null);
 
@@ -71,14 +72,14 @@ function AddProductForm() {
     fileInputRef.current.click();
   }
 
-  function deletBrandimg(){
+  function deletBrandimg() {
     setBrandImg([]);
   }
 
   function onFileSelect(event) {
     const file = event.target.files;
 
-    if (file.length == 0) return;
+    if (file.length === 0) return;
 
     setBrandImg([
       {
@@ -88,10 +89,31 @@ function AddProductForm() {
       },
     ]);
   }
-  console.log(brandImg);
+
+  const hundlKeyDown = (e) => {
+    if (e.key === "Enter") {
+      setTags([...tags, e.target.value]);
+      e.target.value = "";
+    }
+  };
+
+  const hundlDeletTag = (tag) => {
+    setTags(tags.filter((item) => item !== tag));
+  };
+  const hundBulletKeyDown = (e) => {
+    if (e.key === "Enter") {
+      setBulletPoint([...bulletPoint, e.target.value]);
+      e.target.value = "";
+    }
+  };
+
+  const hundlDeletBullet = (bullet) => {
+    setBulletPoint(bulletPoint.filter((item) => item !== bullet));
+  };
 
   return (
-    <div>
+    <div style={{display: "flex",
+          flexDirection: "column"}}>
       <div className="formTopside">
         <p>Add Product</p>
         <div>
@@ -141,7 +163,7 @@ function AddProductForm() {
           {brandImg.length > 0 ? (
             <div className="pf-brand">
               {" "}
-               <RxCross2 onClick={()=>deletBrandimg()} />{" "}
+              <RxCross2 onClick={() => deletBrandimg()} />{" "}
               <img src={brandImg[0]?.url} alt="brand"></img>
             </div>
           ) : (
@@ -150,31 +172,30 @@ function AddProductForm() {
             </div>
           )}
 
-            <div>
+          <div>
             <p className="pf-label">Brand Description</p>
             <textarea placeholder="Brand Discription" />
           </div>
-          
         </div>
 
-          <div className="pf-righttop">
+        <div className="pf-righttop">
           <p className="pf-heading">Aditional info</p>
           <div>
             <p className="pf-label">Product Name</p>
             <select>
-                <option value="ee">categorie1</option>
+              <option value="ee">categorie1</option>
             </select>
           </div>
           <div>
             <p className="pf-label">Color</p>
             <select>
-                <option value="ee">categorie1</option>
+              <option value="ee">categorie1</option>
             </select>
           </div>
           <div>
             <p className="pf-label">type</p>
             <select>
-                <option value="ee">categorie1</option>
+              <option value="ee">categorie1</option>
             </select>
           </div>
           <div>
@@ -189,8 +210,52 @@ function AddProductForm() {
             <p className="pf-label">Weight:</p>
             <input type="number" placeholder="0" />
           </div>
-          </div>
+        </div>
+        <div>
+          <div className="pftagsbox">
+            <p className="pf-heading">Tags</p>
+            <p className="pf-label">Product Tags</p>
+            <input
+              type="text"
+              placeholder="Enter Tag name"
+              onKeyDown={hundlKeyDown}
+            />
 
+            <div className="pftags">
+              {tags.map((tag, i) => (
+                <span key={i}>
+                  <p style={{ lineBreak: "anywhere" }}>{tag}</p>{" "}
+                  <RxCross2 onClick={() => hundlDeletTag(tag)} />{" "}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="pftBullets  pftagsbox">
+          <p className="pf-heading">Product Bullet Point</p>
+          <p className="pf-label">Bullet Point</p>
+          <input
+            type="text"
+            placeholder="Enter Bullet point"
+            onKeyDown={hundBulletKeyDown}
+          />
+
+          <div className="pf-bulletsbox">
+            {bulletPoint.map((bullet, i) => (
+              <div key={i}>
+                {" "}
+                <p style={{ lineBreak: "anywhere" }}>{bullet}</p>{" "}
+                <RxCross2 onClick={() => hundlDeletBullet(bullet)} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div className="form-buttom">
+            <button>Cancel</button>
+            <button>Save</button>
       </div>
     </div>
   );
@@ -206,10 +271,10 @@ function DragandDropSection({ images, setImages }) {
   }
   function onFileSelect(event) {
     const files = event.target.files;
-    if (files.length == 0) return;
+    if (files.length === 0) return;
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.split("/")[0] !== "image") continue;
-      if (!images.some((e) => e.name == files[i].name)) {
+      if (!images.some((e) => e.name === files[i].name)) {
         setImages((prevImages) => [
           ...prevImages,
           {
@@ -242,7 +307,7 @@ function DragandDropSection({ images, setImages }) {
 
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.split("/")[0] !== "image") continue;
-      if (!images.some((e) => e.name == files[i].name)) {
+      if (!images.some((e) => e.name === files[i].name)) {
         setImages((prevImages) => [
           ...prevImages,
           {

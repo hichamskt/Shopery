@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-// const productRoutes = require("./routes/productRoute")
+const productRoutes = require("./routes/productRoutes")
+const categoryRoutes = require("./routes/categoryRoutes")
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,6 +26,9 @@ app.use(cookieParser());
 
 
 const uploadsDir = path.join(__dirname, 'uploads');
+const logoDir = path.join(uploadsDir, 'logo');
+const imagesDir = path.join(uploadsDir, 'images');
+const categoryDir = path.join(uploadsDir, 'category');
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
@@ -34,9 +38,24 @@ if (!fs.existsSync(uploadsDir)) {
     console.log('Uploads directory created:', uploadsDir);
 }
 
+if (!fs.existsSync(logoDir)) {
+    fs.mkdirSync(logoDir, { recursive: true });
+    console.log('Logo directory created:', logoDir);
+  }
+  
+
+  if (!fs.existsSync(imagesDir)) {
+    fs.mkdirSync(imagesDir, { recursive: true });
+    console.log('Images directory created:', imagesDir);
+  }
+  if (!fs.existsSync(categoryDir)) {
+    fs.mkdirSync(categoryDir, { recursive: true });
+    console.log('Category images directory created:', imagesDir);
+  }
 
 
-// app.use('/api/user',userRoutes)
+app.use('/api/product',productRoutes)
+app.use('/api/category',categoryRoutes)
 
 
 
