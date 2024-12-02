@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Categories/Categories.css'
 import img1 from "../../assets/img1.png"
 import img2 from "../../assets/img2.png"
@@ -8,6 +8,7 @@ import img5 from "../../assets/img5.png"
 import img6 from "../../assets/img6.png"
 import img7 from "../../assets/img7.png"
 import { Link } from 'react-router-dom'
+import axiosInstance from '../../axios/axiosInstance'
 
 const dummydata = [
     {
@@ -41,14 +42,39 @@ const dummydata = [
 ]
 
 function Categories() {
+    const [categories,setCategories]=useState([]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+          
+            try {
+                const response = await axiosInstance.get(
+                  "category/getallcategories",
+                );
+                setCategories(response.data);
+
+               
+              } catch (error) {
+                console.log(error.response?.data);
+              }
+        
+
+
+        };
+        fetchData();
+      }, []);
+   
+    
+
   return (
     <div className='container'>
         
         <div className='categories'>
             {
-                dummydata.map((item,index)=>(
+                categories.map((item,index)=>(
                     <Link to='' key={index}>
-                    <Categorie name={item.name}  image={item.image} />
+                    <Categorie name={item.name}  image={item.categoryimg} />
                     </Link> 
                 ))
             }
@@ -61,9 +87,9 @@ function Categories() {
 export default Categories
 
 function Categorie ({image,name}){
-
     return <div className='categorie'>
-        <img src={image} alt='categorie'/>
+        <img src={`${process.env.REACT_APP_BACKEND_URL}${image}`} alt='categorie'/>
         <p>{name}</p>
     </div>
 }
+

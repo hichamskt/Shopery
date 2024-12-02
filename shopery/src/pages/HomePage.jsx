@@ -12,7 +12,7 @@ import { FaStar } from "react-icons/fa";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { FaInstagram } from "react-icons/fa";
 
-import pop1 from "../assets/pop1.png"
+import pop1 from "../assets/radish.png"
 import pop2 from "../assets/pop2.png"
 import pop3 from "../assets/pop3.png"
 import pop4 from "../assets/pop4.png"
@@ -39,6 +39,7 @@ import TestimonialsCarousel from '../components/TestimonialsCarousel/Testimonial
 import Footer from '../components/Footer/Footer'
 import CompanyLogo from '../components/CompanyLogo/CompanyLogo'
 import SubscribePopup from '../components/SubscribePopup/SubscribePopup'
+import axiosInstance from '../axios/axiosInstance'
 
 
 function HomePage() {

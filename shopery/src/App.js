@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardProducts from './pages/DashboardProducts';
+import Shop from './pages/Shop';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
     <Route path="/contact" element={<Contact />}></Route>
     <Route path="/login" element={<Login />}></Route>
     <Route path="/register" element={<Register />}></Route>
+    <Route path="/shop" element={<Shop />}></Route>
     <Route path="*" element={<ErrorPage />}></Route>
 
     {/* dashboard */}

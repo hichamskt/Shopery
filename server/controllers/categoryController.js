@@ -1,6 +1,7 @@
 const Category = require("../models/categoryModel");
 const fs = require("fs");
 const path = require("path");
+const Product = require("../models/productsModel");
 
 
 
@@ -72,4 +73,37 @@ const addNewCategory = async (req, res) => {
     }
   }
 
-  module.exports = { addNewCategory , getAllCategories };
+
+
+
+  const getCategoriesWithProductCount = async (req, res) => {
+    try {
+      const categoriesWithProductCount = await Category.aggregate([
+        {
+          $lookup: {
+            from: 'products', 
+            localField: '_id', 
+            foreignField: 'category', 
+            as: 'products' 
+          }
+        },
+        {
+          $addFields: {
+            productCount: { $size: '$products' } 
+          }
+        },
+        {
+          $project: {
+            name: 1, 
+            productCount: 1 
+          }
+        }
+      ]);
+  
+      res.status(200).json(categoriesWithProductCount);
+    } catch (error) {
+      console.error('Error fetching categories with product count:', error);
+      res.status(500).json({ error: 'Failed to fetch categories with product count' });
+    }
+  };
+  module.exports = { addNewCategory , getAllCategories , getCategoriesWithProductCount };

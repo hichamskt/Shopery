@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/DashboardProducts.css";
 import SideBar from "../components/SideBar/SideBar";
 import { IoSearch } from "react-icons/io5";
@@ -6,6 +6,7 @@ import { CiFilter } from "react-icons/ci";
 import { BsArrowLeft } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa";
+import axiosInstance from "../axios/axiosInstance";
 
 function DashboardProducts() {
   return (
@@ -62,18 +63,101 @@ function ProductsTopPart() {
 
 function AddProductForm() {
   const [images, setImages] = useState([]);
-  const [brandImg, setBrandImg] = useState([]);
+  const [categoryimg, setCategoryimg] = useState([]);
   const [tags, setTags] = useState([]);
   const [bulletPoint, setBulletPoint] = useState([]);
+  const [allCategories,setAllCategories]=useState([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    description:"",
+    sku:"",
+    price:"",
+    category:"",
+    stock:"",
+    discount:"",
+    branddescription:"",
+    weigth:"",
+    color:"",
+    type:"",
+  });
 
   const fileInputRef = useRef(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get("/category/getallcategories");
+        setAllCategories(response.data);
+      } catch (err) {
+        console.log(err)
+      } 
+    };
+
+    fetchData();
+
+  }, []);
+
+
+
+  const handleSubmitData = async (e) => {
+    e.preventDefault();
+    
+    console.log(formData)
+    
+    const fd = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      fd.append(key, value);
+    });
+  
+    for (let i = 0; i < images.length; i++) {
+      fd.append('images', images[i].file); 
+    }
+
+    fd.append("tags",tags);
+    fd.append("brandLogo", categoryimg[0].file);
+    fd.append("bulletPoint",bulletPoint);
+    
+
+    try {
+      const response = await axiosInstance.post(
+        "product/addnewproduct",
+        fd,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      // if (response.status === 201) {
+      //   setAddDogForm(false);
+      //   setRefresh((prv)=>!prv);
+      // }
+    } catch (error) {
+      console.log(error.response?.data);
+      console.log(fd)
+    }
+    
+  };
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+
+
+
 
   function selectFiles() {
     fileInputRef.current.click();
   }
 
   function deletBrandimg() {
-    setBrandImg([]);
+    setCategoryimg([]);
   }
 
   function onFileSelect(event) {
@@ -81,7 +165,7 @@ function AddProductForm() {
 
     if (file.length === 0) return;
 
-    setBrandImg([
+    setCategoryimg([
       {
         file: file[0],
         name: file[0].name,
@@ -111,6 +195,7 @@ function AddProductForm() {
     setBulletPoint(bulletPoint.filter((item) => item !== bullet));
   };
 
+ 
   return (
     <div style={{display: "flex",
           flexDirection: "column"}}>
@@ -118,7 +203,7 @@ function AddProductForm() {
         <p>Add Product</p>
         <div>
           <button>Cancel</button>
-          <button>Save</button>
+          <button onClick={(e)=>handleSubmitData(e)}>Save</button>
         </div>
       </div>
       <div className="pform-body">
@@ -126,11 +211,11 @@ function AddProductForm() {
           <p className="pf-heading">Information</p>
           <div>
             <p className="pf-label">Product Name</p>
-            <input type="text" placeholder="Product Name" />
+            <input type="text" name="name" value={formData.name} onChange={(e)=>handleInputChange(e)} placeholder="Product Name" />
           </div>
           <div>
             <p className="pf-label">Product Description</p>
-            <textarea placeholder="Product Description" />
+            <textarea name="description"  value={formData.description}  onChange={(e)=>handleInputChange(e)} placeholder="Product Description" />
           </div>
           <hr />
           <p className="pf-heading">Images</p>
@@ -142,11 +227,11 @@ function AddProductForm() {
           <div className="pf-price">
             <div>
               <p className="pf-label">Product price</p>
-              <input type="number" placeholder="Price" />
+              <input type="number" min={0} name="price" value={formData.price} onChange={(e)=>handleInputChange(e)} placeholder="Price" />
             </div>
             <div>
               <p className="pf-label">Discount</p>
-              <input type="number" placeholder="%" />
+              <input type="number" min={0} max={100} name="discount" value={formData.discount} onChange={(e)=>handleInputChange(e)} placeholder="%" />
             </div>
           </div>
 
@@ -160,11 +245,11 @@ function AddProductForm() {
             onChange={onFileSelect}
           ></input>
 
-          {brandImg.length > 0 ? (
+          {categoryimg.length > 0 ? (
             <div className="pf-brand">
               {" "}
               <RxCross2 onClick={() => deletBrandimg()} />{" "}
-              <img src={brandImg[0]?.url} alt="brand"></img>
+              <img src={categoryimg[0]?.url} alt="brand"></img>
             </div>
           ) : (
             <div onClick={selectFiles} className="addbrand">
@@ -174,7 +259,7 @@ function AddProductForm() {
 
           <div>
             <p className="pf-label">Brand Description</p>
-            <textarea placeholder="Brand Discription" />
+            <textarea name="branddescription" value={formData.branddescription} onChange={(e)=>handleInputChange(e)} placeholder="Brand Discription" />
           </div>
         </div>
 
@@ -182,33 +267,54 @@ function AddProductForm() {
           <p className="pf-heading">Aditional info</p>
           <div>
             <p className="pf-label">Product Name</p>
-            <select>
-              <option value="ee">categorie1</option>
+            <select
+            name="category"
+            value={formData.category}
+            onChange={(e)=>handleInputChange(e)}
+            >
+              {
+                allCategories.map((category,index)=>(
+                  <option key={index} value={category._id}>{category.name}</option>
+
+                ))
+              }
             </select>
           </div>
           <div>
             <p className="pf-label">Color</p>
-            <select>
-              <option value="ee">categorie1</option>
+            <select
+            name="color"
+            value={formData.color}
+            onChange={(e)=>handleInputChange(e)}
+
+
+            >
+              <option value="Red">Red</option>
+              <option value="Yellow">Yellow</option>
+              <option value="Blue">Blue</option>
+              <option value="Green">Green</option>
+              <option value="Brown">Brown</option>
+              <option value="White ">White </option>
             </select>
           </div>
           <div>
             <p className="pf-label">type</p>
-            <select>
-              <option value="ee">categorie1</option>
+            <select name="type" value={formData.type} onChange={(e)=>handleInputChange(e)}>
+              <option value="Organic">Organic</option>
+              <option value="Organic">Organic</option>
             </select>
           </div>
           <div>
             <p className="pf-label">SKU</p>
-            <input type="text" placeholder="sku" />
+            <input type="text" placeholder="sku" name="sku" value={formData.sku} onChange={(e)=>handleInputChange(e)} />
           </div>
           <div>
             <p className="pf-label">stock</p>
-            <input type="number" placeholder="0" />
+            <input type="number" placeholder="0" min={0} value={formData.stock} name="stock" onChange={(e)=>handleInputChange(e)} />
           </div>
           <div>
             <p className="pf-label">Weight:</p>
-            <input type="number" placeholder="0" />
+            <input type="number" placeholder="0" name="weigth" value={formData.weigth} onChange={(e)=>handleInputChange(e)} />
           </div>
         </div>
         <div>
