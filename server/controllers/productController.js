@@ -84,4 +84,24 @@ const addNewProduct = async (req, res) => {
   };
   
 
-  module.exports = { addNewProduct };
+  const getTopDiscountedProducts = async (req, res) => {
+    try {
+      const topDiscountedProducts = await Product.find()
+        .sort({ discount: -1 }) 
+        .limit(3); 
+  
+      res.status(200).json({
+        success: true,
+        data: topDiscountedProducts,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Error fetching top discounted products',
+        error: error.message,
+      });
+    }
+  };
+  
+
+  module.exports = { addNewProduct , getTopDiscountedProducts };

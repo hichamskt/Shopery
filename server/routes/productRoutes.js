@@ -1,15 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { addNewProduct } = require("../controllers/productController");
+const { addNewProduct , getTopDiscountedProducts } = require("../controllers/productController");
 const upload = require("../middlewares/multerConfig");
 
 
 router.route('/addnewproduct').post(
   upload.fields([
-    { name: 'images', maxCount: 10 }, // Up to 10 product images
-    { name: 'brandLogo', maxCount: 1 } // One brand logo
+    { name: 'images', maxCount: 10 }, 
+    { name: 'brandLogo', maxCount: 1 } 
   ]),
-  addNewProduct // Controller function to process the product creation
+  addNewProduct 
+);
+router.route('/gettopdiscountedproducts').get(
+  getTopDiscountedProducts
 );
 
   module.exports = router;

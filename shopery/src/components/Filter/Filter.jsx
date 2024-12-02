@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import axiosInstance from "../../axios/axiosInstance";
 import { DoubleScrollBar } from "../DoubleScrollBar/DoubleScrollBar";
 import { FaStar } from "react-icons/fa";
+import { FaArrowRightLong } from 'react-icons/fa6'
 
 function Filter() {
   return (
@@ -21,6 +22,8 @@ function Filter() {
       <RatingFilter />
       <hr/>
       <PopularTag />
+      <Banner />
+      <SaleProducts />
     </div>
   );
 }
@@ -126,10 +129,10 @@ function StarLabel ({orange,gray,text}){
         <input type="checkbox" className="checkbox"  />
         <span>
         {Array.from({ length: orange }).map((_,i)=>(
-          <FaStar className="orangestar"/>
+          <FaStar key={i} className="orangestar"/>
         ))}
         {Array.from({ length: gray }).map((_,i)=>(
-          <FaStar className="graystar"/>
+          <FaStar key={i} className="graystar"/>
         ))}
         
          <p>{text}</p>
@@ -141,19 +144,99 @@ function StarLabel ({orange,gray,text}){
 
 function PopularTag(){
   const [showBox,setShowBox]=useState(true);
+  const tags = ["Healthy","Low fat", "Vegetarian","Kid foods","Vitamins","Bread",'Meat',"Snacks","Tiffin","Launch","Dinner","Breackfast","Fruit"]
 
   return(
     <div className="populartagbox">
       <div className="filterboxheader" onClick={()=>setShowBox(!showBox)}>
-        <p>PopularTag</p>
+        <p>Popular Tag</p>
         {showBox ?<IoIosArrowUp />:<IoIosArrowDown/>}
       </div>
       {
-        showBox && <div>
-
+        showBox && <div className="ptagscontainer">
+{
+  tags.map((tag,i)=> 
+    <Tag key={i} tag={tag} />
+    )
+}
         </div>
       }
 
+    </div>
+  )
+}
+
+function Tag ({tag}){
+const [clicked,setClicked]=useState(false);
+  return(
+    <div className="tag" onClick={()=>setClicked(!clicked)}
+    style={{
+      backgroundColor: clicked? "#00b207" :"",
+      color: clicked? "#fff" :"",
+      
+    }}
+    >
+      {tag}
+    </div>
+  )
+}
+
+
+function Banner (){
+
+  return(<div className="filterBanner">
+    <p><span>79%</span> Discount</p>
+    <p>on your first order</p>
+    <p>Shop Now <FaArrowRightLong/>  </p>
+  </div>)
+
+}
+
+function SaleProducts (){
+  const [showBox,setShowBox]=useState(true);
+  const [tophotproducts,setTophotProducts]=useState([]);
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "product/gettopdiscountedproducts"
+        );
+        setTophotProducts(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(tophotproducts)
+
+  return(
+    <div className="populartagbox">
+      <div className="filterboxheader" onClick={()=>setShowBox(!showBox)}>
+        <p>Popular Tag</p>
+        {showBox ?<IoIosArrowUp />:<IoIosArrowDown/>}
+      </div>
+    </div>
+  )
+}
+
+
+function SaleProductCard ({product}){
+
+const discount = product.price * product.discount / 100;
+  return(
+    <div>
+              <img src={`${process.env.REACT_APP_BACKEND_URL}${product.image}`} alt='product'/>
+              <div>
+                <p>{product.name}</p>
+                <p>${product.price * discount } <span>${product.price}</span></p>
+                <p>{product.name}</p>
+              </div>
     </div>
   )
 }
