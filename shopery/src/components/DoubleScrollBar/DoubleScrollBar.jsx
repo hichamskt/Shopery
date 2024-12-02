@@ -26,7 +26,7 @@ export const DoubleScrollBar = ({min,max,step,className,onChange}) => {
             }
         }
         
-    }, [inputFrom,inputTo,min,max ,onChange])
+    }, [inputFrom,inputTo,])
     
 
   return (
