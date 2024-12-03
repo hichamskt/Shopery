@@ -37,3 +37,11 @@
   font-weight: var(--font-weight-600);
   color: var(--gray-6);
 }
+
+.shopproducts-body{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    justify-items: center;
+    padding: 1rem;
+    gap: 1rem;
+}

@@ -104,4 +104,25 @@ const addNewProduct = async (req, res) => {
   };
   
 
-  module.exports = { addNewProduct , getTopDiscountedProducts };
+  const getAllProducts = async (req,res)=>{
+    try {
+      
+      const AllProducts = await Product.find();
+
+    
+    res.status(200).json(AllProducts);
+
+
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({
+          message: "An error occurred while getting Products.",
+          error: error.message,
+        });
+    }
+  }
+
+
+  module.exports = { addNewProduct , getTopDiscountedProducts ,getAllProducts };

@@ -214,7 +214,7 @@ function SaleProducts (){
     fetchData();
   }, []);
 
-  console.log(tophotproducts)
+  
 
   return(
     <div className="populartagbox">

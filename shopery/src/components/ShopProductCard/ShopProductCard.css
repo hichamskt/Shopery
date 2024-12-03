@@ -1,0 +1,24 @@
+.ShopProductCard{
+    padding: 1rem;
+    border: 1px solid var(--gray-6);
+    border-radius: .5rem;
+    position: relative;
+}
+
+.shopproduct-tags{
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+    position: absolute;
+    top: 6px;
+    left: 3px;
+    padding: .2rem .5rem;
+    border-radius: .3rem;
+}
+.productshopimgbox{
+    position: relative;
+}
+.productshopimgbox img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
