@@ -9,13 +9,19 @@ import { FaStar } from "react-icons/fa";
 import { FaArrowRightLong } from 'react-icons/fa6'
 import Rating from "../Rating/Rating";
 
-function Filter() {
+function Filter({showFilter,setShowFilter}) {
+
+
+ 
+
   return (
     <div className="filtercontainer">
-      <div className="fliterbtn">
+      <div className="fliterbtn" onClick={()=>setShowFilter(!showFilter)}>
         <p>Filter</p>
         <IoFilter />
       </div>
+      {showFilter && <div className="filtercontainer">
+
       <AllCategories />
       <hr/>
       <PriceRange />
@@ -25,6 +31,7 @@ function Filter() {
       <PopularTag />
       <Banner />
       <SaleProducts />
+      </div>}
     </div>
   );
 }

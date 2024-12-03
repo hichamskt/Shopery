@@ -8,6 +8,7 @@ import ShopProductCard from "../components/ShopProductCard/ShopProductCard";
 
 function Shop() {
   const [products, setProducts] = useState([]);
+  const [showFilter,setShowFilter]=useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,15 +23,16 @@ function Shop() {
     fetchData();
   }, []);
 
-  console.log(products);
-
+ 
   return (
     <div>
       <HeaderWhite />
       <Breadcrumbs location={["categories"]} />
       <div className="container">
-        <div className="shopcontainer">
-          <Filter />
+        <div className="shopcontainer" style={{
+          gridTemplateColumns:!showFilter?"1fr":""
+        }}>
+          <Filter showFilter={showFilter} setShowFilter={setShowFilter} />
           <ShopProducts  products={products} />
         </div>
       </div>

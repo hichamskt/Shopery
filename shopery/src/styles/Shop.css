@@ -40,8 +40,35 @@
 
 .shopproducts-body{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     justify-items: center;
     padding: 1rem;
     gap: 1rem;
+}
+
+@media (max-width:1050px) {
+  .shopcontainer{
+    
+    grid-template-columns: 1fr 2fr;
+    gap:0rem;
+    
+}
+.shopproducts-body{
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+ 
+}
+}
+@media (max-width:650px) {
+  .shopcontainer{
+    
+    grid-template-columns: 1fr;
+    
+    
+}}
+
+@media (max-width:450px) {
+  .shop-header-sort select{
+    margin-left: .2rem;
+    padding: .5rem 1rem .5rem 1rem;
+  }
 }

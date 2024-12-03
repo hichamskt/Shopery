@@ -1,24 +1,108 @@
 .ShopProductCard{
     padding: 1rem;
-    border: 1px solid var(--gray-6);
+    border: 1px solid #CCCCCC;
     border-radius: .5rem;
     position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+.ShopProductCard:hover{
+    box-shadow: 0px 0px 12px 0px rgba(32, 181, 38, 0.32);
+    border-color: rgba(32, 181, 38, 0.32);
+    border-width: 2px;
+}
+.ShopProductCard:hover .productshopimgbox span{
+    display: block;
+}
+.ShopProductCard:hover .psctext {
+    color: var(--primary);
+}
+.ShopProductCard:hover .ps-baghand {
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+}
+
+
 
 .shopproduct-tags{
     font-size: var(--font-size-body-small);
     font-weight: var(--font-weight-400);
     position: absolute;
-    top: 6px;
-    left: 3px;
+    top: 8px;
+    left: 4px;
     padding: .2rem .5rem;
     border-radius: .3rem;
+    z-index: 1;
 }
 .productshopimgbox{
     position: relative;
 }
+.productshopimgbox span{
+    position: absolute;
+    font-size: 1rem;
+    padding: .5rem;
+    background-color: #F2F2F2;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}
+
+.productshopimgbox span:first-of-type{
+    top: 10PX;
+    right: 0;
+}
+.productshopimgbox span:last-of-type{
+    top: 50PX;
+    right: 0;
+}
+
+
 .productshopimgbox img{
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
+.productshoptextbox{
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+    justify-content: space-between;
+    
+}
+.psctext{
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+}
+.pscpricing{
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+}
+
+.pscpricing p{
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-500);
+    color: var(--gray-9);
+}
+.pscpricing p:last-of-type{
+    font-weight: var(--font-weight-400);
+    color: var(--gray-4);
+    text-decoration: line-through;
+}
+
+.rt{
+    font-size: var(--font-size-body-small);
+    
+}
+
+.ps-baghand{
+    font-size: 1.4rem;
+    padding: .5rem;
+    background-color: #F2F2F2;
+    border-radius: 50%;
+}
+

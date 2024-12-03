@@ -18,23 +18,30 @@ function ShopProductCard({ product }) {
         ""
       )}
       <div className="productshopimgbox">
+        <span>
         <CiHeart />
+        </span>
+        <span>
         <FiEye />
+        </span>
         <img
           src={`${process.env.REACT_APP_BACKEND_URL}${product.images[0]}`}
           alt="productimage"
         />
       </div>
-      <div>
+      <div className="productshoptextbox">
         <div>
-          <p>{product.name}</p>
-          <div>
+          <p className="psctext">{product.name}</p>
+          <div className="pscpricing">
             <p>${productAfterDiscount}</p>
             {product.discount > 0 && <p>${product.price} </p>}
-            <Rating rating={product.rating} />
           </div>
-          <IoBagHandleOutline />
+            <Rating rating={product.rating}  />
         </div>
+        <span className="ps-baghand">
+
+          <IoBagHandleOutline   />
+        </span>
       </div>
     </div>
   );

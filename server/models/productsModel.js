@@ -46,6 +46,7 @@ const ProductSchema = new mongoose.Schema({
         user_id:{type: mongoose.Schema.Types.ObjectId,ref:'User'},
         review:{type:String}
      }],
+     averageRating: { type: Number, default: 0 },
     
 
     status:{type: String,
