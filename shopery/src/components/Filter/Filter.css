@@ -256,5 +256,55 @@ cursor: pointer;
   display: flex;
   gap: .5rem;
   align-items: center;
+  cursor: pointer;
+}
 
+/* productsales */
+
+.dalepr-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.saleprd-box{
+  display: flex;
+  gap: 2rem;
+  border: 1px solid var(--gray-1);
+  border-radius:.5rem ;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.saleprd-box:hover{
+  box-shadow: 0px 0px 12px 0px rgba(32, 181, 38, 0.32);
+    border-color: rgba(32, 181, 38, 0.32);
+}
+.saleprd-box:hover  p:first-of-type{
+  color: var(--primary);
+    
+}
+.saleprd-box img{
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+}
+.saleprd-box p:first-of-type{
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-400);
+  color: var(--gray-7);
+}
+.saleprd-box p:nth-of-type(2){
+  font-size: var(--font-size-body-medium);
+  font-weight: var(--font-weight-500);
+  color: var(--gray-9);
+}
+.saleprd-box p:nth-of-type(2) span{
+  text-decoration: line-through;
+  color: var(--gray-4);
+}
+.saleprd-box svg{
+  font-size: var(--font-size-body-tiny);
+  
 }

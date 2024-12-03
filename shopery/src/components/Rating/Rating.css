@@ -1,0 +1,13 @@
+.pc-rating1{
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+}
+
+.start-yellow1{
+    color: var(--warning);
+}
+
+.star-grey1{
+    color: var(--gray-2);
+}

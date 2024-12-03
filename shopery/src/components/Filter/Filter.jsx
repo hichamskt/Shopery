@@ -7,6 +7,7 @@ import axiosInstance from "../../axios/axiosInstance";
 import { DoubleScrollBar } from "../DoubleScrollBar/DoubleScrollBar";
 import { FaStar } from "react-icons/fa";
 import { FaArrowRightLong } from 'react-icons/fa6'
+import Rating from "../Rating/Rating";
 
 function Filter() {
   return (
@@ -193,7 +194,7 @@ function Banner (){
 }
 
 function SaleProducts (){
-  const [showBox,setShowBox]=useState(true);
+  
   const [tophotproducts,setTophotProducts]=useState([]);
 
 
@@ -204,7 +205,7 @@ function SaleProducts (){
         const response = await axiosInstance.get(
           "product/gettopdiscountedproducts"
         );
-        setTophotProducts(response.data);
+        setTophotProducts(response.data.data);
       } catch (err) {
         console.log(err);
       }
@@ -217,9 +218,14 @@ function SaleProducts (){
 
   return(
     <div className="populartagbox">
-      <div className="filterboxheader" onClick={()=>setShowBox(!showBox)}>
-        <p>Popular Tag</p>
-        {showBox ?<IoIosArrowUp />:<IoIosArrowDown/>}
+      <div className="filterboxheader" style={{cursor:"auto"}} >
+      <p>Sale Products</p>
+        
+      </div>
+      <div className="dalepr-container">
+        {tophotproducts.map((product,i)=>(
+          <SaleProductCard key={i} product={product} />
+        ))}
       </div>
     </div>
   )
@@ -230,12 +236,12 @@ function SaleProductCard ({product}){
 
 const discount = product.price * product.discount / 100;
   return(
-    <div>
-              <img src={`${process.env.REACT_APP_BACKEND_URL}${product.image}`} alt='product'/>
+    <div className="saleprd-box">
+              <img src={`${process.env.REACT_APP_BACKEND_URL}${product.images[0]}`} alt='product'/>
               <div>
                 <p>{product.name}</p>
-                <p>${product.price * discount } <span>${product.price}</span></p>
-                <p>{product.name}</p>
+                <p>${(product.price * discount ).toFixed(2)} <span>${product.price}</span></p>
+                <Rating rating={product.rating} />
               </div>
     </div>
   )

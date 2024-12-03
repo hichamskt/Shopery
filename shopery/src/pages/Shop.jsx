@@ -20,6 +20,7 @@ function Shop() {
 
         <div className='shopcontainer'>
             <Filter />
+            <ShopProducts />
         </div>
        </div>
     </div>
@@ -27,3 +28,23 @@ function Shop() {
 }
 
 export default Shop
+
+
+function ShopProducts(){
+
+  return(<div>
+      <div className='shop-product-header'>
+        <div className='shop-header-sort'>Sort by:  
+          
+          <select>
+            <option value="latest">Latest</option>
+            <option value="Newest">Newest</option>
+          </select>
+        </div>
+        <p>
+          <span>52 </span>
+           Results Found
+        </p>
+      </div>
+  </div>)
+}
