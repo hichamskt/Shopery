@@ -9,7 +9,7 @@ import { FaStar } from "react-icons/fa";
 import { FaArrowRightLong } from 'react-icons/fa6'
 import Rating from "../Rating/Rating";
 
-function Filter({showFilter,setShowFilter}) {
+function Filter({showFilter,setShowFilter,category,setCategory,setprice,price,minRating,setMinRating,tags,setTags}) {
 
 
  
@@ -22,13 +22,13 @@ function Filter({showFilter,setShowFilter}) {
       </div>
       {showFilter && <div className="filtercontainer">
 
-      <AllCategories />
+      <AllCategories  category={category} setCategory={setCategory} />
       <hr/>
-      <PriceRange />
+      <PriceRange setprice={setprice} price={price} />
       <hr/>
-      <RatingFilter />
+      <RatingFilter minRating={minRating} setMinRating={setMinRating} />
       <hr/>
-      <PopularTag />
+      <PopularTag tags={tags} setTags={setTags} />
       <Banner />
       <SaleProducts />
       </div>}
@@ -38,7 +38,7 @@ function Filter({showFilter,setShowFilter}) {
 
 export default Filter;
 
-function AllCategories() {
+function AllCategories({category,setCategory}) {
   const [categories, setCategories] = useState([]);
   const [showBox,setShowBox]=useState(true);
   useEffect(() => {
@@ -55,6 +55,7 @@ function AllCategories() {
 
     fetchData();
   }, []);
+ 
 
   return (
     <div className="filterbox">
@@ -68,7 +69,8 @@ function AllCategories() {
           <label className="containere" key={index}>
             {categorie.name}
             <span className="prdctcount">({categorie.productCount})</span>
-            <input type="checkbox" />
+            <input type="checkbox" value={categorie.name}
+             checked={category === categorie.name} onChange={()=>setCategory((prv)=> prv===categorie.name? "" : categorie.name)} />
             <span className="checkmark"></span>
           </label>
         ))}
@@ -79,10 +81,12 @@ function AllCategories() {
 
 
 
-function PriceRange(){
-  const [data1, setData1] = useState({from:2,to:10});
+function PriceRange({setprice,price}){
+  
   const [showBox,setShowBox]=useState(true);
 
+
+  console.log(price)
   return (
     <div className="pricerangbox">
       <div className="filterboxheader" onClick={()=>setShowBox(!showBox)}>
@@ -93,17 +97,17 @@ function PriceRange(){
         {showBox && <div className="wrapper-1">
         <DoubleScrollBar
         min={0}
-        max={500}
+        max={100}
         step={1}     
         className="SB-1"
-        onChange={(from,to)=>{
-            setData1({from,to});
+        onChange={(minPrice,maxPrice)=>{
+          setprice({minPrice,maxPrice});
         }}
 
         />
         <div id="display1">
-        Price: <span> {data1.from}</span> 
-           -<span>{data1.to}</span></div>
+        Price: <span> {price.minPrice}</span> 
+           -<span>{price.maxPrice}</span></div>
       </div>}
 
     </div>
@@ -112,7 +116,7 @@ function PriceRange(){
 
 
 
-function RatingFilter(){
+function RatingFilter({minRating,setMinRating}){
   const [showBox,setShowBox]=useState(true);
 
   return<div className="ratingf-box">
@@ -121,20 +125,20 @@ function RatingFilter(){
         {showBox ?<IoIosArrowUp />:<IoIosArrowDown/>}
       </div>
       {showBox && <div>
-     < StarLabel orange={5} gray={0} text={ 5.0} />
-     < StarLabel orange={4} gray={1} text={'4.0 & up'} />
-     < StarLabel orange={3} gray={2} text={"3.0 & up"} />
-     < StarLabel orange={2} gray={3} text={ "2.0 & up"} />
-     < StarLabel orange={1} gray={4} text={ "1.0 & up"} />
+     < StarLabel minRating={minRating} setMinRating={setMinRating} orange={5} gray={0} text={ 5.0} />
+     < StarLabel  minRating={minRating} setMinRating={setMinRating} orange={4} gray={1} text={'4.0 & up'} />
+     < StarLabel minRating={minRating} setMinRating={setMinRating} orange={3} gray={2} text={"3.0 & up"} />
+     < StarLabel minRating={minRating} setMinRating={setMinRating} orange={2} gray={3} text={ "2.0 & up"} />
+     < StarLabel minRating={minRating} setMinRating={setMinRating} orange={1} gray={4} text={ "1.0 & up"} />
       
       </div>}
   </div>
 }
 
-function StarLabel ({orange,gray,text}){
+function StarLabel ({orange,gray,text , minRating ,setMinRating}){
   return(
     <label className="label--checkbox">
-        <input type="checkbox" className="checkbox"  />
+        <input type="checkbox" checked={minRating=== orange} value={orange} className="checkbox"  onChange={()=>(setMinRating((prv)=>(prv===orange?"":orange)))} />
         <span>
         {Array.from({ length: orange }).map((_,i)=>(
           <FaStar key={i} className="orangestar"/>
@@ -150,9 +154,11 @@ function StarLabel ({orange,gray,text}){
 }
 
 
-function PopularTag(){
+function PopularTag({tags,setTags}){
   const [showBox,setShowBox]=useState(true);
-  const tags = ["Healthy","Low fat", "Vegetarian","Kid foods","Vitamins","Bread",'Meat',"Snacks","Tiffin","Launch","Dinner","Breackfast","Fruit"]
+  const populairtags = ["Healthy","Low fat", "Vegetarian","Kid foods","Vitamins","Bread",'Meat',"Snacks","Tiffin","Launch","Dinner","Breackfast","Fruit"]
+
+
 
   return(
     <div className="populartagbox">
@@ -163,8 +169,8 @@ function PopularTag(){
       {
         showBox && <div className="ptagscontainer">
 {
-  tags.map((tag,i)=> 
-    <Tag key={i} tag={tag} />
+  populairtags.map((tag,i)=> 
+    <Tag key={i} tag={tag} tags={tags} setTags={setTags} />
     )
 }
         </div>
@@ -174,10 +180,20 @@ function PopularTag(){
   )
 }
 
-function Tag ({tag}){
+function Tag ({tag , tags,setTags}){
 const [clicked,setClicked]=useState(false);
+
+const handleclick = (tag)=>{
+  setClicked(!clicked);
+  setTags((prev)=>
+    prev.includes(tag)?
+    prev.filter((item)=>item!==tag)
+    : [...prev , tag]
+
+  )
+}
   return(
-    <div className="tag" onClick={()=>setClicked(!clicked)}
+    <div className="tag" onClick={()=>handleclick(tag)}
     style={{
       backgroundColor: clicked? "#00b207" :"",
       color: clicked? "#fff" :"",

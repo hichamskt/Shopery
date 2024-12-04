@@ -1,4 +1,5 @@
 const Product = require("../models/productsModel");
+const Category = require("../models/categoryModel");
 const fs = require("fs");
 const path = require("path");
 
@@ -124,5 +125,53 @@ const addNewProduct = async (req, res) => {
     }
   }
 
+const filtredProducts = async (req,res)=>{
+  try {
+    const { category, minPrice, maxPrice, discount, tags, minRating } = req.query;
 
-  module.exports = { addNewProduct , getTopDiscountedProducts ,getAllProducts };
+    const filters = {};
+
+    
+    if (category) {
+        const categoryDoc = await Category.findOne({ name: category });
+        if (categoryDoc) {
+            filters.category = categoryDoc._id;
+        } else {
+            return res.status(404).json({ success: false, message: 'Category not found' });
+        }
+    }
+
+    
+    if (minPrice) filters.price = { ...filters.price, $gte: Number(minPrice) };
+    if (maxPrice) filters.price = { ...filters.price, $lte: Number(maxPrice) };
+
+    
+    
+
+  
+    if (tags) {
+      // const tagsArray = tags.split(','); 
+       const tagsArray = tags
+      
+      filters.tags = { $in: tagsArray.map((tag) => new RegExp(tag.trim(), 'i')) };
+  }
+
+    
+    let products = await Product.find(filters).populate('category', 'name description');
+
+   
+    if (minRating) {
+        const ratingThreshold = parseFloat(minRating);
+        products = products.filter((product) => product.averageRating >= ratingThreshold);
+    }
+
+    res.status(200).json({ success: true, products });
+} catch (err) {
+    res.status(500).json({ success: false, message: 'Server Error', error: err.message });
+}
+}
+ 
+
+
+
+  module.exports = { addNewProduct , getTopDiscountedProducts ,getAllProducts, filtredProducts  };

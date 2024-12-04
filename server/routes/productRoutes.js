@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addNewProduct , getTopDiscountedProducts ,getAllProducts } = require("../controllers/productController");
+const { addNewProduct , getTopDiscountedProducts ,getAllProducts , filtredProducts  } = require("../controllers/productController");
 const upload = require("../middlewares/multerConfig");
 
 
@@ -16,6 +16,9 @@ router.route('/gettopdiscountedproducts').get(
 );
 router.route('/getallproducts').get(
   getAllProducts
+);
+router.route('/filtredProducts').get(
+  filtredProducts 
 );
 
   module.exports = router;
