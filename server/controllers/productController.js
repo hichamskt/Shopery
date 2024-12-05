@@ -180,7 +180,7 @@ const getProductById = async (req,res)=>{
     if(!productid){
       return res.status(400).json({ message: 'there is no id' });
     }
-    const product = await Product.findById(productid).populate("categoryo");
+    const product = await Product.findById(productid).populate("category");
 
     if(!product){
       return res.status(400).json({ message: 'no data with id ' });
