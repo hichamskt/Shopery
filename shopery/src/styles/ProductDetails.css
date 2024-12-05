@@ -1,0 +1,126 @@
+.productsNav .active {
+    
+    color: var(--gray-9);
+    font-weight: bolder;
+    border-bottom: 3px solid var(--primary);  
+    
+  }
+
+.productsNav{
+    display: flex;
+    width: 100%;
+    align-items: center;
+   
+    justify-content: center;
+    gap: 1rem;
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-500);
+    color: var(--gray-5);
+    border-bottom: 2px solid #F2F2F2;
+}
+
+.productsNav a{
+    padding-bottom: 1rem;
+}
+
+
+.productoutlerbox{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.productoutlerbox-left{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+/* video-container */
+
+.video-container {
+    position: relative;
+    width: 100%;
+    /* max-width: 500px;  */
+    /* margin: auto; */
+    overflow: hidden;
+  }
+  
+  .video-element {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+
+
+  
+  
+  /* Featurs */
+
+  .feat-p{
+    display: flex;
+    padding: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #F2F2F2;
+    border-radius: 1rem;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+  }
+
+  .feat-box{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-500);
+    color: var(--gray-5);
+  }
+  .feat-box p:first-of-type{
+    color: var(--gray-9);
+  }
+
+  .feat-box svg{
+    font-size: 2rem;
+    color: var(--primary);
+  }
+  .feat-box > div {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  @media (max-width:1000px) {
+    .productoutlerbox{
+        padding: 1rem;
+    }
+  }
+  @media (max-width:750px) {
+    .productoutlerbox{
+        grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width:750px) {
+    .productsNav{
+        font-size: var(--font-size-body-tiny);
+    }
+  }

@@ -1,0 +1,21 @@
+.AdditionalInformation{
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-5);
+}
+.AdditionalInformation table{
+    min-width: 400px;
+    min-height: 200px;
+}
+
+.AdditionalInformation table tr td:first-of-type{
+    font-weight: var(--font-weight-500);
+    color: var(--gray-9);
+}
+
+@media (max-width:750px) {
+    .AdditionalInformation table{
+        min-width: 320px;
+        font-size: var(--font-size-body-small);
+    }
+}
