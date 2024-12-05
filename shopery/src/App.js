@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardProducts from './pages/DashboardProducts';
 import Shop from './pages/Shop';
+import ProductDetails from './pages/ProductDetails';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     <Route path="/login" element={<Login />}></Route>
     <Route path="/register" element={<Register />}></Route>
     <Route path="/shop" element={<Shop />}></Route>
+    <Route path="/product/:getProductById" element={<ProductDetails />}></Route>
     <Route path="*" element={<ErrorPage />}></Route>
 
     {/* dashboard */}

@@ -1,0 +1,230 @@
+.ProductQuickView{
+    padding: 1rem ;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.detaiproductsImages{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.d-images-list{
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(5rem, 1fr));
+    justify-items: center;
+     
+}
+.arrowbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+.arrowbox svg {
+    cursor: pointer;
+}
+.d-image-box{
+    padding: .5rem;
+    cursor: pointer;
+}
+
+.ProductQuickView .activeimage{
+    border: 2px solid var(--primary);
+    
+}
+.d-image-box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.d-mainimag img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* productinfo */
+
+.productinfo-pq{
+    display: flex;
+   
+    flex-direction: column;
+    gap: .8rem;
+}
+
+
+.productinfo-pq hr{
+    border: none;
+    height: 2px;
+    background-color: #F2F2F2;
+}
+.pitopside{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pi-name{
+    font-size: var(--font-size-heading-04);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-9);
+}
+
+.pitopside span{
+    padding: .3rem;
+    
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+    border-radius: .3rem;
+}
+
+.pi-ratingbox{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+}
+.pi-ratingbox p{
+    color: var(--gray-6);
+}
+.pi-ratingbox span{
+    color: var(--gray-8);
+
+}
+
+.pi-pricebox{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.pi-pricebox span{
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+    font-size: var(--font-size-body-xxl);
+    font-weight: var(--font-weight-500);
+    
+}
+
+.pi-discount{
+    padding: .3rem;
+    
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-500);
+    border-radius: .3rem;
+    background-color: rgba(234, 75, 72, 0.1);
+    color: var(--danger);
+}
+
+.pi-bandlogobox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pi-brand{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.pi-brand p{
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-9);
+}
+
+.pi-socials{
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+}
+.pi-socials p{
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-9);
+}
+.pi-socials span{
+    cursor: pointer;
+    padding: .5rem;
+    border-radius: 50%;
+}
+.pi-socials span:hover{
+    background-color: var(--primary);
+    color: white;
+}
+.pi-brand-disc{
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-5);
+}
+
+.pi-AddToCardBox{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding-top: 1rem ;
+    padding-bottom: 1rem;
+    border-top: 2px solid #F2F2F2 ;
+    border-bottom: 2px solid #F2F2F2 ;
+}
+.pi-a-qntbox{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-9);
+    border: 1px solid #F2F2F2;
+    padding: .5rem;
+    border-radius: 2rem;
+}
+
+.pi-a-qntbox button{
+    padding: .4rem .8rem;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #F2F2F2;
+}
+
+.pi-addtocardbtn{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .6rem;
+    border-radius: 2rem;
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-600);
+    gap: .5rem;
+    color: white;
+    background-color: var(--primary);
+    cursor: pointer;
+}
+
+.pi-heart{
+    padding: .5rem;
+    background-color: rgba(32, 181, 38, 0.1);
+    color: var(--primary);
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.pi-cat{
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-500);
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.pi-cat span{
+    color: var(--gray-5);
+}
