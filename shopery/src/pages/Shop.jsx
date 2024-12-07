@@ -5,14 +5,25 @@ import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
 import Filter from "../components/Filter/Filter";
 import axiosInstance from "../axios/axiosInstance";
 import ShopProductCard from "../components/ShopProductCard/ShopProductCard";
+import { Link } from "react-router-dom";
+import ProductQuickView from "../components/ProductQuickView/ProductQuickView";
+import { RxCross1 } from "react-icons/rx";
+import ShoppingCardPopup from "../components/ShoppingCardPopup/ShoppingCardPopup";
+import { useCardContext } from "../contexts/CardContext";
 
 function Shop() {
   const [products, setProducts] = useState([]);
+  const [productOverview, setProductOverView] = useState();
+  const [isProdctView,setIsProductView]=useState(false);
   const [showFilter,setShowFilter]=useState(true);
   const [category,setCategory]=useState([]);
   const [price,setprice]=useState({minPrice:2,maxPrice:10});
   const [minRating,setMinRating]=useState(0);
   const [tags,setTags]=useState([]);
+  
+
+  const {showCard, setShowCard, items , setItems} = useCardContext();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,10 +45,25 @@ function Shop() {
     fetchData();
   }, [category,price,minRating,tags]);
 
-  console.log('tags',tags)
+  
+
+
  
   return (
-    <div>
+    <div >
+      { showCard && <div className="shoping-ovlay" style={{
+        opacity:showCard? 1 : "",
+        zIndex:showCard?10:""
+      }}></div>}
+       <ShoppingCardPopup />
+
+      {
+        isProdctView && <div className="ovr-overlay"  >
+      <div className="shop-ov-p"> < RxCross1 className="ov-x" onClick={()=>setIsProductView(false)} />
+        <ProductQuickView product={productOverview} />
+      </div>
+      </div>
+      }
       <HeaderWhite />
       <Breadcrumbs location={["categories"]} />
       <div className="container">
@@ -45,7 +71,7 @@ function Shop() {
           gridTemplateColumns:!showFilter?"1fr":""
         }}>
           <Filter showFilter={showFilter} setShowFilter={setShowFilter} category={category} setCategory={setCategory} setprice={setprice}  price={price} minRating={minRating} setMinRating={setMinRating} tags={tags} setTags={setTags}/>
-          <ShopProducts  products={products} />
+          <ShopProducts  products={products} setProductOverView={setProductOverView} setIsProductView={setIsProductView} />
         </div>
       </div>
     </div>
@@ -54,7 +80,7 @@ function Shop() {
 
 export default Shop;
 
-function ShopProducts({products}) {
+function ShopProducts({products , setProductOverView , setIsProductView}) {
   return (
     <div>
       <div className="shop-product-header">
@@ -69,11 +95,15 @@ function ShopProducts({products}) {
           <span>{products.length} </span>
           Results Found
         </p>
+        
       </div>
       <div className="shopproducts-body">
         {
           products.map((product,i)=>(
-            <ShopProductCard key={i} product={product} />
+           
+            // <Link to={`/product/${product._id}`} key={i} style={{ textDecoration: "none" , display:"flex" ,width:"100%"}}>
+            <ShopProductCard  product={product} setProductOverView={setProductOverView} setIsProductView={setIsProductView} />
+              //  </Link>
           ))
         }
       </div>

@@ -30,11 +30,24 @@ import GreenButton from "../UI/GreenButton/GreenButton";
 import TestimonialsCarousel from "../components/TestimonialsCarousel/TestimonialsCarousel";
 import CompanyLogo from "../components/CompanyLogo/CompanyLogo";
 import Footer from "../components/Footer/Footer";
+import ShoppingCardPopup from "../components/ShoppingCardPopup/ShoppingCardPopup";
+import { useCardContext } from "../contexts/CardContext";
 
 
 function About() {
+  const { showCard } = useCardContext();
+
+  
+
+
   return (
     <div>
+      { showCard && <div className="shoping-ovlay" style={{
+        opacity:showCard? 1 : "",
+        zIndex:showCard?10:""
+      }}></div>}
+       <ShoppingCardPopup />
+       
       <HeaderWhite />
       <Breadcrumbs location={["About"]} />
       <AboutFirstHero />

@@ -11,14 +11,17 @@ import vid from "../assets/videoplayback.mp4";
 import vidreview from "../assets/vidrev.png";
 import { IoPricetagsOutline } from "react-icons/io5";
 import { ImLeaf } from "react-icons/im";
+import { useCardContext } from "../contexts/CardContext";
+import ShoppingCardPopup from "../components/ShoppingCardPopup/ShoppingCardPopup";
 
 function ProductDetails() {
   const [product, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log("product", product);
-  // const { productid } = useParams();
-  const productid = "674c77c6f2b3a06e5015e327";
+  const { productid } = useParams();
+  
+  const { showCard, setShowCard, items, setItems } = useCardContext();
+
   useEffect(() => {
     const fetchData = async (id) => {
       try {
@@ -38,6 +41,12 @@ function ProductDetails() {
 
   return (
     <div>
+      { showCard && <div className="shoping-ovlay" style={{
+        opacity:showCard? 1 : "",
+        zIndex:showCard?10:""
+      }}></div>}
+       <ShoppingCardPopup />
+       
       <HeaderWhite />
       {!loading && (
         <Breadcrumbs

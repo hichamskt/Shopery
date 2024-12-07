@@ -6,10 +6,21 @@ import farmer from "../assets/farmer.png";
 import Footer from '../components/Footer/Footer'
 
 import { HiPlus } from "react-icons/hi";
+import ShoppingCardPopup from '../components/ShoppingCardPopup/ShoppingCardPopup';
+import { useCardContext } from '../contexts/CardContext';
 
 function Faqs() {
+    const { showCard } = useCardContext();
+
+    
   return (
     <div>
+        { showCard && <div className="shoping-ovlay" style={{
+        opacity:showCard? 1 : "",
+        zIndex:showCard?10:""
+      }}></div>}
+       <ShoppingCardPopup />
+       
         <HeaderWhite />
         <Breadcrumbs location={["FaQs"]} />
         <div className='container'>

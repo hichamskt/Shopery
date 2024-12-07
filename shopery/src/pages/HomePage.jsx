@@ -40,12 +40,23 @@ import Footer from '../components/Footer/Footer'
 import CompanyLogo from '../components/CompanyLogo/CompanyLogo'
 import SubscribePopup from '../components/SubscribePopup/SubscribePopup'
 import axiosInstance from '../axios/axiosInstance'
+import ShoppingCardPopup from '../components/ShoppingCardPopup/ShoppingCardPopup'
+import { useCardContext } from '../contexts/CardContext'
 
 
 function HomePage() {
+  const {showCard, setShowCard, items , setItems} = useCardContext();
+
+
   return (
     <div>
+      
         {/* <SubscribePopup /> */}
+        { showCard && <div className="shoping-ovlay" style={{
+        opacity:showCard? 1 : "",
+        zIndex:showCard?10:""
+      }}></div>}
+       <ShoppingCardPopup />
         <Header/>
         <Bannar />
         <Featured />

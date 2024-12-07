@@ -5,9 +5,16 @@ import { CiHeart } from "react-icons/ci";
 
 import { IoBagHandleOutline } from "react-icons/io5";
 import Rating from "../Rating/Rating";
+import { Link } from "react-router-dom";
 
-function ShopProductCard({ product }) {
+function ShopProductCard({ product , setProductOverView , setIsProductView  }) {
   const productAfterDiscount = product.price - (product.price * product.discount) / 100;
+
+
+  const handlequickview=()=>{
+    setProductOverView(product);
+    setIsProductView(true);
+  }
   return (
     <div className="ShopProductCard">
       {product.stock <= 0 ? (
@@ -21,7 +28,7 @@ function ShopProductCard({ product }) {
         <span>
         <CiHeart />
         </span>
-        <span>
+        <span onClick={()=>handlequickview()}>
         <FiEye />
         </span>
         <img
@@ -39,8 +46,9 @@ function ShopProductCard({ product }) {
             <Rating rating={product.rating}  />
         </div>
         <span className="ps-baghand">
-
+        <Link to={`/product/${product._id}`}  style={{ textDecoration: "none" , display:"flex" ,width:"100%"}}>
           <IoBagHandleOutline   />
+        </Link>
         </span>
       </div>
     </div>

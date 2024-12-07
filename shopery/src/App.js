@@ -34,7 +34,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/shop" element={<Shop />}></Route>
 
-          <Route path="/product/:getProductById" element={<ProductDetails />}>
+          <Route path="/product/:productid" element={<ProductDetails />}>
             <Route index element={<Descriptions />} />
 
             <Route path="additionalinfo" element={<AdditionalInformation />} />

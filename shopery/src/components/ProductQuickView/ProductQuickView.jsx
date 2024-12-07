@@ -9,15 +9,41 @@ import { BsTwitterX } from "react-icons/bs";
 import { FaPinterestP } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { IoBagHandleOutline } from "react-icons/io5";
+import { useCardContext } from "../../contexts/CardContext";
 
 
 
 
 function ProductQuickView({ product }) {
+
+  const {showCard, setShowCard, items , setItems} = useCardContext();
+
+console.log("items",items);
+
+  const hundleAddToCard = (newItem) => {
+    setItems((prevItems) => {
+      const exists = prevItems.find((item) => item.sku === newItem.sku);
+      if (exists) {
+        
+        return prevItems.map((item) =>
+          item.sku === newItem.sku
+            ? { ...item, qnt: item.qnt + newItem.qnt }
+            : item
+        );
+      } else {
+        
+        return [...prevItems, newItem];
+      }
+    });
+    setShowCard(true);
+  };
+
+
+
   return (
     <div className="ProductQuickView">
       <ProductImages images={product.images} />
-      <ProductsInfo product={product} />
+      <ProductsInfo hundleAddToCard ={hundleAddToCard } product={product} />
     </div>
   );
 }
@@ -76,9 +102,14 @@ function ProductImages({ images }) {
   );
 }
 
-function ProductsInfo({ product }) {
+function ProductsInfo({ product , hundleAddToCard  }) {
   const productAfterDiscount =
     product.price - (product.price * product.discount) / 100;
+
+    
+
+
+    
 
   return (
     <div className="productinfo-pq">
@@ -149,7 +180,7 @@ function ProductsInfo({ product }) {
           {product.branddescription}
         </p>
         
-        <AddToCardBox product={product} />
+        <AddToCardBox product={product} hundleAddToCard ={hundleAddToCard }  productAfterDiscount={productAfterDiscount} />
         <p className="pi-cat">Category:<span>{product.category.name}</span></p>
         <p className="pi-cat" >Tags: {
           product.tags[0].split(",").map((tag,i)=>(
@@ -161,7 +192,7 @@ function ProductsInfo({ product }) {
 }
 
 
-function AddToCardBox({product}){
+function AddToCardBox({product , hundleAddToCard ,productAfterDiscount }){
   const [qnt,setQnt]=useState(1);
 
 
@@ -171,7 +202,17 @@ function AddToCardBox({product}){
       <p>{qnt}</p>
       <button disabled={qnt>= product.stock} onClick={()=>setQnt(qnt+1)}>+</button>
     </div>
-    <button className="pi-addtocardbtn">Add To Card <IoBagHandleOutline /></button>
+    <button className="pi-addtocardbtn" onClick={()=>hundleAddToCard(
+    {
+      sku:product.sku,
+            image:product.images[0],
+            name: product.name,
+            qnt:qnt,
+            price:productAfterDiscount
+
+
+    }
+    )}>Add To Card <IoBagHandleOutline /></button>
     <span className="pi-heart"><CiHeart/></span>
   </div>
 }

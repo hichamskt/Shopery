@@ -7,9 +7,19 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FiPhoneCall } from "react-icons/fi";
 import GreenButton from "../UI/GreenButton/GreenButton";
 import Footer from "../components/Footer/Footer"
+import { useCardContext } from "../contexts/CardContext";
+import ShoppingCardPopup from "../components/ShoppingCardPopup/ShoppingCardPopup";
 function Contact() {
+  const { showCard } = useCardContext();
+
   return (
     <div>
+      { showCard && <div className="shoping-ovlay" style={{
+        opacity:showCard? 1 : "",
+        zIndex:showCard?10:""
+      }}></div>}
+       <ShoppingCardPopup />
+
       <HeaderWhite />
       <Breadcrumbs location={["Contact"]} />
       <div className="container">

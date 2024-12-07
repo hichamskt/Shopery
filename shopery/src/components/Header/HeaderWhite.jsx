@@ -12,6 +12,7 @@ import { FaRegUser } from "react-icons/fa";
 import logo from "../../assets/Logo.png"
 import { useCurrencyContex } from "../../contexts/CurrencyContex";
 import { useTranslation } from "react-i18next";
+import { useCardContext } from "../../contexts/CardContext";
 
 function HeaderWhite() {
   const { t, i18n } = useTranslation();
@@ -135,6 +136,15 @@ function HeaderTopSide({t,i18n}) {
 function HeaderMidPart({t}){
 
 
+
+  const {showCard, setShowCard, items , setItems} = useCardContext();
+
+  const total = items.reduce((total, item) => {
+    return total + item.price * item.qnt;
+  }, 0)
+
+
+
   return(
     <div className="headerMidPart">
       <img src={logo} alt="logo" className="logo"/>
@@ -146,10 +156,15 @@ function HeaderMidPart({t}){
       <div className="headermifrigth">
       <CiHeart />
       <div className="headershoppingside">
-      <BiBasket/>
+
+        <span className="shopingicong-h" onClick={()=>setShowCard(true)}>
+      <BiBasket />
+      <span className="shopcard-count">{items.length}</span>
+        </span>
+
       <div className="headershoping-text">
         <p>{t('shopingcard')}</p>
-        <p>$57.00</p>
+        <p>${total.toFixed(2)}</p>
       </div>
       </div>
       </div>

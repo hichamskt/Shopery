@@ -5,13 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './i18n'; 
 import { CurrencyProvider } from './contexts/CurrencyContex';
+import { CardProvider } from './contexts/CardContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <CurrencyProvider>
-
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <CardProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </CardProvider>
   </CurrencyProvider>
 );
 
