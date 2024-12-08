@@ -12,7 +12,7 @@
 
 .ShoppingCardPopup{
     position: fixed;
-    right: -100%;
+    right: -600PX;
     top: 0;
     height: 100%;
     width: 400px;
@@ -150,4 +150,10 @@
     right: 10px;
     cursor: pointer;
     
+}
+
+@media (max-width:450px) {
+    .ShoppingCardPopup{
+        width: 100%;
+    }
 }

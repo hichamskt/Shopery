@@ -102,7 +102,7 @@ function ShopProducts({products , setProductOverView , setIsProductView}) {
           products.map((product,i)=>(
            
             // <Link to={`/product/${product._id}`} key={i} style={{ textDecoration: "none" , display:"flex" ,width:"100%"}}>
-            <ShopProductCard  product={product} setProductOverView={setProductOverView} setIsProductView={setIsProductView} />
+            <ShopProductCard key={i}  product={product} setProductOverView={setProductOverView} setIsProductView={setIsProductView} />
               //  </Link>
           ))
         }
