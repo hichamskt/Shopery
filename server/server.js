@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 
 const productRoutes = require("./routes/productRoutes")
 const categoryRoutes = require("./routes/categoryRoutes")
+const userRoutes = require("./routes/userRoutes")
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -56,6 +57,7 @@ if (!fs.existsSync(logoDir)) {
 
 app.use('/api/product',productRoutes)
 app.use('/api/category',categoryRoutes)
+app.use('/api/user',userRoutes)
 
 
 

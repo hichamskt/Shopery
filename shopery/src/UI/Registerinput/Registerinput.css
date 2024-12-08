@@ -1,0 +1,47 @@
+
+.registerinputbox{
+    width: 100%;
+    
+}
+
+.registerinputbox input {
+    height: 3rem;
+    border-radius: .4rem;
+    width: 100%;
+    border: 1px solid #ccc;;
+    padding: .5rem;
+    outline-color: var(--primary);
+    font-family: inherit;
+}
+
+.registerinputbox input::placeholder {
+    color: #888; 
+    font-style: italic; 
+    font-size: 14px; 
+  }
+
+  .registerinputbox span{
+    font-size: var(--font-size-body-small);
+    font-weight: var( --font-weight-500);
+    
+    padding: 3px;
+    color: var(--warning);
+    display: none;
+    text-align: left;
+}
+
+.registerinputbox input:invalid[focused="true"]{
+    border: 1px solid var(--warning);
+}
+
+.registerinputbox input:invalid[focused="true"] ~ span{
+    display: block;
+}
+  
+  
+ 
+
+ 
+
+  
+
