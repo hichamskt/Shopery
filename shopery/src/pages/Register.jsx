@@ -110,7 +110,7 @@ function RegisterForm(){
       
       try {
         const response = await axiosInstance.post("/user/register", values); 
-        
+        if(response.status=== 201) navigat('/login')
       } catch (err) {
        
         if (err.response?.status === 409) {
@@ -126,7 +126,6 @@ function RegisterForm(){
         console.error(err.response?.data || err.message); 
       }finally {
         setIsSubmitting(false);  
-        navigat('/login')
       }
     }
   };
