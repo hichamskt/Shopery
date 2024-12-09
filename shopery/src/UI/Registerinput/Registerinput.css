@@ -38,7 +38,10 @@
     display: block;
 }
   
-  
+.registerinputbox .registererr{
+    display: block;
+    color: var(--danger);
+}  
  
 
  

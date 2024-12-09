@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Registerinput/Registerinput.css";
 
 function Registerinput(props) {
@@ -9,8 +9,9 @@ function Registerinput(props) {
     setFocused(true);
   };
 
+
   
-console.log(err,"hada errr" )
+
   return (
     <div className="registerinputbox">
       <input
@@ -20,10 +21,11 @@ console.log(err,"hada errr" )
         onFocus={() =>
           inputProps.name === "confirmPassword" && setFocused(true)
         }
-        focused={focused.toString()}
+        focused={focused.toString() }
+        
       />
-      {err?  <span>{err}</span>:
-        <span>{errorMessage}</span>}
+      {err ? ( <span className="registererr">{err}</span>):
+        (<span className="registerwarning">{errorMessage}</span>)}
     </div>
   );
 }

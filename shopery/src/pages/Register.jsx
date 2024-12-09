@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../styles/Register.css"
 import HeaderWhite from '../components/Header/HeaderWhite'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import GreenButton from '../UI/GreenButton/GreenButton'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 import Footer from '../components/Footer/Footer'
 import Registerinput from '../UI/Registerinput/Registerinput'
+import axiosInstance from '../axios/axiosInstance'
+import DotsLoader from '../UI/DotsLoader/DotsLoader'
 function Register() {
   return (
     <div>
@@ -21,6 +23,7 @@ export default Register
 
 
 function RegisterForm(){
+  const [isSubmitting, setIsSubmitting] = useState(false);  
 
   const [values, setValues] = useState({
     email: "",
@@ -51,7 +54,7 @@ function RegisterForm(){
       errorMessage:
         "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
       label: "Password",
-      pattern: passwordPattern,
+      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
       required: true,
     },
     {
@@ -68,13 +71,13 @@ function RegisterForm(){
 
 
 
+  const navigat = useNavigate();
 
-  const handleSubmit = () => {
-   
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
     const newErrors = {};
 
-   
     if (!values.email.trim()) {
       newErrors.email = "Email is required.";
     } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
@@ -101,27 +104,51 @@ function RegisterForm(){
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      alert("Account created successfully!");
+      
+      setIsSubmitting(true);
+
+      
+      try {
+        const response = await axiosInstance.post("/user/register", values); 
+        
+      } catch (err) {
+       
+        if (err.response?.status === 409) {
+          const newErrors = {};
+          newErrors.email = err.response.data.message;
+          
+          setErrors(newErrors);
+        } else {
+          console.error("An unexpected error occurred:", err.message);
+        }
+
+
+        console.error(err.response?.data || err.message); 
+      }finally {
+        setIsSubmitting(false);  
+        navigat('/login')
+      }
     }
   };
 
+
+  
 
   const onChange = (e) => {
     const { name, value, type, checked } = e.target;
     setValues({ ...values, [name]: type === "checkbox" ? checked : value });
-  
-
-
 
     if (errors[name]) {
+     
       const updatedErrors = { ...errors }; 
+      
       delete updatedErrors[name];         
       setErrors(updatedErrors);           
     }
-
+    
   };
   
-console.log(errors)
+  
 
   return (
     <div className='container'>
@@ -139,7 +166,9 @@ console.log(errors)
         ))
       }
       <div className='remember'>
-      <label>
+      <label  style={{
+        color:errors.termsAccepted? 'red': '',
+      }}>
         <input
           type="checkbox"
           name="termsAccepted"
@@ -150,14 +179,13 @@ console.log(errors)
       </label>
      
       </div>
-      <div className='register-errs'>
-      { 
-         Object.keys(errors).map((key, i) => (
-          <p key={i}>{errors[key]}</p>
-        ))
-      }
-      </div>
-      <GreenButton text={"Create Account"} handleClick={handleSubmit} />
+      
+      {isSubmitting ? <div style={{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:"center",
+        padding:'1rem'
+      }} ><DotsLoader /></div> : <GreenButton text={"Create Account"} handleClick={handleSubmit} />}
       <p className='noaccount'>Already have account 
        <NavLink to="/login">  Login</NavLink> </p>
 

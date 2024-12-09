@@ -21,7 +21,7 @@ const bcrypt = require("bcryptjs");
       
       const user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({
+      return res.status(409).json({
         message: "User already exists with this email.",
         success: false,
       });
