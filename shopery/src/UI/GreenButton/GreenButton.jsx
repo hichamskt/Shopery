@@ -4,7 +4,7 @@ import '../GreenButton/GreenButton.css'
 function GreenButton({text,handleClick}) {
  
     return (
-        <button className='greenbtn' onClick={(e)=>handleClick(e)}>
+        <button className='greenbtn' onClick={()=>handleClick()}>
                 {text} <FaArrowRightLong />{" "}
               </button>
       )

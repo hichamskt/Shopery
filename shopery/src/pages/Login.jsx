@@ -3,10 +3,12 @@ import '../styles/Login.css'
 import HeaderWhite from '../components/Header/HeaderWhite'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 import GreenButton from '../UI/GreenButton/GreenButton'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer/Footer'
 import Registerinput from '../UI/Registerinput/Registerinput'
-import axiosInstance from "../axios/axiosInstance"
+import axiosInstance from '../axios/axiosInstance'
+import useAuth from '../hooks/useAuth'
+import DotsLoader from '../UI/DotsLoader/DotsLoader'
 
 
 
@@ -26,7 +28,7 @@ export default Login
 
 function LoginForm(){
 
-
+  const LOGIN_URL = '/user/login';
   const [isSubmitting, setIsSubmitting] = useState(false);  
 
   const [values, setValues] = useState({
@@ -37,6 +39,9 @@ function LoginForm(){
   });
   const [errors, setErrors] = useState({});
   const   navigate = useNavigate();
+  const {setAuth} = useAuth();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
 
   const inputs = [
@@ -63,8 +68,10 @@ function LoginForm(){
   ]
 
 
+
+
   const onChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setValues({ ...values, [name]: value });
 
     if (errors[name]) {
@@ -78,8 +85,8 @@ function LoginForm(){
   };
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    
   
       const newErrors = {};
   
@@ -101,34 +108,38 @@ function LoginForm(){
       if (Object.keys(newErrors).length === 0) {
         
         setIsSubmitting(true);
-  
-        
         try {
-          const response = await axiosInstance.post("/user/login", values,{
-            withCredentials: 'true', 
-          }); 
+          const response = await axiosInstance.post('/user/login', values); 
+          if(response.status=== 200){
+            const accessToken = response?.data?.accessToken;
+            
+            const email = values.email; 
+            setAuth({email,  accessToken });
+            setValues({});
+           console.log(accessToken);
+            setTimeout(()=>{
+              setIsSubmitting(false);
+              navigate(from, { replace: true });
+            },2000) 
+
+          }
           
         } catch (err) {
          
           if (err.response?.status === 400) {
             const newErrors = {};
             newErrors.email = err.response.data.message;
-            
+            setIsSubmitting(false);
             setErrors(newErrors);
           } else {
             console.error("An unexpected error occurred:", err.message);
+            setIsSubmitting(false);
           }
           console.error(err.response?.data || err.message); 
-        }finally {
-
-          setTimeout(()=>{
-            navigate('/')
-          },3000) 
-          
           setIsSubmitting(false);
-          
         }
-      }
+        }
+      
     };
   
 
@@ -164,7 +175,14 @@ function LoginForm(){
       </label>
         <p>Forget Password</p>
       </div>
-      <GreenButton text={"Login"} handleClick={handleSubmit} />
+      {isSubmitting?
+      <div style={{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:"center",
+        padding:'1rem'
+      }} ><DotsLoader /></div>:
+      <GreenButton text={"Login"} handleClick={handleSubmit} />}
       <p className='noaccount'>Don’t have account? 
        <NavLink to="/register"> Register</NavLink> </p>
     </div>

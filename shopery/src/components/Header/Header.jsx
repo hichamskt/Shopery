@@ -13,6 +13,7 @@ import logo from "../../assets/Logo.png"
 import { useCurrencyContex } from "../../contexts/CurrencyContex";
 import { useTranslation } from "react-i18next";
 import { useCardContext } from "../../contexts/CardContext";
+import useAuth from "../../hooks/useAuth";
 
 function Header() {
   const { t, i18n } = useTranslation();
@@ -45,6 +46,8 @@ function HeaderTopSide({t,i18n}) {
   const [exchangeRates, setExchangeRates] = useState({});
   const [langue, setLangue] = useState(localStorage.getItem('i18nextLng') || 'eng');
   const { setcurrency, setRate } = useCurrencyContex();
+  const {auth}=useAuth();
+ 
   
   useEffect(() => {
     const fetchExchangeRates = async () => {
@@ -108,9 +111,9 @@ function HeaderTopSide({t,i18n}) {
             <option value="CNY"> CNY</option>
           </select>
         </div>
-        <NavLink to="/login">
+       { Object.keys(auth).length === 0 && <NavLink to="/login">
         <p>{t('loginregidter')}</p>
-        </NavLink>
+        </NavLink>}
       </div>
     </div>
   );

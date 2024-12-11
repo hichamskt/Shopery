@@ -15,6 +15,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Descriptions from "./components/Descriptions/Descriptions";
 import AdditionalInformation from "./components/AdditionalInformation/AdditionalInformation";
 import CustomerFeedback from "./components/CustomerFeedback/CustomerFeedback";
+import RequireAuth from "./auth/RequireAuth";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -42,6 +43,8 @@ function App() {
           </Route>
 
           <Route path="*" element={<ErrorPage />}></Route>
+
+          <Route element={<RequireAuth />}></Route>
 
           {/* dashboard */}
           <Route
