@@ -48,6 +48,9 @@ const userSchema = new mongoose.Schema(
     zipCode:{
         type: String,
     },
+    refreshToken:{
+        type: String,
+    },
     likedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
     createdAt: { type: Date, default: Date.now }
   },

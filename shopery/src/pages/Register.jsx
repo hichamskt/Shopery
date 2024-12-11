@@ -110,7 +110,11 @@ function RegisterForm(){
       
       try {
         const response = await axiosInstance.post("/user/register", values); 
-        if(response.status=== 201) navigat('/login')
+        if(response.status=== 201){
+          setTimeout(()=>{
+            navigat('/')
+          },2000) 
+        }
       } catch (err) {
        
         if (err.response?.status === 409) {

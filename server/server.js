@@ -8,6 +8,7 @@ require('dotenv').config({ path: '.env.local' });
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const verifyJWT = require('./middlewares/verifyJWT');
 
 const productRoutes = require("./routes/productRoutes")
 const categoryRoutes = require("./routes/categoryRoutes")
@@ -58,6 +59,10 @@ if (!fs.existsSync(logoDir)) {
 app.use('/api/product',productRoutes)
 app.use('/api/category',categoryRoutes)
 app.use('/api/user',userRoutes)
+
+
+// protcted routes
+app.use(verifyJWT);
 
 
 

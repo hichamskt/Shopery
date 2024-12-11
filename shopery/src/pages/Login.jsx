@@ -3,9 +3,13 @@ import '../styles/Login.css'
 import HeaderWhite from '../components/Header/HeaderWhite'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 import GreenButton from '../UI/GreenButton/GreenButton'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer/Footer'
 import Registerinput from '../UI/Registerinput/Registerinput'
+import axiosInstance from "../axios/axiosInstance"
+
+
+
 function Login() {
   return (
     <div>
@@ -32,7 +36,7 @@ function LoginForm(){
     termsAccepted: false,
   });
   const [errors, setErrors] = useState({});
-  
+  const   navigate = useNavigate();
 
 
   const inputs = [
@@ -94,32 +98,37 @@ function LoginForm(){
   
       setErrors(newErrors);
   
-      // if (Object.keys(newErrors).length === 0) {
+      if (Object.keys(newErrors).length === 0) {
         
-      //   setIsSubmitting(true);
+        setIsSubmitting(true);
   
         
-      //   try {
-      //     const response = await axiosInstance.post("/user/register", values); 
+        try {
+          const response = await axiosInstance.post("/user/login", values,{
+            withCredentials: 'true', 
+          }); 
           
-      //   } catch (err) {
+        } catch (err) {
          
-      //     if (err.response?.status === 409) {
-      //       const newErrors = {};
-      //       newErrors.email = err.response.data.message;
+          if (err.response?.status === 400) {
+            const newErrors = {};
+            newErrors.email = err.response.data.message;
             
-      //       setErrors(newErrors);
-      //     } else {
-      //       console.error("An unexpected error occurred:", err.message);
-      //     }
-  
-  
-      //     console.error(err.response?.data || err.message); 
-      //   }finally {
-      //     setIsSubmitting(false);  
-      //     navigat('/login')
-      //   }
-      // }
+            setErrors(newErrors);
+          } else {
+            console.error("An unexpected error occurred:", err.message);
+          }
+          console.error(err.response?.data || err.message); 
+        }finally {
+
+          setTimeout(()=>{
+            navigate('/')
+          },3000) 
+          
+          setIsSubmitting(false);
+          
+        }
+      }
     };
   
 

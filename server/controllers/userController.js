@@ -19,7 +19,7 @@ const bcrypt = require("bcryptjs");
         });
       }
       
-      const user = await User.findOne({ email });
+    const user = await User.findOne({ email });
     if (user) {
       return res.status(409).json({
         message: "User already exists with this email.",
@@ -27,7 +27,7 @@ const bcrypt = require("bcryptjs");
       });
     }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
       
        await User.create({
         email,
@@ -79,10 +79,17 @@ const bcrypt = require("bcryptjs");
         }
     
         const tokenData = {
-          userId: user._id,
+          id: user._id,
         };
-    
-        const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
+
+        const accessToken = jwt.sign(
+          tokenData,
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: '30s' }
+      );
+      
+      const refreshToken = jwt.sign(tokenData, process.env.REFRESH_TOKEN_SECRET, 
+        {
           expiresIn: "1d",
         });
     
@@ -90,11 +97,12 @@ const bcrypt = require("bcryptjs");
           id: user._id,
           email: user.email,
         };
-        
+        user.refreshToken= refreshToken;
+       await  user.save();
     
         return res
           .status(200)
-          .cookie("token", token, {
+          .cookie("jwt", refreshToken, {
             maxAge: 24 * 60 * 60 * 1000, // 24 hours
             httpOnly: true,
             sameSite: "strict",
@@ -103,6 +111,7 @@ const bcrypt = require("bcryptjs");
           .json({
             message: "Login successful",
             user: userData,
+            accessToken,
             success: true,
           });
       } catch (error) {
@@ -115,9 +124,33 @@ const bcrypt = require("bcryptjs");
     };
     
     
+    const handleRefreshToken = async (req, res) => {
+      const cookies = req.cookies;
+      if (!cookies?.jwt) return res.sendStatus(401);
+      
+      const refreshToken = cookies.jwt;
+      const foundUser = await User.findOne({refreshToken});
+      
 
+      if (!foundUser) return res.sendStatus(403); //Forbidden 
+      // evaluate jwt 
+      jwt.verify(
+          refreshToken,
+          process.env.REFRESH_TOKEN_SECRET,
+          (err, decoded) => {
+            
+              if (err || foundUser.id !== decoded.id) return res.sendStatus(403);
+              const accessToken = jwt.sign(
+                  { "id": decoded.id },
+                  process.env.ACCESS_TOKEN_SECRET,
+                  { expiresIn: '30s' }
+              );
+              res.json({ accessToken })
+          }
+      );
+  }
  
 
  
 
-    module.exports = {  register , login};
+    module.exports = {  register , login , handleRefreshToken};
