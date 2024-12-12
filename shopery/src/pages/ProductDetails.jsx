@@ -19,7 +19,7 @@ function ProductDetails() {
   const [loading, setLoading] = useState(true);
 
   const { productid } = useParams();
-  
+
   const { showCard, setShowCard, items, setItems } = useCardContext();
 
   useEffect(() => {
@@ -41,12 +41,17 @@ function ProductDetails() {
 
   return (
     <div>
-      { showCard && <div className="shoping-ovlay" style={{
-        opacity:showCard? 1 : "",
-        zIndex:showCard?10:""
-      }}></div>}
-       <ShoppingCardPopup />
-       
+      {showCard && (
+        <div
+          className="shoping-ovlay"
+          style={{
+            opacity: showCard ? 1 : "",
+            zIndex: showCard ? 10 : "",
+          }}
+        ></div>
+      )}
+      <ShoppingCardPopup />
+
       <HeaderWhite />
       {!loading && (
         <Breadcrumbs
@@ -57,13 +62,15 @@ function ProductDetails() {
       <div className="container">
         {!loading && <ProductQuickView product={product} />}
         <NavBar />
-        {!loading && <div className="productoutlerbox">
-          <Outlet context={product} />
-          <div className="productoutlerbox-left">
-            <VideoComponent />
-            <Featurs />
+        {!loading && (
+          <div className="productoutlerbox">
+            <Outlet context={product} />
+            <div className="productoutlerbox-left">
+              <VideoComponent />
+              <Featurs />
+            </div>
           </div>
-        </div>}
+        )}
       </div>
       <Footer />
     </div>

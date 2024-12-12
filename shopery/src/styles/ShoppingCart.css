@@ -1,0 +1,20 @@
+.shoppingcardnoitms{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.shoppingcardnoitms p{
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-500);
+    color: var(--gray-5);
+}
+.shoppingcardnoitms a {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-500);
+    margin-top: .5rem;
+}

@@ -4,10 +4,11 @@ import { useCardContext } from "../../contexts/CardContext";
 import { RxCrossCircled } from "react-icons/rx";
 import { RxCross1 } from "react-icons/rx";
 import emtycard from "../../assets/Charco Location Map.png";
+import { useNavigate } from "react-router-dom";
 
 function ShoppingCardPopup() {
   const { showCard, setShowCard, items, setItems } = useCardContext();
-
+const Navigate = useNavigate();
   const total = items.reduce((total, item) => {
     return total + item.price * item.qnt;
   }, 0);
@@ -43,7 +44,7 @@ function ShoppingCardPopup() {
               <p>${total.toFixed(2)}</p>
             </div>
             <button>Checkout</button>
-            <button>Go To Cart</button>
+            <button onClick={()=>Navigate('/shoppingcart')}>Go To Cart</button>
           </div>
         </div>
       ) : (

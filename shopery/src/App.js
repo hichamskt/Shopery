@@ -16,6 +16,7 @@ import Descriptions from "./components/Descriptions/Descriptions";
 import AdditionalInformation from "./components/AdditionalInformation/AdditionalInformation";
 import CustomerFeedback from "./components/CustomerFeedback/CustomerFeedback";
 import RequireAuth from "./auth/RequireAuth";
+import ShoppingCart from "./pages/ShoppingCart";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -34,6 +35,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/shop" element={<Shop />}></Route>
+          <Route path="/shoppingcart" element={<ShoppingCart />}></Route>
 
           <Route path="/product/:productid" element={<ProductDetails />}>
             <Route index element={<Descriptions />} />

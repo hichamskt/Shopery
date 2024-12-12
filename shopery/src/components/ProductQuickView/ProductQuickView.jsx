@@ -37,7 +37,6 @@ function ProductQuickView({ product }) {
 
   useEffect(()=>{
     localStorage.setItem("cardItems", JSON.stringify(items));
-    
   },[items])
   return (
     <div className="ProductQuickView">
