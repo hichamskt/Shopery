@@ -109,7 +109,7 @@ function LoginForm(){
         
         setIsSubmitting(true);
         try {
-          const response = await axiosInstance.post('/user/login', values); 
+          const response = await axiosInstance.post(LOGIN_URL, values); 
           if(response.status=== 200){
             const accessToken = response?.data?.accessToken;
             

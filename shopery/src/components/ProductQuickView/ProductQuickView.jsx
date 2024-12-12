@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../ProductQuickView/ProductQuickView.css";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
@@ -11,14 +11,10 @@ import { CiHeart } from "react-icons/ci";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { useCardContext } from "../../contexts/CardContext";
 
-
-
-
 function ProductQuickView({ product }) {
+  const { showCard, setShowCard, items, setItems } = useCardContext();
 
-  const {showCard, setShowCard, items , setItems} = useCardContext();
-
-console.log("items",items);
+//add product to card 
 
   const hundleAddToCard = (newItem) => {
     setItems((prevItems) => {
@@ -39,11 +35,14 @@ console.log("items",items);
   };
 
 
-
+  useEffect(()=>{
+    localStorage.setItem("cardItems", JSON.stringify(items));
+    
+  },[items])
   return (
     <div className="ProductQuickView">
       <ProductImages images={product.images} />
-      <ProductsInfo hundleAddToCard ={hundleAddToCard } product={product} />
+      <ProductsInfo hundleAddToCard={hundleAddToCard} product={product} />
     </div>
   );
 }
@@ -67,7 +66,7 @@ function ProductImages({ images }) {
     setActiveImgIndex((prv) => (prv === images.length - 1 ? 0 : prv + 1));
     setActiveImg(images[activeImgIndex]);
   }
-  console.log(activeImgIndex);
+  
   return (
     <div className="detaiproductsImages">
       <div className="d-images-list">
@@ -102,14 +101,9 @@ function ProductImages({ images }) {
   );
 }
 
-function ProductsInfo({ product , hundleAddToCard  }) {
+function ProductsInfo({ product, hundleAddToCard }) {
   const productAfterDiscount =
     product.price - (product.price * product.discount) / 100;
-
-    
-
-
-    
 
   return (
     <div className="productinfo-pq">
@@ -126,35 +120,42 @@ function ProductsInfo({ product , hundleAddToCard  }) {
           </span>
         ) : (
           <span
-          style={{
-            backgroundColor: "rgba(234, 75, 72, 0.1)",
-            color: "#EA4B48",
-          }}
-          >Out Of Stock</span>
+            style={{
+              backgroundColor: "rgba(234, 75, 72, 0.1)",
+              color: "#EA4B48",
+            }}
+          >
+            Out Of Stock
+          </span>
         )}
       </div>
       <div className="pi-ratingbox">
         <Rating rating={product.averageRating} />
         <p>{product.review.length} Review</p>
         <p>
-          <span>SKU:  </span>
+          <span>SKU: </span>
           {product.sku}
         </p>
       </div>
       <div className="pi-pricebox">
         <span>
-
-        {product.discount > 0 && <p style={{color:"#B3B3B3" , textDecoration:"line-through"}}>${product.price} </p>}
-        <p style={{color:"#2C742F"}} >${productAfterDiscount}</p>
+          {product.discount > 0 && (
+            <p style={{ color: "#B3B3B3", textDecoration: "line-through" }}>
+              ${product.price}{" "}
+            </p>
+          )}
+          <p style={{ color: "#2C742F" }}>${productAfterDiscount}</p>
         </span>
-        {product.discount > 0 && <p className="pi-discount">{product.discount}% Off</p>}
+        {product.discount > 0 && (
+          <p className="pi-discount">{product.discount}% Off</p>
+        )}
       </div>
       <hr />
       <div className="pi-bandlogobox">
         <div className="pi-brand">
           <p>Brand:</p>
           <div>
-          <img
+            <img
               src={`${process.env.REACT_APP_BACKEND_URL}${product.brandLogo}`}
               alt="product"
             />
@@ -176,43 +177,57 @@ function ProductsInfo({ product , hundleAddToCard  }) {
           </span>
         </div>
       </div>
-        <p className="pi-brand-disc">
-          {product.branddescription}
-        </p>
-        
-        <AddToCardBox product={product} hundleAddToCard ={hundleAddToCard }  productAfterDiscount={productAfterDiscount} />
-        <p className="pi-cat">Category:<span>{product.category.name}</span></p>
-        <p className="pi-cat" >Tags: {
-          product.tags[0].split(",").map((tag,i)=>(
-            <span key={i}>{tag}</span>
-          ))
-          }</p>
+      <p className="pi-brand-disc">{product.branddescription}</p>
+
+      <AddToCardBox
+        product={product}
+        hundleAddToCard={hundleAddToCard}
+        productAfterDiscount={productAfterDiscount}
+      />
+      <p className="pi-cat">
+        Category:<span>{product.category.name}</span>
+      </p>
+      <p className="pi-cat">
+        Tags:{" "}
+        {product.tags[0].split(",").map((tag, i) => (
+          <span key={i}>{tag}</span>
+        ))}
+      </p>
     </div>
   );
 }
 
+function AddToCardBox({ product, hundleAddToCard, productAfterDiscount }) {
+  const [qnt, setQnt] = useState(1);
 
-function AddToCardBox({product , hundleAddToCard ,productAfterDiscount }){
-  const [qnt,setQnt]=useState(1);
-
-
-  return<div className="pi-AddToCardBox">
-    <div className="pi-a-qntbox">
-      <button disabled={qnt<=1} onClick={()=>setQnt(qnt-1)}>-</button>
-      <p>{qnt}</p>
-      <button disabled={qnt>= product.stock} onClick={()=>setQnt(qnt+1)}>+</button>
-    </div>
-    <button className="pi-addtocardbtn" onClick={()=>hundleAddToCard(
-    {
-      sku:product.sku,
-            image:product.images[0],
+  return (
+    <div className="pi-AddToCardBox">
+      <div className="pi-a-qntbox">
+        <button disabled={qnt <= 1} onClick={() => setQnt(qnt - 1)}>
+          -
+        </button>
+        <p>{qnt}</p>
+        <button disabled={qnt >= product.stock} onClick={() => setQnt(qnt + 1)}>
+          +
+        </button>
+      </div>
+      <button
+        className="pi-addtocardbtn"
+        onClick={() =>
+          hundleAddToCard({
+            sku: product.sku,
+            image: product.images[0],
             name: product.name,
-            qnt:qnt,
-            price:productAfterDiscount
-
-
-    }
-    )}>Add To Card <IoBagHandleOutline /></button>
-    <span className="pi-heart"><CiHeart/></span>
-  </div>
+            qnt: qnt,
+            price: productAfterDiscount,
+          })
+        }
+      >
+        Add To Card <IoBagHandleOutline />
+      </button>
+      <span className="pi-heart">
+        <CiHeart />
+      </span>
+    </div>
+  );
 }
