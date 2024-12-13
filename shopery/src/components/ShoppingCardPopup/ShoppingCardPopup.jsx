@@ -43,7 +43,7 @@ const Navigate = useNavigate();
               <p>{items.length} Products</p>
               <p>${total.toFixed(2)}</p>
             </div>
-            <button>Checkout</button>
+            <button onClick={()=>Navigate('/checkout')} >Checkout</button>
             <button onClick={()=>Navigate('/shoppingcart')}>Go To Cart</button>
           </div>
         </div>

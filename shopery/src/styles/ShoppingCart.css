@@ -4,12 +4,16 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
 }
 .shoppingcardnoitms p{
     font-size: var(--font-size-body-large);
     font-weight: var(--font-weight-500);
     color: var(--gray-5);
 }
+
+
 .shoppingcardnoitms a {
     display: flex;
     align-items: center;
@@ -17,4 +21,293 @@
     font-size: var(--font-size-body-large);
     font-weight: var(--font-weight-500);
     margin-top: .5rem;
+}
+.shoppincard-container{
+    
+    padding: 1rem;
+}
+.myshc{
+    text-align: center;
+    padding: 2rem;
+    font-size: var(--font-size-body-xxl);
+    font-weight: var(--font-weight-600);
+}
+
+.shoppincard{
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    gap: 1rem;
+}
+.shoppingboxtable{
+    
+    border: 2px solid #d3cccc53;
+    border-radius: .5rem;
+    
+}
+.shoppingboxtable .sbtableheader{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: .5rem;
+    border-bottom: 1px solid #d3cccc53; 
+    text-transform: uppercase;
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-500);
+    color: var(--gray-5);
+}
+.shoppingtablerow{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    align-items: center;
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-500);
+    border-bottom: 2px solid #d3cccc53 ;
+    position: relative;
+}
+
+.shoppingtablerow svg{
+    position: absolute;
+    right: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray-5);
+}
+.sbimgrow{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.sbimgrow img{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.sb-a-qntbox{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-9);
+    border: 1px solid #d3cccc53;
+    padding: .5rem;
+    border-radius: 2rem;
+    width: fit-content;
+}
+
+.sb-a-qntbox button{
+    padding: .4rem .8rem;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #F2F2F2;
+}
+
+.shoppingbgbtnbox{
+    padding: .5rem 1rem 1rem 1rem;
+}
+
+.shoppingbgbtnbox button {
+    padding: .5rem 1rem;
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-600);
+    border-radius: 1rem;
+    cursor: pointer;
+}
+/* CouponCode */
+.CouponCodecontainer{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 1rem;
+    border: 2px solid #d3cccc53;
+    border-radius: 1rem;
+    gap: 2rem;
+}
+
+.CouponCodecontainer p{
+    font-size: var(--font-size-body-xl);
+    font-weight: var(--font-weight-500);
+}
+.CouponCodecontainer .input{
+    flex-grow: 1;
+    border: 2px solid #d3cccc53;
+    height: 3rem;
+    border-radius: 2rem;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.CouponCodecontainer .input input{
+    flex-grow: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: inherit;
+}
+.CouponCodecontainer .input button{
+    color: white;
+    background-color: #333333;
+    cursor: pointer;
+    font-size: var(--font-size-body-xl);
+    font-weight: var(--font-weight-500);
+    padding: .8rem 2rem;
+    border-radius: 2rem;
+}
+
+.sgcardttl{
+    padding: 2rem 1rem;
+    border: 2px solid #d3cccc53;
+    border-radius: 1rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.sgcardttl .sgcardttlp{
+    font-size: var(--font-size-body-xl);
+    font-weight: var(--font-weight-500);
+}
+
+.sgcardttl > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+.sgcardttl > div:not(:last-of-type){
+    border-bottom: 2px solid #d3cccc53;
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-500);
+}
+.sgcardttl > div:not(:last-of-type) p:first-of-type{
+    font-weight: var(--font-weight-400);
+
+}
+
+.sgcardttl > div:last-of-type{
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-400);
+}
+
+.sgcardttl > div:last-of-type p:last-of-type{
+    font-weight: var(--font-weight-600);
+}
+.sgcardttl button{
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-600);
+    color: white;
+    background-color: var(--primary);
+    padding: .8rem;
+    border-radius: 3rem;
+    cursor: pointer;
+}
+
+
+
+@media (max-width:1250px) {
+    .shoppingtablerow{
+        font-size: var(--font-size-body-small);  
+    }
+    .shoppingboxtable .sbtableheader{
+        font-size: var(--font-size-body-medium); 
+    }
+    .CouponCodecontainer p{
+        font-size: var(--font-size-body-medium); 
+        
+    }
+    .CouponCodecontainer .input button{
+        font-size: var(--font-size-body-medium); 
+    }
+    .shoppingtablerow svg{
+        font-size: 1rem;
+    }
+}
+@media (max-width:1085px){
+    .CouponCodecontainer p{
+        font-size: var(--font-size-body-small); 
+        
+    }
+    .CouponCodecontainer .input button{
+        font-size: var(--font-size-body-small); 
+    }
+    .CouponCodecontainer {
+        gap:1rem;
+    }
+    .shoppingtablerow{
+        font-size: var(--font-size-body-tiny);  
+    }
+    .shoppingboxtable .sbtableheader{
+        font-size: var(--font-size-body-small); 
+    }
+    .CouponCodecontainer p{
+        font-size: var(--font-size-body-small); 
+    }
+    .sbimgrow img {
+        width: 77px;
+        height: 75px;
+    object-fit: scale-down;
+    }
+}
+
+@media (max-width:810px){
+    .shoppincard{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .sb-a-qntbox {
+        gap: 0.5rem;
+        font-size: var(--font-size-body-small);
+        padding: .2rem;}
+
+        .CouponCodecontainer p{
+            font-size: var(--font-size-body-tiny); 
+            
+        }
+        .CouponCodecontainer {
+            flex-wrap: wrap;
+        
+        justify-content: center;
+            
+        }
+        .CouponCodecontainer .input button{
+            font-size: var(--font-size-body-tiny); 
+        }
+       
+        
+}
+
+@media (max-width:450px){
+    .sb-a-qntbox {
+        gap: 0.3rem;
+        font-size: var(--font-size-body-tiny);
+        padding: .2rem;
+    }
+    .sb-a-qntbox button{
+        padding: .2rem .6rem;
+        
+    }
+    .sbimgrow img {
+        width: 50px;
+        height: 50px;
+    object-fit: scale-down;
+    }
+
+    .CouponCodecontainer .input{
+        flex-grow: 0;
+    }
+}
+
+@media (max-width:390px){
+
+    .shoppincard-container{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .CouponCodecontainer{
+        padding: 1rem 0;
+    }
 }
