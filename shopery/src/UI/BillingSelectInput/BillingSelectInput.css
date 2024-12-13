@@ -1,0 +1,40 @@
+.select-containerr {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+  }
+  
+  .select-labell {
+    font-size: var(--font-size-body-small);
+    font-weight: var( --font-weight-400);
+  }
+  
+  .styled-selectt {
+    padding: 13px 12px;
+    font-size: inherit;
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    color: #333333b1;
+    outline: none;
+    transition: border-color 0.3s ease;
+    min-width: 180px;
+  }
+  
+  .styled-selectt:focus {
+    border-color: var(--primary);
+  }
+  
+  .styled-selectt option {
+    font-size: inherit;
+    padding: 8px;
+    cursor: pointer;
+  }
+  .styled-selectt option:hover{
+    background-color: var(--primary);
+  }
+  .select-containerr p {
+    font-size: var(--font-size-body-tiny);
+    font-weight: var( --font-weight-500);
+    padding: 3px;
+    color: var(--warning);
+  }

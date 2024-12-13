@@ -30,10 +30,20 @@ const userSchema = new mongoose.Schema(
     billingAdresse:{
         type: String,
     },
+    billingRegion:{
+        type: String,
+    },
+
     billingFirstName:{
         type: String,
     },
     billingLastName:{
+        type: String,
+    },
+    billingEmail:{
+        type: String,
+    },
+    billingphoneNumber:{
         type: String,
     },
     companyName:{
@@ -42,7 +52,7 @@ const userSchema = new mongoose.Schema(
     streetAdresse:{
         type: String,
     },
-    state:{
+    city:{
         type: String,
     },
     zipCode:{
