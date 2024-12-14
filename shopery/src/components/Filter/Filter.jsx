@@ -86,7 +86,7 @@ function PriceRange({setprice,price}){
   const [showBox,setShowBox]=useState(true);
 
 
-  console.log(price)
+ 
   return (
     <div className="pricerangbox">
       <div className="filterboxheader" onClick={()=>setShowBox(!showBox)}>

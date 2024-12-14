@@ -1,9 +1,10 @@
 .checkoutpage{
     padding: 1rem;
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 4fr 2fr;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    gap: 1rem;
 }
 
 .checkoutform{
@@ -11,6 +12,11 @@
     flex-direction: column;
     gap: 1rem;
 }
+.checkoutform hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+  }
 .checkoutformp{
     font-size: var(--font-size-body-xxl);
     font-weight: var( --font-weight-500);
@@ -18,4 +24,137 @@
 .checkoutforminputbox{
     display: flex;
     gap: .5rem;
+}
+.shiptodifadd{
+    font-size: var(--font-size-body-small);
+    font-weight: var( --font-weight-400);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    cursor: pointer;
+    color: var(--gray-7);
+}
+
+.ordertextlabelarea{
+    font-size: var(--font-size-body-small);
+    font-weight: var( --font-weight-400);
+}
+
+.ordertextarea{
+    width: 100%;
+    padding: 13px 12px;
+    font-size: var(--font-size-body-small);
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    resize: none;
+    height: 7rem;
+}
+.ordertextarea:focus {
+    
+    border-color: #4caf50;
+    outline-color: #4caf50;
+    
+  }
+
+  .ordertextareaerr{
+    font-size: var(--font-size-body-tiny);
+    font-weight: var( --font-weight-500);
+    padding: 3px;
+    color: var(--warning);
+  }
+  /* .CheckoutOerderSummury */
+  .CheckoutOerderSummury{
+    display: flex;
+    flex-direction: column;
+    gap: .5frem;
+    padding: 1rem;
+    border-radius: .5rem;
+    border: 1px solid #ccc;
+    height: fit-content;
+  }
+  .CheckoutOerderSummury hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+  }
+
+  /* checkoutItem */
+
+
+  .checkoutItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ckeckoutimgboxs{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+  }
+
+  .ckeckoutimgboxs img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .ckeckoutimgboxs p{
+    font-size: var(--font-size-body-small);
+    font-weight: var( --font-weight-400);
+  }
+
+  .pqntcheckout{
+    font-size: var(--font-size-body-small);
+    font-weight: var( --font-weight-600);
+  }
+.checkoutsubbox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-body-small);
+    font-weight: var( --font-weight-400);
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.checkoutsubbox p:last-of-type{
+    font-weight: var( --font-weight-600);
+}
+.checkoutsubbox:last-of-type{
+    font-size: var(--font-size-body-medium);
+    font-weight: var( --font-weight-400);
+}
+.checkoutsubbox:last-of-type p:last-of-type{
+    
+    font-weight: var( --font-weight-600);
+}
+
+.CheckoutOerderSummury button{
+    background-color: var(--primary);
+    color: white;
+    border-radius: 3rem;
+    padding: .5rem;
+    margin-top: .5rem;
+    cursor: pointer;
+}
+
+@media (max-width:846PX) {
+    .checkoutpage{
+        grid-template-columns:  2fr;
+    }
+}
+@media (max-width:544PX) {
+    .checkoutforminputbox 
+    {
+flex-wrap: wrap;
+    }
+    
+}
+@media (max-width:373PX) {
+    .select-containerr{
+width: 100%;
+    }
+    
 }

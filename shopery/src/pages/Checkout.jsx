@@ -21,7 +21,7 @@ function Checkout() {
 
       <div className="container">
         {items?.length > 0 ? (
-          <CheckoutPage auth={auth} />
+          <CheckoutPage auth={auth} items={items} />
         ) : (
           <div className="shoppingcardnoitms">
             <img src={emtycard} alt="no items" />
@@ -39,30 +39,35 @@ function Checkout() {
 
 export default Checkout;
 
-function CheckoutPage({ auth }) {
-  return (
-    <div className="checkoutpage">
-      <CheckoutForm auth={auth} />
-      <CheckoutOerderSummury />
-    </div>
-  );
-}
-
-function CheckoutForm({ auth }) {
+function CheckoutPage({ auth, items }) {
   const [values, setValues] = useState({
     billingFirstName: "",
     billingLastName: "",
     companyName: "",
     streetAdresse: "",
-    billingRegion:"",
+    billingRegion: "",
     city: "",
     zipCode: "",
     billingEmail: "",
     billingphoneNumber: "",
-    shiptodiffaddress: "",
+    shiptodiffaddress: false,
+    OrderNotes: "",
   });
   const [errors, setErrors] = useState({});
+  const handleGoToshipform =()=>{
 
+  }
+  return (
+    <div className="checkoutpage">
+      <CheckoutForm auth={auth} values={values} setValues={setValues} />
+      <CheckoutOerderSummury items={items} values={values} handleGoToshipform={handleGoToshipform} />
+    </div>
+  );
+}
+
+function CheckoutForm({ auth , values , setValues,errors , setErrors }) {
+  
+  
   const inputs1 = [
     {
       id: 1,
@@ -83,6 +88,16 @@ function CheckoutForm({ auth }) {
       pattern: "[0-9]{5}",
       required: true,
     },
+    {
+      id: 3,
+      name: "billingphoneNumber",
+      type: "text",
+      placeholder: "Phone Number",
+      errorMessage: "It should be a valid Phone Number!",
+      label: "Phone Number",
+      pattern: "[0-9]{9,11}",
+      required: true,
+    },
   ];
   const selectinputs = [
     {
@@ -90,14 +105,19 @@ function CheckoutForm({ auth }) {
       name: "billingRegion",
       errorMessage: "",
       label: "Region",
-      options:['Tanger-Tétouan-Al Hoceïma','Souss-Massa','Guelmim-Oued Noun[A]','Laâyoune-Sakia El Hamra[A]']
+      options: [
+        "Tanger-Tétouan-Al Hoceïma",
+        "Souss-Massa",
+        "Guelmim-Oued Noun[A]",
+        "Laâyoune-Sakia El Hamra[A]",
+      ],
     },
     {
       id: 1,
       name: "city",
       errorMessage: "",
       label: "City",
-      options:['Tanger','Agidir','Guelmim','Laâyoune']
+      options: ["Tanger", "Agidir", "Guelmim", "Laâyoune"],
     },
   ];
   const inputs2 = [
@@ -135,7 +155,7 @@ function CheckoutForm({ auth }) {
   ];
 
   const streeadinput = {
-    id:4,
+    id: 4,
     name: "streetAdresse",
     type: "text",
     placeholder: "Your Street Adresse",
@@ -146,14 +166,20 @@ function CheckoutForm({ auth }) {
     required: true,
   };
 
-  console.log(values)
+  
   const onChange = (e) => {
+    const maxWords = 50;
     const { name, value, type, checked } = e.target;
-    setValues({ ...values, [name]: type === "checkbox" ? checked : value });
+    if (name === "OrderNotes" && value.trim().split(/\s+/).length >= maxWords) {
+      setErrors((prev) => ({
+        ...prev,
+        OrderNotes: "Max words allowed are 50",
+      }));
+    } else {
+      setValues({ ...values, [name]: type === "checkbox" ? checked : value });
+    }
   };
 
-
-  
   return (
     <div className="checkoutform">
       <p className="checkoutformp">Billing Information</p>
@@ -169,29 +195,125 @@ function CheckoutForm({ auth }) {
         ))}
       </div>
       <BillingInput
-            {...streeadinput}
-            value={values[streeadinput.name]}
-            onChange={onChange}
-            err={errors[streeadinput.name]}
-            />
+        {...streeadinput}
+        value={values[streeadinput.name]}
+        onChange={onChange}
+        err={errors[streeadinput.name]}
+      />
       <div className="checkoutforminputbox">
-        {selectinputs.map((input,i)=>(
-          
-          <BillingSelectInput key={input.id+i} {...input} onChange={onChange} value={values[input.name]} />
-        ))
-      }
-      <BillingInput
-            {...inputs1[1]}
-            value={values[inputs1[1].name]}
+        {selectinputs.map((input, i) => (
+          <BillingSelectInput
+            key={input.id + i}
+            {...input}
             onChange={onChange}
-            err={errors[inputs1[1].name]}
-            />
+            value={values[input.name]}
+          />
+        ))}
+        <BillingInput
+          {...inputs1[1]}
+          value={values[inputs1[1].name]}
+          onChange={onChange}
+          err={errors[inputs1[1].name]}
+        />
+      </div>
+      <div className="checkoutforminputbox">
+        <BillingInput
+          {...inputs1[0]}
+          value={values[inputs1[0].name]}
+          onChange={onChange}
+          err={errors[inputs1[0].name]}
+        />
+        <BillingInput
+          {...inputs1[2]}
+          value={values[inputs1[2].name]}
+          onChange={onChange}
+          err={errors[inputs1[2].name]}
+        />
+      </div>
+      <label className="shiptodifadd">
+        <input
+          type="checkbox"
+          name="shiptodiffaddress"
+          checked={values.shiptodiffaddress}
+          onChange={onChange}
+        />
+        Ship to a different address
+      </label>
+
+      <hr />
+
+      <p className="checkoutformp">Additional Info</p>
+
+      <div>
+        <label className="ordertextlabelarea">Order Notes (Optional)</label>
+        <textarea
+          className="ordertextarea"
+          name="OrderNotes"
+          placeholder="Notes about your order, e.g. special notes for delivery"
+          value={values.OrderNotes}
+          onChange={onChange}
+        />
+        <p className="ordertextareaerr">{errors.OrderNotes}</p>
       </div>
     </div>
-
   );
 }
 
-function CheckoutOerderSummury() {
-  return <div>qqq</div>;
+function CheckoutOerderSummury({ items , values ,handleGoToshipform }) {
+  const total = items.reduce((total, item) => total + item.price * item.qnt, 0);
+
+  return (
+    <div className="CheckoutOerderSummury">
+      <p className="checkoutformp">Order Summery</p>
+      {items.map((item, i) => (
+        <Item key={i} item={item} />
+      ))}
+      <div className="checkoutsubbox">
+        <p>Subtotal:</p>
+        <p>${total}</p>
+      </div>
+      <hr />
+      <div className="checkoutsubbox">
+        <p>Shipping:</p>
+        <p>${total}</p>
+      </div>
+      <hr />
+      <div className="checkoutsubbox">
+        <p>Total:</p>
+        <p>${total}</p>
+      </div>
+
+      <p className="checkoutformp">Payment Method</p>
+      <label
+        className="containere"
+        style={{
+          marginTop: ".5rem",
+          cursor: "pointer",
+        }}
+      >
+        Cash on Delivery
+        <input type="checkbox" checked />
+        <span className="checkmark"></span>
+      </label>
+
+      {values.shiptodiffaddress? <button onClick={handleGoToshipform}>Fill Shiping Form</button> :<button>Place Order</button>}
+    </div>
+  );
+}
+
+function Item({ item }) {
+  return (
+    <div className="checkoutItem">
+      <div className="ckeckoutimgboxs">
+        <img
+          src={`${process.env.REACT_APP_BACKEND_URL}${item.image}`}
+          alt="product"
+        />
+        <p>
+          {item.name} x{item.qnt}
+        </p>
+      </div>
+      <p className="pqntcheckout">${item.qnt * item.price}</p>
+    </div>
+  );
 }
