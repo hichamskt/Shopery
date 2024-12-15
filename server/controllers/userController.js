@@ -85,7 +85,7 @@ const bcrypt = require("bcryptjs");
         const accessToken = jwt.sign(
           tokenData,
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: '30s' }
+          { expiresIn: '1d' }
       );
       
       const refreshToken = jwt.sign(tokenData, process.env.REFRESH_TOKEN_SECRET, 
@@ -176,6 +176,46 @@ const bcrypt = require("bcryptjs");
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
     res.sendStatus(204);
 }
+
+const getUserBillingInfo = async (req, res)=>{
+  try {
+    const {email} = req.body;
+    if(!email){
+     return res.sendStatus(403)
+    }
+
+    const user =  await User.findOne({email});
+
+    if(!user){
+     return res.sendStatus(403)
+    }
+
+    const userBillinginfo = {
+      billingAdresse: user.billingAdresse ,
+      billingRegion: user.billingRegion,
+      billingFirstName: user.billingFirstName,
+      billingLastName: user.billingLastName,
+      billingEmail: user.billingEmail,
+      billingphoneNumber: user.billingphoneNumber,
+      city: user.city,
+      zipCode: user.zipCode,
+      companyName: user.companyName,
+    }
+
+    return res.status(200).json({
+      message: "user Billing infos",
+      userBillinginfo,
+      success: true,
+    });
+
+    
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+}
  
 
-    module.exports = {  register , login , handleRefreshToken,handleLogout};
+    module.exports = {  register , login , handleRefreshToken,handleLogout , getUserBillingInfo};

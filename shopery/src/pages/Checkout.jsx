@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Checkout.css";
 import HeaderWhite from "../components/Header/HeaderWhite";
 import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
@@ -10,10 +10,32 @@ import { NavLink } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import BillingInput from "../UI/BillingInput/BillingInput";
 import BillingSelectInput from "../UI/BillingSelectInput/BillingSelectInput";
+import axiosInstance from "../axios/axiosInstance";
+// import axiosPrivate from "../axios/axiosInstance";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Checkout() {
   const { items } = useCardContext();
   const { auth } = useAuth();
+    const [userData, setUserData] = useState(null);
+    const axiosPrivate = useAxiosPrivate();
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axiosPrivate.post("user/getuserbillinginfo", { email: auth.email });
+  
+          if (response.status === 200) {
+            setUserData(response.data.userBillinginfo);
+          }
+        } catch (err) {
+          console.log("Error fetching data:", err);
+        }
+      };
+  
+      fetchData(); 
+    }, [auth.email]); 
+    
+
   return (
     <div>
       <HeaderWhite />
@@ -21,7 +43,7 @@ function Checkout() {
 
       <div className="container">
         {items?.length > 0 ? (
-          <CheckoutPage auth={auth} items={items} />
+          <CheckoutPage auth={auth} items={items} userData={userData} />
         ) : (
           <div className="shoppingcardnoitms">
             <img src={emtycard} alt="no items" />
@@ -39,21 +61,40 @@ function Checkout() {
 
 export default Checkout;
 
-function CheckoutPage({ auth, items }) {
+function CheckoutPage({ auth, items , userData }) {
   const [showShippingForm, setShowShippingForm] = useState(false);
   const [values, setValues] = useState({
     billingFirstName: "",
-    billingLastName: "",
-    companyName: "",
+    billingLastName:  "",
+    companyName:"",
     streetAdresse: "",
     billingRegion: "",
     city: "",
     zipCode: "",
     billingEmail: "",
-    billingphoneNumber: "",
+    billingphoneNumber:"",
     shiptodiffaddress: false,
     OrderNotes: "",
   });
+ 
+  useEffect(() => {
+    if (userData) {
+      setValues({
+        billingFirstName: userData.billingFirstName || "",
+        billingLastName: userData.billingLastName || "",
+        companyName: userData.companyName || "",
+        streetAdresse: userData.streetAdresse || "",
+        billingRegion: userData.billingRegion || "",
+        city: userData.city || "",
+        zipCode: userData.zipCode || "",
+        billingEmail: userData.billingEmail || "",
+        billingphoneNumber: userData.billingphoneNumber || "",
+        shiptodiffaddress: false,
+        OrderNotes: "",
+      });
+    }
+  }, [userData]);
+
   const [shippingValues, setShippingValues] = useState({
     shippingFirstName: "",
     shippingLastName: "",
@@ -163,7 +204,7 @@ function CheckoutPage({ auth, items }) {
     return newErrors;
   };
   const handleGoToshipform = () => {
-    const newErrors = handleValueError();
+    const newErrors = handleShippinValueError();
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {

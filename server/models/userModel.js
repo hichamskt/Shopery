@@ -58,6 +58,7 @@ const userSchema = new mongoose.Schema(
     zipCode:{
         type: String,
     },
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
     refreshToken:{
         type: String,
     },
