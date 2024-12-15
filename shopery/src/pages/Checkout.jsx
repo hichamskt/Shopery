@@ -56,10 +56,71 @@ function CheckoutPage({ auth, items }) {
   const [errors, setErrors] = useState({});
   const handleGoToshipform =()=>{
 
+
+    const newErrors = {};
+
+    if (!values.billingEmail.trim()) {
+      newErrors.billingEmail = "Email is required.";
+    } else if (!/^\S+@\S+\.\S+$/.test(values.billingEmail)) {
+      newErrors.billingEmail = "Enter a valid email address.";
+    }
+    if (!values.zipCode.trim()) {
+      newErrors.zipCode = "zipCode is required.";
+    } else if (/[0-9]{5}/.test(values.zipCode)) {
+      newErrors.zipCode = "It should be a valid ZipCode!";
+    }
+    if (!values.billingphoneNumber.trim()) {
+      newErrors.billingphoneNumber = "Phone Number is required.";
+    } else if (/[0-9]{9,11}/.test(values.billingphoneNumber)) {
+      newErrors.billingphoneNumber = "It should be a valid Phone Number!";
+    }
+    if (!values.billingphoneNumber.trim()) {
+      newErrors.billingphoneNumber = "Phone Number is required.";
+    } else if (/[0-9]{9,11}/.test(values.billingphoneNumber)) {
+      newErrors.billingphoneNumber = "It should be a valid Phone Number!";
+    }
+    if (!values.billingRegion.trim()) {
+      newErrors.billingRegion = "This field is required.";
+    } 
+    if (!values.city.trim()) {
+      newErrors.city = "This field is required.";
+    } 
+
+
+    
+    if (!values.billingFirstName.trim()) {
+      newErrors.billingFirstName = "First Name Is required";
+    } else if (!/^[A-Za-z]{2,15}$/.test(values.billingFirstName)) {
+      newErrors.billingFirstName ="First name  must only contain letters and be between 2 and 15 characters long";
+    }
+    if (!values.billingLastName.trim()) {
+      newErrors.billingLastName = "Last Name Is required";
+    } else if (!/^[A-Za-z]{2,15}$/.test(values.billingLastName)) {
+      newErrors.billingLastName ="Last name  must only contain letters and be between 2 and 15 characters long";
+    }
+    if (!values.streetAdresse.trim()) {
+      newErrors.streetAdresse = "Street Adresse Is required";
+    } else if (!/^[A-Za-z0-9 ,.#'\\-]{3,100}$/.test(values.streetAdresse)) {
+      newErrors.streetAdresse ="Last name  must only contain letters and be between 2 and 15 characters long";
+    }
+
+   
+    
+
+    
+    
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0){
+      console.log('yes')
+    }
+
   }
+  console.log("err",errors)
   return (
     <div className="checkoutpage">
-      <CheckoutForm auth={auth} values={values} setValues={setValues} />
+      <CheckoutForm auth={auth} values={values} setValues={setValues} errors={errors} setErrors={setErrors} />
       <CheckoutOerderSummury items={items} values={values} handleGoToshipform={handleGoToshipform} />
     </div>
   );
@@ -71,7 +132,7 @@ function CheckoutForm({ auth , values , setValues,errors , setErrors }) {
   const inputs1 = [
     {
       id: 1,
-      name: "email",
+      name: "billingEmail",
       type: "email",
       placeholder: "Email",
       errorMessage: "It should be a valid email address!",
@@ -166,9 +227,12 @@ function CheckoutForm({ auth , values , setValues,errors , setErrors }) {
     required: true,
   };
 
-  
+  // to do 
+// add word count 
+// add red border in cas of err
+
   const onChange = (e) => {
-    const maxWords = 50;
+    const maxWords = 10;
     const { name, value, type, checked } = e.target;
     if (name === "OrderNotes" && value.trim().split(/\s+/).length >= maxWords) {
       setErrors((prev) => ({
@@ -178,6 +242,15 @@ function CheckoutForm({ auth , values , setValues,errors , setErrors }) {
     } else {
       setValues({ ...values, [name]: type === "checkbox" ? checked : value });
     }
+
+     if (errors[name]) {
+     
+      const updatedErrors = { ...errors }; 
+      
+      delete updatedErrors[name];         
+      setErrors(updatedErrors);           
+    }
+
   };
 
   return (
@@ -207,6 +280,7 @@ function CheckoutForm({ auth , values , setValues,errors , setErrors }) {
             {...input}
             onChange={onChange}
             value={values[input.name]}
+            errorMessage={errors[input.name]}
           />
         ))}
         <BillingInput
@@ -214,6 +288,7 @@ function CheckoutForm({ auth , values , setValues,errors , setErrors }) {
           value={values[inputs1[1].name]}
           onChange={onChange}
           err={errors[inputs1[1].name]}
+
         />
       </div>
       <div className="checkoutforminputbox">
@@ -292,7 +367,7 @@ function CheckoutOerderSummury({ items , values ,handleGoToshipform }) {
         }}
       >
         Cash on Delivery
-        <input type="checkbox" checked />
+        <input type="checkbox" defaultChecked />
         <span className="checkmark"></span>
       </label>
 

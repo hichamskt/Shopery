@@ -15,8 +15,11 @@ function BillingSelectInput(props) {
             seterr("this field is required!")
         }
       }
+      useEffect(()=>{
+        seterr(errorMessage);
+      },[errorMessage])
       
-   
+  
   
 return (
     <div className="select-containerr">
@@ -28,7 +31,7 @@ return (
       className="styled-selectt"
       name={name}
       style={{
-        borderColor:err?"#ff8a00":""
+        borderColor:errorMessage? 'red' : err?"#ff8a00":""
       }}
       onMouseLeave={handleBlur}
     >
@@ -39,7 +42,9 @@ return (
         </option>
       ))}
     </select>
-    {err && <p>{err}</p>}
+    {err && <p style={{
+       color: errorMessage? "#ea4b48" : ""
+    }}>{err}</p>}
   </div>
 
 );
