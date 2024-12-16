@@ -215,6 +215,7 @@ function AddToCardBox({ product, hundleAddToCard, productAfterDiscount }) {
         onClick={() =>
           hundleAddToCard({
             sku: product.sku,
+            productId:product._id,
             image: product.images[0],
             name: product.name,
             qnt: qnt,

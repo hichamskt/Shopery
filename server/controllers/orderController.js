@@ -16,8 +16,9 @@ const createOrder = async (req, res) => {
         if(!product){
           throw new Error(`Product with ID ${items[i].id} not found`);
         }
-        product.stock -= items[i].quantity;
-        if(product.stock===0){
+        product.stock -= items[i].qnt;
+        
+        if(product.stock === 0){
           product.status = 'OutOfStock';
         }
         await product.save();

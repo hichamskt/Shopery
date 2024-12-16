@@ -15,7 +15,7 @@ import axiosInstance from "../axios/axiosInstance";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Checkout() {
-  const { items } = useCardContext();
+  const { items , setItems} = useCardContext();
   const { auth } = useAuth();
     const [userData, setUserData] = useState(null);
     const axiosPrivate = useAxiosPrivate();
@@ -43,7 +43,7 @@ function Checkout() {
 
       <div className="container">
         {items?.length > 0 ? (
-          <CheckoutPage auth={auth} items={items} userData={userData} />
+          <CheckoutPage auth={auth} items={items} userData={userData} setItems={setItems} />
         ) : (
           <div className="shoppingcardnoitms">
             <img src={emtycard} alt="no items" />
@@ -61,7 +61,7 @@ function Checkout() {
 
 export default Checkout;
 
-function CheckoutPage({ auth, items , userData }) {
+function CheckoutPage({ auth, items , userData , setItems }) {
   const [showShippingForm, setShowShippingForm] = useState(false);
   const [values, setValues] = useState({
     billingFirstName: "",
@@ -111,6 +111,8 @@ function CheckoutPage({ auth, items , userData }) {
 
   const [errors, setErrors] = useState({});
 
+  console.log(items)
+  
   const handleValueError = () => {
     const newErrors = {};
     if (!values.billingEmail.trim()) {
@@ -212,11 +214,34 @@ function CheckoutPage({ auth, items , userData }) {
     }
   };
 
+  const submitForm = async()=>{
+    const total = items.reduce((total, item) => total + item.price * item.qnt, 0);
+    try {
+      const response = await axiosInstance.post("oreder/createorder", { 
+        items,
+        billingInfos:values,
+        shippingInfos:shippingValues,
+        totalAmount:total,
+        userId:auth?.id,
+       });
+
+      if (response.status === 201) {
+        setItems({});
+        localStorage.removeItem('cardItems');
+        console.log("order successed ")
+
+      }
+    } catch (err) {
+      console.log("Error fetching data:", err);
+    }
+
+  }
+
   const handleSubmitOrderForm = () => {
     const newErrors = handleValueError();
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      console.log("valid");
+      submitForm();
     }
   };
   const handleSubmitShipingForm = () => {
