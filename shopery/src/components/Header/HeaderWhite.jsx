@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../Header/Header.css";
 import { FiMapPin } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import { BiBasket } from "react-icons/bi";
@@ -174,7 +174,7 @@ function HeaderMidPart({t}){
 }
 
 function HeaderBottomPart(){
-
+  const navigate = useNavigate();
 
   return(
     <div className="headerbottompart" style={{color:"black"}}>
@@ -194,7 +194,7 @@ function HeaderBottomPart(){
       <FiPhone/>
       <p>(219) 555-0114</p>
         </span>
-      <FaRegUser/>
+      <FaRegUser onClick={()=>navigate('/account')}/>
       </div>
     </div>
   )

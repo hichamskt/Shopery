@@ -1,0 +1,35 @@
+.navigation{
+    border: 2px solid #E6E6E6;
+    border-radius: .5rem;
+}
+
+.navigation .navigp{
+    font-size: var(--font-size-body-xl);
+    font-weight: var(--font-weight-500);
+    padding: 2rem 1rem;
+}
+
+.navigation a,
+.navigation >div
+{
+    padding: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-400);
+    cursor: pointer;
+    color: var(--gray-6);
+}
+
+.navigation a.active-link{
+    color: var(--gray-9);
+    background-color: #EDF2EE;
+    box-shadow: -2px 0 0 var(--primary);
+}
+
+.navigation a:hover,
+.navigation >div:hover
+{
+    background-color: #edf2ee94;
+}

@@ -6,12 +6,13 @@ const RequireAuth = ({ children }) => {
     const location = useLocation();
 
     
-    if (!auth) {
+    if (!auth || Object.keys(auth).length === 0) {
        
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
     
+    console.log("auth",auth);
     return children;
 };
 

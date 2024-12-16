@@ -106,7 +106,7 @@ const bcrypt = require("bcryptjs");
             maxAge: 24 * 60 * 60 * 1000, // 24 hours
             httpOnly: true,
             sameSite: "strict",
-            secure: process.env.NODE_ENV === "production",
+            // secure: process.env.NODE_ENV === "production",
           })
           .json({
             message: "Login successful",
@@ -144,7 +144,7 @@ const bcrypt = require("bcryptjs");
                   { "id": decoded.id },
                   process.env.ACCESS_TOKEN_SECRET,
                   
-                  { expiresIn: '30s' }
+                  { expiresIn: '1d' }
               );
               res.json({ accessToken })
           }

@@ -19,6 +19,9 @@ import RequireAuth from "./auth/RequireAuth";
 import ShoppingCart from "./pages/ShoppingCart";
 import Checkout from "./pages/Checkout";
 
+import Account from "./pages/Account";
+import UserDashboard from "./pages/UserDashboard";
+
 function App() {
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => {
@@ -48,7 +51,24 @@ function App() {
 
           <Route path="*" element={<ErrorPage />}></Route>
 
-          <Route element={<RequireAuth />}></Route>
+          {/* <Route element={<RequireAuth />}>
+          <Route path="account" element={<UserDashboard />}>
+          </Route>
+          
+          </Route> */}
+          <Route 
+          path="/account" 
+          element={
+            <RequireAuth>
+              <Account />
+            </RequireAuth>
+          } 
+        >
+          <Route index element={
+            <UserDashboard />} />
+          {/* <Route path="dashboard" element={
+            <UserDashboard />} /> */}
+          </Route>
 
           {/* dashboard */}
           <Route
