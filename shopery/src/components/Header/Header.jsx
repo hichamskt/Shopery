@@ -123,7 +123,7 @@ function HeaderTopSide({t,i18n}) {
 function HeaderMidPart({t}){
   const { setShowCard, items } = useCardContext();
 
-  const total = items.reduce((total, item) => {
+  const total = items?.reduce((total, item) => {
     return total + item.price * item.qnt;
   }, 0)
 

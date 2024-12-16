@@ -158,3 +158,27 @@ width: 100%;
     }
     
 }
+
+.ordersent{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.ordersent img{
+  width: 300px;
+}
+.ordersent p:first-of-type{
+  font-size: var(--font-size-body-large);
+    font-weight: var( --font-weight-600);
+    color: #4caf50;
+    margin-top: 1rem;
+}
+.ordersent p:last-of-type{
+  font-size: var(--font-size-body-medium);
+    font-weight: var( --font-weight-500);
+   
+}

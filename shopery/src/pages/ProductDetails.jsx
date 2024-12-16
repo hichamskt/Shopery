@@ -60,6 +60,9 @@ function ProductDetails() {
       )}
 
       <div className="container">
+        <div style={{
+          height:"2rem"
+        }}></div>
         {!loading && <ProductQuickView product={product} />}
         <NavBar />
         {!loading && (

@@ -13,12 +13,15 @@ import BillingSelectInput from "../UI/BillingSelectInput/BillingSelectInput";
 import axiosInstance from "../axios/axiosInstance";
 // import axiosPrivate from "../axios/axiosInstance";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import Footer from "../components/Footer/Footer"
+import ordersentimg from "../assets/5075543.jpg";
 
 function Checkout() {
   const { items , setItems} = useCardContext();
   const { auth } = useAuth();
     const [userData, setUserData] = useState(null);
     const axiosPrivate = useAxiosPrivate();
+  const [orderSent,setOrderSent]=useState(false);
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -41,27 +44,33 @@ function Checkout() {
       <HeaderWhite />
       <Breadcrumbs location={["Shopping Cart", "Checkout"]} />
 
+     {orderSent ? 
       <div className="container">
-        {items?.length > 0 ? (
-          <CheckoutPage auth={auth} items={items} userData={userData} setItems={setItems} />
-        ) : (
-          <div className="shoppingcardnoitms">
-            <img src={emtycard} alt="no items" />
-            <p>You Card Is Empty</p>
-            <NavLink to="/shop">
-              <IoIosArrowBack />
-              Go To Shop
-            </NavLink>
-          </div>
-        )}
-      </div>
+        <OrderSent />
+      </div> :
+      <div className="container">
+      {items?.length > 0 ? (
+        <CheckoutPage auth={auth} items={items} userData={userData} setItems={setItems}  setOrderSent={setOrderSent}/>
+      ) : (
+        <div className="shoppingcardnoitms">
+          <img src={emtycard} alt="no items" />
+          <p>You Card Is Empty</p>
+          <NavLink to="/shop">
+            <IoIosArrowBack />
+            Go To Shop
+          </NavLink>
+        </div>
+      )}
+    </div>
+      }
+      <Footer />
     </div>
   );
 }
 
 export default Checkout;
 
-function CheckoutPage({ auth, items , userData , setItems }) {
+function CheckoutPage({ auth, items , userData , setItems , setOrderSent }) {
   const [showShippingForm, setShowShippingForm] = useState(false);
   const [values, setValues] = useState({
     billingFirstName: "",
@@ -111,7 +120,6 @@ function CheckoutPage({ auth, items , userData , setItems }) {
 
   const [errors, setErrors] = useState({});
 
-  console.log(items)
   
   const handleValueError = () => {
     const newErrors = {};
@@ -206,16 +214,16 @@ function CheckoutPage({ auth, items , userData , setItems }) {
     return newErrors;
   };
   const handleGoToshipform = () => {
-    const newErrors = handleShippinValueError();
+    const newErrors = handleValueError();
     setErrors(newErrors);
-
+    console.log(newErrors)
     if (Object.keys(newErrors).length === 0) {
       setShowShippingForm(true);
     }
   };
 
   const submitForm = async()=>{
-    const total = items.reduce((total, item) => total + item.price * item.qnt, 0);
+    const total = items?.reduce((total, item) => total + item.price * item.qnt, 0);
     try {
       const response = await axiosInstance.post("oreder/createorder", { 
         items,
@@ -226,9 +234,9 @@ function CheckoutPage({ auth, items , userData , setItems }) {
        });
 
       if (response.status === 201) {
-        setItems({});
-        localStorage.removeItem('cardItems');
-        console.log("order successed ")
+        setOrderSent(true);
+        setItems([]);
+        localStorage.setItem("cardItems", JSON.stringify([]));
 
       }
     } catch (err) {
@@ -245,10 +253,10 @@ function CheckoutPage({ auth, items , userData , setItems }) {
     }
   };
   const handleSubmitShipingForm = () => {
-    const newErrors = handleValueError();
+    const newErrors = handleShippinValueError();
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      console.log("valid");
+     submitForm();
     }
   };
 
@@ -752,4 +760,13 @@ function ShippingForm({
       </div>
     </div>
   );
+}
+
+function OrderSent(){
+
+  return<div className="ordersent">
+    <img src={ordersentimg} alt="ordersent" />
+    <p>Thank You For Ordering</p>
+    <p>Your Order has been Successfully Submited</p>
+  </div>
 }
