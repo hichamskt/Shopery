@@ -5,7 +5,38 @@ const bcrypt = require("bcryptjs");
 
 
 
- 
+ const getUserInfo = async (req,res)=>{
+  try {
+    const {email} = req.body;
+
+    if(!email){
+      return res.status(400).json({
+        message: "Something is missing",
+        success: false,
+      });}
+
+     const user = await User.findOne({email});
+
+      if(!user){
+        return res.status(400).json({
+          message: "No User were found",
+          success: false,
+        });
+      }
+    
+    return res.status(201).json({
+      message:
+        "User info were found.",
+        success: true,
+        user
+      });
+
+
+  } catch (error) {
+    console.log(error)
+  }
+
+ }
   
   
   const register = async (req, res) => {
@@ -218,4 +249,4 @@ const getUserBillingInfo = async (req, res)=>{
 }
  
 
-    module.exports = {  register , login , handleRefreshToken,handleLogout , getUserBillingInfo};
+    module.exports = {  register , login , handleRefreshToken,handleLogout , getUserBillingInfo , getUserInfo};
