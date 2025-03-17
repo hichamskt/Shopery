@@ -1,0 +1,72 @@
+.prf-box{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    
+}
+
+
+.prflbox{
+    border: 2px solid #E6E6E6;
+    border-radius: .5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+}
+
+.prf-box img{
+    width: 100px;
+}
+.prflbox p:first-of-type{
+    font-size: var(--font-size-body-xl);
+    font-weight: var(--font-weight-500);
+}
+.prflbox p:nth-of-type(2){
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-400);
+    color: var(--gray-5);
+}
+.prflbox p:nth-of-type(3){
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-500);
+    color: var(--primary);
+    cursor: pointer;
+}
+.usebox{
+    border: 2px solid #E6E6E6;
+    border-radius: .5rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .4rem;
+}
+.usebox .userbxp{
+    font-size: var(--font-size-body-medium);
+    color: var(--gray-5);
+    font-weight: var(--font-weight-400);
+    
+}
+.usebox .useradres{
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+.usebox .useradres p{
+    font-size: var(--font-size-body-medium);
+    color: var(--gray-6);
+    font-weight: var(--font-weight-400);
+}
+.usebox .useradres p:first-of-type{
+    font-size: var(--font-size-body-large);
+    color: var(--gray-9);
+    font-weight: var(--font-weight-500);
+}
+.usebox .ed{
+    font-size: var(--font-size-body-medium);
+    font-weight: var(--font-weight-500);
+    color: var(--primary);
+    cursor: pointer;
+}
