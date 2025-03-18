@@ -70,3 +70,9 @@
     color: var(--primary);
     cursor: pointer;
 }
+
+@media (max-width:800px) {
+    .prf-box{
+        grid-template-columns: 1fr;
+    }
+}

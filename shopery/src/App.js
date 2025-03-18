@@ -21,6 +21,7 @@ import Checkout from "./pages/Checkout";
 
 import Account from "./pages/Account";
 import UserDashboard from "./pages/UserDashboard";
+import Settings from "./pages/Settings";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -56,18 +57,20 @@ function App() {
           </Route>
           
           </Route> */}
-          <Route 
-          path="/account" 
-          element={
-            <RequireAuth>
-              <Account />
-            </RequireAuth>
-          } 
-        >
-          <Route index element={
-            <UserDashboard />} />
-          {/* <Route path="dashboard" element={
+          <Route
+            path="/account"
+            element={
+              <RequireAuth>
+                <Account />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<UserDashboard />} />
+            <Route path="/account/settings" element={<Settings />} />
+            {/* <Route path="dashboard" element={
             <UserDashboard />} /> */}
+
+            
           </Route>
 
           {/* dashboard */}

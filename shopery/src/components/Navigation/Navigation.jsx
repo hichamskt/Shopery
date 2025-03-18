@@ -29,7 +29,7 @@ function Navigation() {
         <IoBagOutline />
         <p>Shopping Cart</p>
       </NavLink>
-      <NavLink to="a" className={({ isActive }) => (isActive ? "active-link" : "")}>
+      <NavLink to="/account/settings" className={({ isActive }) => (isActive ? "active-link" : "")}>
         <IoSettingsOutline />
         <p>Settings</p>
       </NavLink>
