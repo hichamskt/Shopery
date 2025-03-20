@@ -4,6 +4,40 @@ const bcrypt = require("bcryptjs");
 
 
 
+const updateAcountSettings = async (req,res)=>{
+  try {
+    const {email,newEmail,firstName,lastName,phoneNumber} = req.body;
+    if(!email){
+      return res.status(400).json({
+        message: "Something is missing",
+        success: false,
+      });}
+
+      const  updatedUser = await User.findOneAndUpdate(
+        { email },
+        { 
+          $set: { 
+            email: newEmail, 
+            firstName: firstName,
+            lastName:lastName,
+            phoneNumber:phoneNumber
+          } 
+        },
+        { new: true } 
+      );
+      res.json({
+        message: "User updated successfully",
+        success: true,
+        user: updatedUser,
+      });
+
+
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+
 
  const getUserInfo = async (req,res)=>{
   try {
@@ -249,4 +283,4 @@ const getUserBillingInfo = async (req, res)=>{
 }
  
 
-    module.exports = {  register , login , handleRefreshToken,handleLogout , getUserBillingInfo , getUserInfo};
+    module.exports = {  register , login , handleRefreshToken,handleLogout , getUserBillingInfo , getUserInfo , updateAcountSettings};
