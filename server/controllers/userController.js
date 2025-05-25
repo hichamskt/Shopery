@@ -2,33 +2,41 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-
+const path = require("path");
 
 const updateAcountSettings = async (req,res)=>{
   try {
-    const {email,newEmail,firstName,lastName,phoneNumber} = req.body;
+    const {email,updatedemail,firstName,lastName,phoneNumber,images} = req.body;
     if(!email){
       return res.status(400).json({
         message: "Something is missing",
         success: false,
       });}
+      const profile = req.files?.images?.[0]
+      ? path.join('uploads', 'images', req.files.images[0].filename)
+      : null;
 
-      const  updatedUser = await User.findOneAndUpdate(
-        { email },
-        { 
-          $set: { 
-            email: newEmail, 
-            firstName: firstName,
-            lastName:lastName,
-            phoneNumber:phoneNumber
-          } 
-        },
-        { new: true } 
-      );
-      res.json({
+        console.log("profile" , profile)
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+          throw new Error("User not found");
+        }
+        console.log(updatedemail)
+        
+        user.email = updatedemail;
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.phoneNumber = phoneNumber;
+        user.images = profile;
+        
+        const updatedUser = await user.save();
+
+      res.status(201).json({
         message: "User updated successfully",
         success: true,
-        user: updatedUser,
+        user: updatedUser
       });
 
 

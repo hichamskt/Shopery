@@ -30,7 +30,7 @@ const addNewProduct = async (req, res) => {
       const files = req.files;
     //   const brandLogo = req.files?.brandLogo ? req.files.brandLogo[0].path : null;
     // const images = req.files?.images ? req.files.images.map(file => file.path) : [];
-    const brandLogo = req.files?.brandLogo 
+    const brandLogo = req.files ?.brandLogo 
     ? path.join('uploads', 'logo', req.files.brandLogo[0].filename) 
     : null;
   const images = req.files?.images 
