@@ -22,6 +22,7 @@
     padding: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 2rem;
 }
 .savesett{
     padding: .5rem 1rem;
@@ -30,6 +31,28 @@
     font-weight: var(--font-weight-500);
     color: white;
     background-color: var(--primary);
+    border-radius: 1rem;
+    cursor: pointer;
+}
+.profilesetting{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+.profilesetting img{
+    border-radius: 50%;
+    width: 150px;
+    object-fit: cover;
+}
+.profilesetting button{
+    padding: .5rem 1rem;
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-600);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    background-color: white;
     border-radius: 1rem;
     cursor: pointer;
 }
