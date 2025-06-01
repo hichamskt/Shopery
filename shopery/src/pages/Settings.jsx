@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import axiosInstance, { axiosPrivate } from "../axios/axiosInstance";
 import BillingInput from "../UI/BillingInput/BillingInput";
 import profile from "../assets/no_profile.png"
+import BillingSelectInput from "../UI/BillingSelectInput/BillingSelectInput";
 
 function Settings() {
   const [userInfo, setUserInfo] = useState([]);
@@ -26,12 +27,12 @@ function Settings() {
     fetchData();
   }, []);
 
-  console.log("settingdata:", userInfo);
-  console.log("settingdataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+ 
 
   return (
     <div>
       <AccountSettings userInfo={userInfo} setUserInfo={setUserInfo} auth={auth} />
+      <BilingAdress userInfo={userInfo} setUserInfo={setUserInfo} ></BilingAdress>
     </div>
   );
 }
@@ -195,7 +196,7 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
     fileInputRef.current.click();
   }
 
-  console.log(typeof userInfo.images === "object")
+ 
   
 
   return (
@@ -233,4 +234,194 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
       </div>
     </div>
   );
+}
+
+
+function BilingAdress({userInfo,setUserInfo}){
+
+const [errors, setErrors] = useState({});
+
+    const inputs2 = [
+    {
+      id: 1,
+      name: "billingFirstName",
+      type: "text",
+      placeholder: "Your first name",
+      errorMessage:
+        "First name  must only contain letters and be between 2 and 15 characters long",
+      label: "First name",
+      pattern: "^[A-Za-z]{2,15}$",
+      required: true,
+    },
+    {
+      id: 2,
+      name: "billingLastName",
+      type: "text",
+      placeholder: "Your Last Name",
+      errorMessage:
+        "The Last name must only contain letters and be between 2 and 15 characters long",
+      label: "Last Name",
+      pattern: "^[A-Za-z]{2,15}$",
+      required: true,
+    },
+    {
+      id: 3,
+      name: "companyName",
+      type: "text",
+      placeholder: "Company name",
+      errorMessage: "It should be a valid Last Name",
+      label: "Company Name (optional)",
+      required: false,
+    },
+  ];
+
+
+ const streeadinput = {
+    id: 4,
+    name: "streetAdresse",
+    type: "text",
+    placeholder: "Your Street Adresse",
+    errorMessage:
+      "Enter a valid street address (letters, numbers, and common symbols only).",
+    label: "Street Adresse",
+    pattern: "^[A-Za-z0-9 ,.#'\\-]{3,100}$",
+    required: true,
+  };
+
+    const selectinputs = [
+    {
+      id: 1,
+      name: "billingRegion",
+      errorMessage: "",
+      label: "Region",
+      options: [
+        "Tanger-Tétouan-Al Hoceïma",
+        "Souss-Massa",
+        "Guelmim-Oued Noun[A]",
+        "Laâyoune-Sakia El Hamra[A]",
+      ],
+    },
+    {
+      id: 1,
+      name: "city",
+      errorMessage: "",
+      label: "City",
+      options: ["Tanger", "Agidir", "Guelmim", "Laâyoune"],
+    },
+  ];
+
+  const zipCodeinput = {
+    
+      id: 2,
+      name: "zipCode",
+      type: "text",
+      placeholder: "Zip Code",
+      errorMessage: "It should be a valid ZipCode!",
+      label: "Zip Code",
+      pattern: "[0-9]{5}",
+      required: true,
+    
+  }
+   const inputs1 = [
+    {
+      id: 1,
+      name: "billingEmail",
+      type: "email",
+      placeholder: "Email",
+      errorMessage: "It should be a valid email address!",
+      label: "Email",
+      required: true,
+    },
+   
+    {
+      id: 2,
+      name: "billingphoneNumber",
+      type: "text",
+      placeholder: "Phone Number",
+      errorMessage: "It should be a valid Phone Number!",
+      label: "Phone",
+      pattern: "[0-9]{9,11}",
+      required: true,
+    },
+  ];
+
+ const onChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo({
+      ...userInfo,
+      [name]: value,
+    });
+
+    if (errors[name]) {
+      const updatedErrors = { ...errors };
+
+      delete updatedErrors[name];
+      setErrors(updatedErrors);
+    }
+  };
+
+
+  return(
+    <div className="acsetting">
+      <div className="acsetheader">Billing Address</div>
+      <div className="billingadressetBtingbox">
+        <div className="b-ling1">
+
+           {inputs2.map((input) => (
+            <BillingInput
+              key={input.id}
+              {...input}
+              value={userInfo[input.name]}
+              onChange={onChange}
+              err={errors[input.name]}
+            />
+          ))}
+
+        </div>
+       <BillingInput
+        {...streeadinput}
+        value={userInfo[streeadinput.name]}
+        onChange={onChange}
+        err={errors[streeadinput.name]}
+      />
+  <div className="b-ling1">
+ {selectinputs.map((input, i) => (
+          <BillingSelectInput
+            key={input.id + i}
+            {...input}
+            onChange={onChange}
+            value={userInfo[input.name]}
+            errorMessage={errors[input.name]}
+          />
+        ))}
+        
+     
+       <BillingInput
+        {...zipCodeinput}
+        value={userInfo[zipCodeinput.name]}
+        onChange={onChange}
+        err={errors[zipCodeinput.name]}
+      />    
+
+  </div>
+
+<div className="b-ling1">
+   {inputs1.map((input) => (
+            <BillingInput
+              key={input.id}
+              {...input}
+              value={userInfo[input.name]}
+              onChange={onChange}
+              err={errors[input.name]}
+            />
+          ))}
+
+</div>
+<div>
+ <button className="savesett" >Save Changes</button>
+</div>
+      </div>
+
+    </div>
+  )
 }

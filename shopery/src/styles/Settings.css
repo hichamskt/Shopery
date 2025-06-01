@@ -56,3 +56,28 @@
     border-radius: 1rem;
     cursor: pointer;
 }
+
+.billingadressetBtingbox{
+     border: 2px solid #E6E6E6;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    border-top: none;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+   
+}
+
+.b-ling1{
+    display: flex;
+    
+    gap: 1rem;
+    
+}
+
+@media  (max-width:750px) {
+.b-ling1{
+    flex-wrap: wrap;
+}
+}
