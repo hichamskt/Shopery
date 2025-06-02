@@ -1,6 +1,7 @@
 .navigation{
     border: 2px solid #E6E6E6;
     border-radius: .5rem;
+    max-height: fit-content;
 }
 
 .navigation .navigp{

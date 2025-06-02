@@ -5,6 +5,7 @@ import axiosInstance, { axiosPrivate } from "../axios/axiosInstance";
 import BillingInput from "../UI/BillingInput/BillingInput";
 import profile from "../assets/no_profile.png"
 import BillingSelectInput from "../UI/BillingSelectInput/BillingSelectInput";
+import Registerinput from "../UI/Registerinput/Registerinput";
 
 function Settings() {
   const [userInfo, setUserInfo] = useState([]);
@@ -30,9 +31,14 @@ function Settings() {
  
 
   return (
-    <div>
+    <div style={{
+          display:"flex",
+          flexDirection:"column",
+          gap:"1rem"
+        }}>
       <AccountSettings userInfo={userInfo} setUserInfo={setUserInfo} auth={auth} />
-      <BilingAdress userInfo={userInfo} setUserInfo={setUserInfo} ></BilingAdress>
+      <BilingAdress userInfo={userInfo} setUserInfo={setUserInfo} />
+      <ChangePassword userInfo={userInfo} setUserInfo={setUserInfo} />
     </div>
   );
 }
@@ -203,7 +209,13 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
     <div className="acsetting">
       <div className="acsetheader">Account Settings</div>
       <div className="acsetbox">
-        <div>
+        <div
+        style={{
+          display:"flex",
+          flexDirection:"column",
+          gap:"0.5rem"
+        }}
+        >
           {inputs1.map((input) => (
             <BillingInput
               key={input.id}
@@ -213,8 +225,11 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
               err={errors[input.name]}
             />
           ))}
+  <div>
 
-          <button className="savesett" onClick={()=>handleSubmitOrderForm()}>Save Changes</button>
+        <button className="savesett" onClick={()=>handleSubmitOrderForm()}>Save Changes</button>
+
+  </div>
         </div>
         <div className="profilesetting">
           <img 
@@ -422,6 +437,95 @@ const [errors, setErrors] = useState({});
 </div>
       </div>
 
+    </div>
+  )
+}
+
+
+function ChangePassword({userInfo,setUserInfo}){
+  const [errors, setErrors] = useState({});
+  const [newPassword,setNewPassword]=useState("");
+  const [password,setPassword]=useState("");
+  
+
+  const onChange = (e) => {
+    const { name, value, } = e.target;
+    setPassword(value);
+
+    if (errors[name]) {
+     
+      const updatedErrors = { ...errors }; 
+      
+      delete updatedErrors[name];         
+      setErrors(updatedErrors);           
+    }
+    
+  };
+  const onChangeNewPassword = (e) => {
+    const { name, value, } = e.target;
+    setNewPassword(value);
+
+    if (errors[name]) {
+     
+      const updatedErrors = { ...errors }; 
+      
+      delete updatedErrors[name];         
+      setErrors(updatedErrors);           
+    }
+    
+  };
+
+  const pswrd = 
+     {
+      id: 1,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      errorMessage:
+        "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+      label: "Password",
+      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+      required: true,
+    }
+  
+
+    
+
+  return(
+    <div className="acsetting">
+      <div className="acsetheader">Change Password</div>
+<div className="billingadressetBtingbox">
+            <BillingInput
+              {...pswrd}
+              value={password}
+              onChange={onChange}
+              err = {errors[pswrd.name]}
+              />
+
+        <div className="b-ling1">
+           <BillingInput
+              {...pswrd}
+              label="New Password"
+              name="newPassword"
+              value={password}
+              onChange={onChangeNewPassword}
+              err = {errors[pswrd.name]}
+              />
+               <BillingInput
+              {...pswrd}
+              label="Confirm Password"
+              name="confirmPassword"
+              errorMessage=""
+              value={password}
+              onChange={onChange}
+              err = {errors[pswrd.name]}
+              />
+
+        </div>
+        <div>
+ <button className="savesett" >Save Changes</button>
+</div>
+              </div>
     </div>
   )
 }
