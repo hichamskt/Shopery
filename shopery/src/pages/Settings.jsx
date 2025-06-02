@@ -5,9 +5,8 @@ import axiosInstance, { axiosPrivate } from "../axios/axiosInstance";
 import BillingInput from "../UI/BillingInput/BillingInput";
 import profile from "../assets/no_profile.png";
 import BillingSelectInput from "../UI/BillingSelectInput/BillingSelectInput";
-import Registerinput from "../UI/Registerinput/Registerinput";
 
-function Settings() {
+function Settings({ setMessage, setShowToast }) {
   const [userInfo, setUserInfo] = useState([]);
   const { auth } = useAuth();
   useEffect(() => {
@@ -40,12 +39,22 @@ function Settings() {
         userInfo={userInfo}
         setUserInfo={setUserInfo}
         auth={auth}
+        setMessage={setMessage}
+        setShowToast={setShowToast}
       />
-      <BilingAdress userInfo={userInfo} setUserInfo={setUserInfo} auth={auth} />
+      <BilingAdress
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+        auth={auth}
+        setMessage={setMessage}
+        setShowToast={setShowToast}
+      />
       <ChangePassword
         userInfo={userInfo}
         setUserInfo={setUserInfo}
         auth={auth}
+        setMessage={setMessage}
+        setShowToast={setShowToast}
       />
     </div>
   );
@@ -53,7 +62,13 @@ function Settings() {
 
 export default Settings;
 
-function AccountSettings({ userInfo, setUserInfo, auth }) {
+function AccountSettings({
+  userInfo,
+  setUserInfo,
+  auth,
+  setMessage,
+  setShowToast,
+}) {
   const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
 
@@ -150,6 +165,8 @@ function AccountSettings({ userInfo, setUserInfo, auth }) {
 
       if (response.status === 201) {
         console.log("updated");
+        setMessage("Account Settings updated successfully");
+        setShowToast(true);
       }
     } catch (err) {
       console.log("Error fetching data:", err);
@@ -254,7 +271,13 @@ function AccountSettings({ userInfo, setUserInfo, auth }) {
   );
 }
 
-function BilingAdress({ userInfo, setUserInfo, auth }) {
+function BilingAdress({
+  userInfo,
+  setUserInfo,
+  auth,
+  setMessage,
+  setShowToast,
+}) {
   const [errors, setErrors] = useState({});
 
   const handleValueError = () => {
@@ -326,8 +349,10 @@ function BilingAdress({ userInfo, setUserInfo, auth }) {
         }
       );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log("Updated successfully");
+        setMessage("Updated successfully");
+        setShowToast(true);
       }
     } catch (err) {
       console.error("Error submitting form:", err);
@@ -337,7 +362,6 @@ function BilingAdress({ userInfo, setUserInfo, auth }) {
   const handleSubmitOrderForm = () => {
     const newErrors = handleValueError();
     setErrors(newErrors);
-    
 
     if (Object.keys(newErrors).length === 0) {
       submitForm();
@@ -519,7 +543,11 @@ function BilingAdress({ userInfo, setUserInfo, auth }) {
   );
 }
 
-function ChangePassword({ userInfo, setUserInfo, auth }) {
+function ChangePassword({
+  auth,
+  setMessage,
+  setShowToast,
+}) {
   const [errors, setErrors] = useState({});
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -550,51 +578,46 @@ function ChangePassword({ userInfo, setUserInfo, auth }) {
     }
     if (!confirmPassword) {
       newErrors.confirmPassword = "This field is required.";
-    } else if (
-      newPassword !== confirmPassword
-      )
-     {
-     newErrors.confirmPassword = "Passwords do not match.";
+    } else if (newPassword !== confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
     }
-
-  
 
     return newErrors;
   };
 
-
-const handleSubmitOrderForm = () => {
+  const handleSubmitOrderForm = () => {
     const newErrors = handleValueError();
     setErrors(newErrors);
-    
 
     if (Object.keys(newErrors).length === 0) {
       submitForm();
-      
     }
   };
 
   const submitForm = async () => {
-    
-    
-      try {
-         await axiosInstance.post("/user/changePassword", {
-          email: auth.email,
-          password,
-          newPassword,
-        });
-      } catch (err) {
-        if (err.response?.status === 401) {
-          const newErrors = {};
-          newErrors.password = err.response.data.message;
-
-          setErrors(newErrors);
-        } else {
-          console.error("An unexpected error occurred:", err.message);
-        }
-
-        console.error(err.response?.data || err.message);
+    try {
+      const response = await axiosInstance.post("/user/changePassword", {
+        email: auth.email,
+        password,
+        newPassword,
+      });
+      if (response?.status === 200) {
+         setMessage(response.data.message);
+        setShowToast(true);
       }
+    } catch (err) {
+      if (err.response?.status === 401) {
+        const newErrors = {};
+        newErrors.password = err.response.data.message;
+
+        setErrors(newErrors);
+      } 
+      else {
+        console.error("An unexpected error occurred:", err.message);
+      }
+
+      console.error(err.response?.data || err.message);
+    }
   };
 
   const onChange = (e) => {
@@ -674,11 +697,10 @@ const handleSubmitOrderForm = () => {
           />
         </div>
         <div>
-          <button className="savesett" onClick={() =>handleSubmitOrderForm()}>
+          <button className="savesett" onClick={() => handleSubmitOrderForm()}>
             Save Changes
           </button>
         </div>
-        <div class="tenor-gif-embed" data-postid="16677782" data-share-method="host" data-aspect-ratio="1.02564" data-width="100%"><a href="https://tenor.com/view/check-green-white-background-gif-16677782">Check Green GIF</a>from <a href="https://tenor.com/search/check-gifs">Check GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
       </div>
     </div>
   );

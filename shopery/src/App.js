@@ -22,15 +22,28 @@ import Checkout from "./pages/Checkout";
 import Account from "./pages/Account";
 import UserDashboard from "./pages/UserDashboard";
 import Settings from "./pages/Settings";
+import { useState } from "react";
+import Toast from "./components/Toast/Toast";
 
 function App() {
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
+const [showToast, setShowToast] = useState(false);
+const [message, setMessage] = useState('');
 
+  const handleShowToast = () => setShowToast(true);
+  const handleCloseToast = () => setShowToast(false);
+
+  
   return (
     <div className="App">
+       {showToast && (
+        
+      <Toast message={message} onClose={handleCloseToast} duration={2000} />
+      )}
+      
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
@@ -66,7 +79,7 @@ function App() {
             }
           >
             <Route index element={<UserDashboard />} />
-            <Route path="/account/settings" element={<Settings />} />
+            <Route path="/account/settings" element={<Settings setMessage={setMessage} setShowToast={setShowToast} />} />
             {/* <Route path="dashboard" element={
             <UserDashboard />} /> */}
 

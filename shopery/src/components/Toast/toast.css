@@ -1,0 +1,46 @@
+.toastBox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    background: #ffffff;
+    width: 90%;
+    max-width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+    text-align: center;
+    gap: 15px;
+    font-size: var(--font-size-body-xl);
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-500);
+    color: var(--gray-8);
+}
+
+.toastBox img {
+    height: 180px;
+    object-fit: cover;
+}
+
+
+
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
