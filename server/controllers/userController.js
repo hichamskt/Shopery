@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const path = require("path");
+const { Console } = require("console");
 
 const updateAcountSettings = async (req, res) => {
   try {
@@ -56,6 +57,7 @@ const updateBillingAddress = async (req, res) => {
       billingphoneNumber,
       companyName,
       zipCode,
+      city
     } = req.body;
 
     if (!email) {
@@ -64,7 +66,7 @@ const updateBillingAddress = async (req, res) => {
         success: false,
       });
     }
-
+    console.log("submited:")
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -74,16 +76,18 @@ const updateBillingAddress = async (req, res) => {
       });
     }
 
-    user.billing = {
-      adresse: billingAdresse,
-      region: billingRegion,
-      firstName: billingFirstName,
-      lastName: billingLastName,
-      email: billingEmail,
-      phoneNumber: billingphoneNumber,
-      companyName,
-      zipCode,
-    };
+    
+      user.billingAdresse= billingAdresse 
+      user.billingRegion= billingRegion
+      user.billingFirstName= billingFirstName
+      user.billingLastName= billingLastName
+      user.billingEmail= billingEmail
+      user.billingphoneNumber= billingphoneNumber
+      user.companyName=companyName
+      user.zipCode=zipCode
+      user.city=city
+
+    
 
     const updatedUser = await user.save();
 

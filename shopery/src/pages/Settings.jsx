@@ -3,7 +3,7 @@ import "../styles/Settings.css";
 import useAuth from "../hooks/useAuth";
 import axiosInstance, { axiosPrivate } from "../axios/axiosInstance";
 import BillingInput from "../UI/BillingInput/BillingInput";
-import profile from "../assets/no_profile.png"
+import profile from "../assets/no_profile.png";
 import BillingSelectInput from "../UI/BillingSelectInput/BillingSelectInput";
 import Registerinput from "../UI/Registerinput/Registerinput";
 
@@ -28,30 +28,38 @@ function Settings() {
     fetchData();
   }, []);
 
- 
-
   return (
-    <div style={{
-          display:"flex",
-          flexDirection:"column",
-          gap:"1rem"
-        }}>
-      <AccountSettings userInfo={userInfo} setUserInfo={setUserInfo} auth={auth} />
-      <BilingAdress userInfo={userInfo} setUserInfo={setUserInfo} />
-      <ChangePassword userInfo={userInfo} setUserInfo={setUserInfo} />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+    >
+      <AccountSettings
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+        auth={auth}
+      />
+      <BilingAdress userInfo={userInfo} setUserInfo={setUserInfo} auth={auth} />
+      <ChangePassword
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+        auth={auth}
+      />
     </div>
   );
 }
 
 export default Settings;
 
-function AccountSettings({ userInfo, setUserInfo , auth}) {
+function AccountSettings({ userInfo, setUserInfo, auth }) {
   const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
-  
+
   const inputs1 = [
     {
-      id: 1,
+      id: 101,
       name: "firstName",
       type: "text",
       placeholder: "Your first name",
@@ -62,7 +70,7 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
       required: true,
     },
     {
-      id: 2,
+      id: 102,
       name: "lastName",
       type: "text",
       placeholder: "Your Last Name",
@@ -73,7 +81,7 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
       required: true,
     },
     {
-      id: 3,
+      id: 103,
       name: "email",
       type: "email",
       placeholder: "Email",
@@ -82,7 +90,7 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
       required: true,
     },
     {
-      id: 4,
+      id: 104,
       name: "phoneNumber",
       type: "text",
       placeholder: "Phone Number",
@@ -122,10 +130,7 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
     return newErrors;
   };
 
-
-  console.log(userInfo.images)
-  const submitForm = async()=>{
-
+  const submitForm = async () => {
     const formData = new FormData();
     formData.append("email", auth.email);
     formData.append("updatedemail", userInfo.email);
@@ -134,37 +139,33 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
     formData.append("phoneNumber", userInfo.phoneNumber);
     formData.append("images", userInfo.images.file);
 
-
-    
     try {
-      const response = await axiosInstance.post("user/updateAcountSettings", formData,
-       {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
+      const response = await axiosInstance.post(
+        "user/updateAcountSettings",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
 
       if (response.status === 201) {
-        console.log("updated")
-
+        console.log("updated");
       }
     } catch (err) {
       console.log("Error fetching data:", err);
     }
-
-  }
+  };
 
   const handleSubmitOrderForm = () => {
     const newErrors = handleValueError();
     setErrors(newErrors);
-    console.log("clicked")
-    
+    console.log("clicked");
+
     if (Object.keys(newErrors).length === 0) {
       submitForm();
-      console.log("submitted")
+      console.log("submitted");
     }
   };
-
-
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -186,7 +187,6 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
 
     if (file.length === 0) return;
 
-    
     setUserInfo((prevUserInfo) => ({
       ...prevUserInfo,
       images: {
@@ -195,26 +195,21 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
         url: URL.createObjectURL(file),
       },
     }));
-
-    
   }
   function selectFile() {
     fileInputRef.current.click();
   }
-
- 
-  
 
   return (
     <div className="acsetting">
       <div className="acsetheader">Account Settings</div>
       <div className="acsetbox">
         <div
-        style={{
-          display:"flex",
-          flexDirection:"column",
-          gap:"0.5rem"
-        }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+          }}
         >
           {inputs1.map((input) => (
             <BillingInput
@@ -225,25 +220,33 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
               err={errors[input.name]}
             />
           ))}
-  <div>
-
-        <button className="savesett" onClick={()=>handleSubmitOrderForm()}>Save Changes</button>
-
-  </div>
+          <div>
+            <button
+              className="savesett"
+              onClick={() => handleSubmitOrderForm()}
+            >
+              Save Changes
+            </button>
+          </div>
         </div>
         <div className="profilesetting">
-          <img 
-           src={
-            userInfo.images?
-            typeof userInfo.images === "object"
-            ? userInfo.images.url:
-          `${process.env.REACT_APP_BACKEND_URL}${userInfo.images}`
-          : profile
-          }
-          
-          
-          alt="profile"/>
-          <input type="file" style={{display:"none"}} name="images"  onChange={onFileSelect} ref={fileInputRef}/>
+          <img
+            src={
+              userInfo.images
+                ? typeof userInfo.images === "object"
+                  ? userInfo.images.url
+                  : `${process.env.REACT_APP_BACKEND_URL}${userInfo.images}`
+                : profile
+            }
+            alt="profile"
+          />
+          <input
+            type="file"
+            style={{ display: "none" }}
+            name="images"
+            onChange={onFileSelect}
+            ref={fileInputRef}
+          />
           <button onClick={selectFile}>Chose image</button>
         </div>
       </div>
@@ -251,14 +254,100 @@ function AccountSettings({ userInfo, setUserInfo , auth}) {
   );
 }
 
+function BilingAdress({ userInfo, setUserInfo, auth }) {
+  const [errors, setErrors] = useState({});
 
-function BilingAdress({userInfo,setUserInfo}){
+  const handleValueError = () => {
+    const newErrors = {};
 
-const [errors, setErrors] = useState({});
+    if (!userInfo.billingEmail?.trim()) {
+      newErrors.billingEmail = "Email is required.";
+    } else if (!/^\S+@\S+\.\S+$/.test(userInfo.billingEmail)) {
+      newErrors.billingEmail = "Enter a valid email address.";
+    }
 
-    const inputs2 = [
+    if (!userInfo.zipCode?.trim()) {
+      newErrors.zipCode = "Zip Code is required.";
+    } else if (!/^[0-9]{5}$/.test(userInfo.zipCode)) {
+      newErrors.zipCode = "It should be a valid Zip Code!";
+    }
+
+    if (!userInfo.billingphoneNumber?.trim()) {
+      newErrors.billingphoneNumber = "Phone Number is required.";
+    } else if (!/^[0-9]{9,11}$/.test(userInfo.billingphoneNumber)) {
+      newErrors.billingphoneNumber = "It should be a valid Phone Number!";
+    }
+
+    if (!userInfo.billingRegion?.trim()) {
+      newErrors.billingRegion = "This field is required.";
+    }
+    if (!userInfo.city?.trim()) {
+      newErrors.city = "This field is required.";
+    }
+
+    if (!userInfo.billingFirstName?.trim()) {
+      newErrors.billingFirstName = "First Name is required.";
+    } else if (!/^[A-Za-z]{2,15}$/.test(userInfo.billingFirstName)) {
+      newErrors.billingFirstName =
+        "First name must only contain letters and be between 2 and 15 characters long.";
+    }
+
+    if (!userInfo.billingLastName?.trim()) {
+      newErrors.billingLastName = "Last Name is required.";
+    } else if (!/^[A-Za-z]{2,15}$/.test(userInfo.billingLastName)) {
+      newErrors.billingLastName =
+        "Last name must only contain letters and be between 2 and 15 characters long.";
+    }
+
+    if (!userInfo.billingAdresse?.trim()) {
+      newErrors.billingAdresse = "Street Address is required.";
+    } else if (!/^[A-Za-z0-9 ,.#'\\-]{3,100}$/.test(userInfo.billingAdresse)) {
+      newErrors.billingAdresse =
+        "Street Address must be between 3 and 100 characters and contain only valid characters.";
+    }
+
+    return newErrors;
+  };
+
+  console.log(errors);
+
+  const submitForm = async () => {
+    try {
+      const response = await axiosInstance.post(
+        "user/updateBillingAddress",
+        {
+          email: auth.email,
+          ...userInfo,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        console.log("Updated successfully");
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+    }
+  };
+
+  const handleSubmitOrderForm = () => {
+    const newErrors = handleValueError();
+    setErrors(newErrors);
+    
+
+    if (Object.keys(newErrors).length === 0) {
+      submitForm();
+      console.log("submitted");
+    }
+  };
+
+  const inputs2 = [
     {
-      id: 1,
+      id: 10,
       name: "billingFirstName",
       type: "text",
       placeholder: "Your first name",
@@ -269,7 +358,7 @@ const [errors, setErrors] = useState({});
       required: true,
     },
     {
-      id: 2,
+      id: 20,
       name: "billingLastName",
       type: "text",
       placeholder: "Your Last Name",
@@ -280,7 +369,7 @@ const [errors, setErrors] = useState({});
       required: true,
     },
     {
-      id: 3,
+      id: 30,
       name: "companyName",
       type: "text",
       placeholder: "Company name",
@@ -290,10 +379,9 @@ const [errors, setErrors] = useState({});
     },
   ];
 
-
- const streeadinput = {
-    id: 4,
-    name: "streetAdresse",
+  const streeadinput = {
+    id: 40,
+    name: "billingAdresse",
     type: "text",
     placeholder: "Your Street Adresse",
     errorMessage:
@@ -303,7 +391,7 @@ const [errors, setErrors] = useState({});
     required: true,
   };
 
-    const selectinputs = [
+  const selectinputs = [
     {
       id: 1,
       name: "billingRegion",
@@ -317,29 +405,27 @@ const [errors, setErrors] = useState({});
       ],
     },
     {
-      id: 1,
+      id: 11,
       name: "city",
       errorMessage: "",
       label: "City",
-      options: ["Tanger", "Agidir", "Guelmim", "Laâyoune"],
+      options: ["Tanger", "Agadir", "Guelmim", "Laâyoune"],
     },
   ];
 
   const zipCodeinput = {
-    
-      id: 2,
-      name: "zipCode",
-      type: "text",
-      placeholder: "Zip Code",
-      errorMessage: "It should be a valid ZipCode!",
-      label: "Zip Code",
-      pattern: "[0-9]{5}",
-      required: true,
-    
-  }
-   const inputs1 = [
+    id: 12,
+    name: "zipCode",
+    type: "text",
+    placeholder: "Zip Code",
+    errorMessage: "It should be a valid ZipCode!",
+    label: "Zip Code",
+    pattern: "[0-9]{5}",
+    required: true,
+  };
+  const inputs1 = [
     {
-      id: 1,
+      id: 111,
       name: "billingEmail",
       type: "email",
       placeholder: "Email",
@@ -347,9 +433,9 @@ const [errors, setErrors] = useState({});
       label: "Email",
       required: true,
     },
-   
+
     {
-      id: 2,
+      id: 112,
       name: "billingphoneNumber",
       type: "text",
       placeholder: "Phone Number",
@@ -360,12 +446,9 @@ const [errors, setErrors] = useState({});
     },
   ];
 
- const onChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo({
-      ...userInfo,
-      [name]: value,
-    });
+  const onChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setUserInfo({ ...userInfo, [name]: type === "checkbox" ? checked : value });
 
     if (errors[name]) {
       const updatedErrors = { ...errors };
@@ -375,14 +458,12 @@ const [errors, setErrors] = useState({});
     }
   };
 
-
-  return(
+  return (
     <div className="acsetting">
       <div className="acsetheader">Billing Address</div>
       <div className="billingadressetBtingbox">
         <div className="b-ling1">
-
-           {inputs2.map((input) => (
+          {inputs2.map((input) => (
             <BillingInput
               key={input.id}
               {...input}
@@ -391,37 +472,34 @@ const [errors, setErrors] = useState({});
               err={errors[input.name]}
             />
           ))}
-
         </div>
-       <BillingInput
-        {...streeadinput}
-        value={userInfo[streeadinput.name]}
-        onChange={onChange}
-        err={errors[streeadinput.name]}
-      />
-  <div className="b-ling1">
- {selectinputs.map((input, i) => (
-          <BillingSelectInput
-            key={input.id + i}
-            {...input}
+        <BillingInput
+          {...streeadinput}
+          value={userInfo[streeadinput.name]}
+          onChange={onChange}
+          err={errors[streeadinput.name]}
+        />
+        <div className="b-ling1">
+          {selectinputs.map((input, i) => (
+            <BillingSelectInput
+              key={input.id + i}
+              {...input}
+              onChange={onChange}
+              value={userInfo[input.name]}
+              errorMessage={errors[input.name]}
+            />
+          ))}
+
+          <BillingInput
+            {...zipCodeinput}
+            value={userInfo[zipCodeinput.name]}
             onChange={onChange}
-            value={userInfo[input.name]}
-            errorMessage={errors[input.name]}
+            err={errors[zipCodeinput.name]}
           />
-        ))}
-        
-     
-       <BillingInput
-        {...zipCodeinput}
-        value={userInfo[zipCodeinput.name]}
-        onChange={onChange}
-        err={errors[zipCodeinput.name]}
-      />    
+        </div>
 
-  </div>
-
-<div className="b-ling1">
-   {inputs1.map((input) => (
+        <div className="b-ling1">
+          {inputs1.map((input) => (
             <BillingInput
               key={input.id}
               {...input}
@@ -430,102 +508,186 @@ const [errors, setErrors] = useState({});
               err={errors[input.name]}
             />
           ))}
-
-</div>
-<div>
- <button className="savesett" >Save Changes</button>
-</div>
+        </div>
+        <div>
+          <button className="savesett" onClick={() => handleSubmitOrderForm()}>
+            Save Changes
+          </button>
+        </div>
       </div>
-
     </div>
-  )
+  );
 }
 
-
-function ChangePassword({userInfo,setUserInfo}){
+function ChangePassword({ userInfo, setUserInfo, auth }) {
   const [errors, setErrors] = useState({});
-  const [newPassword,setNewPassword]=useState("");
-  const [password,setPassword]=useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleValueError = () => {
+    const newErrors = {};
+
+    if (!password) {
+      newErrors.password = "Password is required.";
+    } else if (
+      !/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
+        password
+      )
+    ) {
+      newErrors.password =
+        "Password must be 8–20 characters and include at least one letter, one number, and one special character.";
+    }
+    if (!newPassword) {
+      newErrors.newPassword = "Password is required.";
+    } else if (
+      !/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
+        newPassword
+      )
+    ) {
+      newErrors.newPassword =
+        "Password must be 8–20 characters and include at least one letter, one number, and one special character.";
+    }
+    if (!confirmPassword) {
+      newErrors.confirmPassword = "This field is required.";
+    } else if (
+      newPassword !== confirmPassword
+      )
+     {
+     newErrors.confirmPassword = "Passwords do not match.";
+    }
+
   
 
+    return newErrors;
+  };
+
+
+const handleSubmitOrderForm = () => {
+    const newErrors = handleValueError();
+    setErrors(newErrors);
+    console.log("clicked");
+
+    if (Object.keys(newErrors).length === 0) {
+      submitForm();
+      console.log("submitted");
+    }
+  };
+
+  const submitForm = async () => {
+    const newErrors = {};
+
+    if (newPassword !== confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
+    }
+
+    setErrors(newErrors);
+    console.log("sub");
+
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        const response = await axiosInstance.post("/user/", {
+          email: auth.email,
+          password,
+          newPassword,
+        });
+      } catch (err) {
+        if (err.response?.status === 409) {
+          const newErrors = {};
+          newErrors.email = err.response.data.message;
+
+          setErrors(newErrors);
+        } else {
+          console.error("An unexpected error occurred:", err.message);
+        }
+
+        console.error(err.response?.data || err.message);
+      }
+    }
+  };
+
   const onChange = (e) => {
-    const { name, value, } = e.target;
+    const { name, value } = e.target;
     setPassword(value);
 
     if (errors[name]) {
-     
-      const updatedErrors = { ...errors }; 
-      
-      delete updatedErrors[name];         
-      setErrors(updatedErrors);           
+      const updatedErrors = { ...errors };
+
+      delete updatedErrors[name];
+      setErrors(updatedErrors);
     }
-    
   };
   const onChangeNewPassword = (e) => {
-    const { name, value, } = e.target;
+    const { name, value } = e.target;
     setNewPassword(value);
 
     if (errors[name]) {
-     
-      const updatedErrors = { ...errors }; 
-      
-      delete updatedErrors[name];         
-      setErrors(updatedErrors);           
+      const updatedErrors = { ...errors };
+
+      delete updatedErrors[name];
+      setErrors(updatedErrors);
     }
-    
+  };
+  const onConfirmPassword = (e) => {
+    const { name, value } = e.target;
+    setConfirmPassword(value);
+
+    if (errors[name]) {
+      const updatedErrors = { ...errors };
+
+      delete updatedErrors[name];
+      setErrors(updatedErrors);
+    }
   };
 
-  const pswrd = 
-     {
-      id: 1,
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      errorMessage:
-        "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
-      label: "Password",
-      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
-      required: true,
-    }
-  
+  const pswrd = {
+    id: 10,
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+    errorMessage:
+      "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+    label: "Password",
+    pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+    required: true,
+  };
 
-    
-
-  return(
+  return (
     <div className="acsetting">
       <div className="acsetheader">Change Password</div>
-<div className="billingadressetBtingbox">
-            <BillingInput
-              {...pswrd}
-              value={password}
-              onChange={onChange}
-              err = {errors[pswrd.name]}
-              />
+      <div className="billingadressetBtingbox">
+        <BillingInput
+          {...pswrd}
+          value={password}
+          onChange={onChange}
+          err={errors[pswrd.name]}
+        />
 
         <div className="b-ling1">
-           <BillingInput
-              {...pswrd}
-              label="New Password"
-              name="newPassword"
-              value={password}
-              onChange={onChangeNewPassword}
-              err = {errors[pswrd.name]}
-              />
-               <BillingInput
-              {...pswrd}
-              label="Confirm Password"
-              name="confirmPassword"
-              errorMessage=""
-              value={password}
-              onChange={onChange}
-              err = {errors[pswrd.name]}
-              />
-
+          <BillingInput
+            {...pswrd}
+            label="New Password"
+            name="newPassword"
+            value={newPassword}
+            onChange={onChangeNewPassword}
+            err={errors["newPassword"]}
+          />
+          <BillingInput
+            {...pswrd}
+            label="Confirm Password"
+            name="confirmPassword"
+            errorMessage=""
+            value={confirmPassword}
+            onChange={onConfirmPassword}
+            err={errors["confirmPassword"]}
+          />
         </div>
         <div>
- <button className="savesett" >Save Changes</button>
-</div>
-              </div>
+          <button className="savesett" onClick={() =>handleSubmitOrderForm()}>
+            Save Changes
+          </button>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
