@@ -244,6 +244,62 @@ const login = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  try {
+    const { email, password, newPassword } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email or password is missing.",
+        success: false,
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Invalid email or password.",
+        success: false,
+      });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return res.status(401).json({
+        message: "Invalid  password.",
+        success: false,
+      });
+    }
+
+    if (!newPassword || newPassword.trim().length < 8) {
+      return res.status(400).json({
+        message: "New password is invalid or too short.",
+        success: false,
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+    await user.save();
+
+    return res.status(200).json({
+      message: "Password updated successfully.",
+      success: true,
+    });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal Server Error.",
+      success: false,
+    });
+  }
+};
+
+
 const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
@@ -333,4 +389,5 @@ module.exports = {
   getUserInfo,
   updateAcountSettings,
   updateBillingAddress,
+  changePassword
 };

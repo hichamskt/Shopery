@@ -566,35 +566,27 @@ function ChangePassword({ userInfo, setUserInfo, auth }) {
 const handleSubmitOrderForm = () => {
     const newErrors = handleValueError();
     setErrors(newErrors);
-    console.log("clicked");
+    
 
     if (Object.keys(newErrors).length === 0) {
       submitForm();
-      console.log("submitted");
+      
     }
   };
 
   const submitForm = async () => {
-    const newErrors = {};
-
-    if (newPassword !== confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
-
-    setErrors(newErrors);
-    console.log("sub");
-
-    if (Object.keys(newErrors).length === 0) {
+    
+    
       try {
-        const response = await axiosInstance.post("/user/", {
+         await axiosInstance.post("/user/changePassword", {
           email: auth.email,
           password,
           newPassword,
         });
       } catch (err) {
-        if (err.response?.status === 409) {
+        if (err.response?.status === 401) {
           const newErrors = {};
-          newErrors.email = err.response.data.message;
+          newErrors.password = err.response.data.message;
 
           setErrors(newErrors);
         } else {
@@ -603,7 +595,6 @@ const handleSubmitOrderForm = () => {
 
         console.error(err.response?.data || err.message);
       }
-    }
   };
 
   const onChange = (e) => {
@@ -687,6 +678,7 @@ const handleSubmitOrderForm = () => {
             Save Changes
           </button>
         </div>
+        <div class="tenor-gif-embed" data-postid="16677782" data-share-method="host" data-aspect-ratio="1.02564" data-width="100%"><a href="https://tenor.com/view/check-green-white-background-gif-16677782">Check Green GIF</a>from <a href="https://tenor.com/search/check-gifs">Check GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
       </div>
     </div>
   );
