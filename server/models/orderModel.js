@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema({
     billingFirstName: { type: String, required: true },
     billingLastName: { type: String, required: true },
     companyName: { type: String },
-    streetAdresse: { type: String, required: true },
+    billingAdresse: { type: String, required: true },
     billingRegion: { type: String, required: true },
     city: { type: String, required: true },
     zipCode: { type: String, required: true },

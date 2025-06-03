@@ -368,7 +368,7 @@ function HotDeals() {
       : 0
   );
 
-  console.log(rating);
+  
   return (
     <div className="container">
       <div className="hotdeals">

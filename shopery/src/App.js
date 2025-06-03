@@ -24,6 +24,7 @@ import UserDashboard from "./pages/UserDashboard";
 import Settings from "./pages/Settings";
 import { useState } from "react";
 import Toast from "./components/Toast/Toast";
+import OrderHistory from "./pages/OrderHistory";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -80,6 +81,7 @@ const [message, setMessage] = useState('');
           >
             <Route index element={<UserDashboard />} />
             <Route path="/account/settings" element={<Settings setMessage={setMessage} setShowToast={setShowToast} />} />
+            <Route path="/account/orderhistory"  element={<OrderHistory/>}  />
             {/* <Route path="dashboard" element={
             <UserDashboard />} /> */}
 

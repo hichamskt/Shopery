@@ -17,7 +17,7 @@ function Navigation() {
         <MdDashboard />
         <p>Dashboard</p>
       </NavLink>
-      <NavLink to="a" className={({ isActive }) => (isActive ? "active-link" : "")} >
+      <NavLink to="/account/orderhistory" className={({ isActive }) => (isActive ? "active-link" : "")} >
         <FaHistory />
         <p>Order History</p>
       </NavLink>

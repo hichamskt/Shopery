@@ -9,7 +9,7 @@ function Toast({message,duration,onClose}) {
     const timer = setTimeout(() => {
       onClose?.();
     }, duration);
-    return () => clearTimeout(timer); // cleanup on unmount
+    return () => clearTimeout(timer); 
   }, [duration, onClose]);
   return (
     <div className='toastBox'>

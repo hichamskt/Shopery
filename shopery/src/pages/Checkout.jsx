@@ -76,7 +76,7 @@ function CheckoutPage({ auth, items , userData , setItems , setOrderSent }) {
     billingFirstName: "",
     billingLastName:  "",
     companyName:"",
-    streetAdresse: "",
+    billingAdresse: "",
     billingRegion: "",
     city: "",
     zipCode: "",
@@ -92,7 +92,7 @@ function CheckoutPage({ auth, items , userData , setItems , setOrderSent }) {
         billingFirstName: userData.billingFirstName || "",
         billingLastName: userData.billingLastName || "",
         companyName: userData.companyName || "",
-        streetAdresse: userData.streetAdresse || "",
+        billingAdresse: userData.billingAdresse || "",
         billingRegion: userData.billingRegion || "",
         city: userData.city || "",
         zipCode: userData.zipCode || "",
@@ -159,10 +159,10 @@ function CheckoutPage({ auth, items , userData , setItems , setOrderSent }) {
       newErrors.billingLastName =
         "Last name  must only contain letters and be between 2 and 15 characters long";
     }
-    if (!values.streetAdresse.trim()) {
-      newErrors.streetAdresse = "Street Adresse Is required";
-    } else if (!/^[A-Za-z0-9 ,.#'\\-]{3,100}$/.test(values.streetAdresse)) {
-      newErrors.streetAdresse =
+    if (!values.billingAdresse.trim()) {
+      newErrors.billingAdresse = "Street Adresse Is required";
+    } else if (!/^[A-Za-z0-9 ,.#'\\-]{3,100}$/.test(values.billingAdresse)) {
+      newErrors.billingAdresse =
         "Last name  must only contain letters and be between 2 and 15 characters long";
     }
     return newErrors;
@@ -379,7 +379,7 @@ function CheckoutForm({ auth, values, setValues, errors, setErrors , handleSubmi
 
   const streeadinput = {
     id: 4,
-    name: "streetAdresse",
+    name: "billingAdresse",
     type: "text",
     placeholder: "Your Street Adresse",
     errorMessage:
