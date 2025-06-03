@@ -222,6 +222,8 @@ function CheckoutPage({ auth, items , userData , setItems , setOrderSent }) {
     }
   };
 
+  console.log("id",auth)
+
   const submitForm = async()=>{
     const total = items?.reduce((total, item) => total + item.price * item.qnt, 0);
     try {
@@ -230,7 +232,7 @@ function CheckoutPage({ auth, items , userData , setItems , setOrderSent }) {
         billingInfos:values,
         shippingInfos:shippingValues,
         totalAmount:total,
-        userId:auth?.id,
+        email:auth?.email,
        });
 
       if (response.status === 201) {

@@ -7,9 +7,9 @@ const Product = require('../models/productsModel.js')
 
 const createOrder = async (req, res) => {
     try {
-      const { userId, items, totalAmount,billingInfos, shippingInfos, } = req.body;
+      const { email, items, totalAmount,billingInfos, shippingInfos, } = req.body;
 
-      const order = await Order.create({ userId, items, totalAmount , billingInfos ,  shippingInfos});
+      const order = await Order.create({  items, totalAmount , billingInfos ,  shippingInfos});
 
       for(let i = 0 ; i < items.length ; i++){
         const product = await Product.findById(items[i].productId);
@@ -24,10 +24,14 @@ const createOrder = async (req, res) => {
         await product.save();
       }
 
-  
-     if(userId){
-       await User.findByIdAndUpdate(userId, { $push: { orders: order._id } });
-     }
+
+     if (email) {
+  await User.findOneAndUpdate(
+    { email }, 
+    { $push: { orders: order._id } }
+  );
+}
+
   
       res.status(201).json({ message: "Order created successfully", order });
     } catch (error) {
@@ -35,6 +39,34 @@ const createOrder = async (req, res) => {
       res.status(500).json({ message: "Internal Server Error", error });
     }
   };
+const getUserOrders = async (req, res) => {
+    try {
+      const { email } = req.body;
 
-  module.exports= {createOrder};
+
+       if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    const user = await User.findOne({ email }).populate('orders');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+   const allItems = user.orders.flatMap(order => order.items);
+res.json(allItems);
+
+  
+     
+    } catch (error) {
+      console.error('Error fetching user orders by email:', error);
+    res.status(500).json({ message: 'Server error' });
+    }
+  };
+
+  module.exports= {createOrder,getUserOrders};
+
+
+  
   
