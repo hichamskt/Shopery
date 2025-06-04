@@ -4,10 +4,36 @@ import { useState } from "react";
 import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { axiosPrivate } from "../axios/axiosInstance";
+import Pagination from "../UI/Pagination/Pagination";
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
   const { auth } = useAuth();
+  
+  const [totalPage, setTotalPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePreviousButtonClick = (event, currentPageGroup) => {
+    setCurrentPage((currentPage) => currentPage - 1);
+  };
+
+  const handleNextButtonClick = (event, currentPageGroup) => {
+    setCurrentPage((currentPage) => currentPage + 1);
+  };
+
+  const handlePreviousPageGroupButtonClick = (event, currentPageGroup) => {
+    setCurrentPage(currentPageGroup[0] - 1);
+  };
+  const handleNextPageGroupButtonClick = (event, currentPageGroup) => {
+    setCurrentPage(currentPageGroup[currentPageGroup.length - 1] + 1);
+  };
+
+  const handlePageChangeButtonClick = (event, currentPageGroup) => {
+    setCurrentPage(Number(event.target.id));
+  };
+
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,16 +49,31 @@ function OrderHistory() {
         console.log("Error fetching data:", err);
       }
     };
-
+    
     fetchData();
+    setTotalPage(Math.ceil(orders.length/3))
   }, []);
   console.log("orders:", orders);
+
+  const indexOfLast = currentPage * 3;
+const indexOfFirst = indexOfLast - 3;
+const currentData = orders?.slice(indexOfFirst, indexOfLast);
 
   return (
     <div className="orderhistory">
       <div className="orderhtitl">Order History</div>
       <div>
-      {orders ? <Table orders={orders} /> : <p>No Orders</p>}
+      {orders ? <Table orders={currentData} /> : <p>No Orders</p>}
+      <Pagination
+        totalPage={totalPage}
+        currentPage={currentPage}
+        pagesPerPageGroup={5}
+        handlePreviousButtonClick={handlePreviousButtonClick}
+        handleNextButtonClick={handleNextButtonClick}
+        handlePageChangeButtonClick={handlePageChangeButtonClick}
+        handlePreviousPageGroupButtonClick={handlePreviousPageGroupButtonClick}
+        handleNextPageGroupButtonClick={handleNextPageGroupButtonClick}
+      />
       </div>
     </div>
   );

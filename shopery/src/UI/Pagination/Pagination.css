@@ -1,0 +1,32 @@
+ .button {
+  outline: none;
+  border: 1px solid grey;
+  padding: 5px 10px;
+}
+
+.button:focus {
+  background-color: gray;
+}
+
+.ul {
+  list-style: none;
+  display: flex;
+}
+
+.button--border-left-radius {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.button--border-right-radius {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.button--border-right-none {
+  border-right: none;
+}
+
+.button--border-left-none {
+  border-left: none;
+}
