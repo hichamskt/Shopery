@@ -1,0 +1,46 @@
+.orderhistory{
+    border: 2px solid #e6e6e6;
+  border-radius: 0.5rem;
+  
+  font-size: var(--font-size-body-xl);
+  font-weight: var(--font-weight-500);
+  color: var(--gray-8);
+}
+.orderhtitl{
+     border-bottom: 2px solid #e6e6e6;
+  
+  padding: 1rem;
+  font-size: var(--font-size-body-xl);
+  font-weight: var(--font-weight-500);
+  color: var(--gray-8);
+}
+
+.orderhistory table{
+width: 100%;
+font-size: var(--font-size-body-medium);
+text-align: left;
+font-weight: var(--font-weight-400);
+}
+.orderhistory table thead{
+  background-color: var(--gray-05);
+  
+}
+.orderhistory table thead th{
+  padding: .3rem;
+}
+.orderhistory table tbody td{
+  padding: .5rem .3rem;
+}
+.orderhistory table tbody  span{
+  font-weight: var(--font-weight-600);
+}
+
+.orderhistory table tbody button{
+  
+  border: none;
+  background-color: white;
+  color: var(--primary);
+  font-weight: var(--font-weight-600);
+  cursor: pointer;
+}
+

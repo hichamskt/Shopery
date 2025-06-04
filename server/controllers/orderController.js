@@ -8,6 +8,7 @@ const Product = require('../models/productsModel.js')
 const createOrder = async (req, res) => {
     try {
       const { email, items, totalAmount,billingInfos, shippingInfos, } = req.body;
+      
 
       const order = await Order.create({  items, totalAmount , billingInfos ,  shippingInfos});
 
@@ -53,9 +54,16 @@ const getUserOrders = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
+const ordersData = user.orders.map(order => ({
+  orderId: order._id,
+  status:order.status,
+  createdAt: order.createdAt,
+  items: order.items,
+}));
 
-   const allItems = user.orders.flatMap(order => order.items);
-res.json(allItems);
+
+
+res.status(201).json({  ordersData });
 
   
      
