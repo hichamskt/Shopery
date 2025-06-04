@@ -42,7 +42,10 @@ function OrderHistory() {
         });
 
         if (response.status === 201) {
-          setOrders(response.data.ordersData);
+          const fetchedOrders = response.data.ordersData;
+        setOrders(fetchedOrders);
+        setTotalPage(Math.ceil(fetchedOrders.length / 3));
+          
           console.log("orders");
         }
       } catch (err) {
@@ -53,7 +56,7 @@ function OrderHistory() {
     fetchData();
     setTotalPage(Math.ceil(orders.length/3))
   }, []);
-  console.log("orders:", orders);
+  
 
   const indexOfLast = currentPage * 3;
 const indexOfFirst = indexOfLast - 3;
@@ -64,7 +67,7 @@ const currentData = orders?.slice(indexOfFirst, indexOfLast);
       <div className="orderhtitl">Order History</div>
       <div>
       {orders ? <Table orders={currentData} /> : <p>No Orders</p>}
-      <Pagination
+      {totalPage >1 && <Pagination
         totalPage={totalPage}
         currentPage={currentPage}
         pagesPerPageGroup={5}
@@ -73,7 +76,7 @@ const currentData = orders?.slice(indexOfFirst, indexOfLast);
         handlePageChangeButtonClick={handlePageChangeButtonClick}
         handlePreviousPageGroupButtonClick={handlePreviousPageGroupButtonClick}
         handleNextPageGroupButtonClick={handleNextPageGroupButtonClick}
-      />
+      />}
       </div>
     </div>
   );

@@ -1,32 +1,27 @@
  .button {
-  outline: none;
-  border: 1px solid grey;
+  border: none;
   padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 30px;
+  height:30px;
+ 
 }
-
-.button:focus {
-  background-color: gray;
-}
+ 
 
 .ul {
   list-style: none;
   display: flex;
+  gap: .5rem;
 }
 
-.button--border-left-radius {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-}
-
-.button--border-right-radius {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
-.button--border-right-none {
-  border-right: none;
-}
-
-.button--border-left-none {
-  border-left: none;
+.pagination-wrapper{
+    position: absolute;
+  bottom: 0;
+  width: 100%;
+  
+  text-align: center;
+  padding: 10px 0;
+  margin-left: 1rem;
+  
 }

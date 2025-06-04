@@ -1,5 +1,8 @@
 import React, { useMemo } from 'react'
 import '../Pagination/Pagination.css'
+import { RiArrowLeftSLine } from "react-icons/ri";
+import { RiArrowDropRightLine } from "react-icons/ri";
+
 
 function Pagination(props) {
 
@@ -47,7 +50,7 @@ const _handleNextPageGroupButtonClick = (event) => {
            disabled={currentPage === 1}
             onClick={_handlePreviousButtonClick}
         >
-          Prev
+          <RiArrowLeftSLine />
         </button>
       </li>
       {/* First ellipsis */}
@@ -64,7 +67,7 @@ const _handleNextPageGroupButtonClick = (event) => {
             <button
               className="button button--border-right-none"
               style={
-                currentPage === pageNumber ? { backgroundColor: "gray" } : {}
+                currentPage === pageNumber ? { backgroundColor: "#00b207" , color:"white" } : {}
               }
               id={pageNumber}
               onClick={_handlePageChangeButtonClick}
@@ -89,7 +92,7 @@ const _handleNextPageGroupButtonClick = (event) => {
           disabled={currentPage === totalPage}
           onClick={_handleNextButtonClick}
         >
-          Next
+          <RiArrowDropRightLine />
         </button>
       </li>
     </ul>
