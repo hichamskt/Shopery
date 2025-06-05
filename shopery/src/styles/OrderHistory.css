@@ -45,3 +45,65 @@ font-weight: var(--font-weight-400);
   cursor: pointer;
 
 }
+
+.ordheader{
+  display: flex;
+  
+  justify-content: space-between;
+  
+}
+.ordheader span{
+    display: flex;
+  gap: .5rem;
+  align-items: center;
+
+}
+.ordheader span p{
+    font-size: var(--font-size-body-small);
+    color: var(--gray-5);
+}
+.ordheader button{
+     border: none;
+  background-color: white;
+  color: var(--primary);
+  font-weight: var(--font-weight-600);
+  cursor: pointer;
+}
+
+.shipingandtotalbox{
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+.billingshippingbox{
+  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top-left-radius: .5rem ;
+  border-top-right-radius: .5rem ;
+   border: 2px solid #e6e6e6;
+   
+  }
+  .bsttl{
+  font-size: var(--font-size-body-medium);
+  font-weight: var(--font-weight-500);
+  color: var(--gray-5);
+  text-transform: uppercase;
+
+}
+
+.billingshopingtb{
+  padding: 1rem;
+   font-size: var(--font-size-body-small);
+  }
+  .billingshopingtb h3{
+    text-transform: capitalize;
+    font-size: var(--font-size-body-small);
+  
+}
+  .billingshopingtb p{
+   color: var(--gray-5);
+  
+}
+

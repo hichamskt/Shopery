@@ -18,10 +18,12 @@
 .pagination-wrapper{
     position: absolute;
   bottom: 0;
-  width: 100%;
-  
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
   padding: 10px 0;
-  margin-left: 1rem;
+  background-color: white;
+  width: fit-content;
   
 }
+
