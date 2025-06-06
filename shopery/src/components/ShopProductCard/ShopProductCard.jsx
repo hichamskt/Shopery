@@ -10,7 +10,7 @@ import useAuth from "../../hooks/useAuth";
 import axiosInstance from "../../axios/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
-function ShopProductCard({ product , setProductOverView , setIsProductView , likedPrds }) {
+function ShopProductCard({ product , setProductOverView , setIsProductView , likedPrds , setLikedPrds }) {
   const productAfterDiscount = product.price - (product.price * product.discount) / 100;
   const {auth}= useAuth();
   const navigate = useNavigate();
@@ -33,18 +33,44 @@ useEffect(() => {
 
 
 const toggleLike = async () => {
-  try {
-    const res = await axiosInstance.post("/user/toggleLikedProduct", {
-      email: auth.email,
-      productId: product._id
-    });
+  const isAlreadyLiked = likedPrds.includes(product._id);
+  let updatedLikedPrds;
 
-    const updatedLiked = res.data.likedProducts.includes(product._id);
-    setLiked(updatedLiked);
+  if (isAlreadyLiked) {
+    updatedLikedPrds = likedPrds.filter(id => id !== product._id);
+  } else {
+    updatedLikedPrds = [...likedPrds, product._id];
+  }
+
+  // Update state & localStorage immediately
+  setLikedPrds(updatedLikedPrds);
+  setLiked(!isAlreadyLiked);
+
+  try {
+    await axiosInstance.post("/user/toggleLikedProduct", {
+      email: auth.email,
+      productId: product._id,
+    });
   } catch (err) {
-    console.error("Error toggling liked product:", err);
+    console.error("Server error:", err);
+    // Optional: Rollback local changes if server fails
+    setLikedPrds(likedPrds);
+    setLiked(isAlreadyLiked);
   }
 };
+
+
+
+useEffect(() => {
+  localStorage.setItem("likedProducts", JSON.stringify(likedPrds));
+}, [likedPrds]);
+
+
+useEffect(() => {
+  if (product?._id) {
+    setLiked(likedPrds.includes(product._id));
+  }
+}, [likedPrds, product]);
 
   
 const handleLiked =() => {

@@ -10,11 +10,89 @@ import { FaPinterestP } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { useCardContext } from "../../contexts/CardContext";
+import axiosInstance from "../../axios/axiosInstance";
+import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
-function ProductQuickView({ product }) {
+function ProductQuickView({ product , likedPrds , setLikedPrds }) {
   const { showCard, setShowCard, items, setItems } = useCardContext();
+  const [liked,setLiked]=useState(false);
+  const {auth} = useAuth();
+  const navigate = useNavigate();
+    
+      const handleNav = () => {
+        navigate("/login"); 
+      };
+      
 
 //add product to card 
+
+// useEffect(() => {
+//   if (Array.isArray(likedPrds) && product?._id) {
+//     setLiked(likedPrds.includes(product._id));
+//   }
+// }, [likedPrds, product._id]);
+
+
+
+
+
+
+
+const toggleLike = async () => {
+  const isAlreadyLiked = likedPrds.includes(product._id);
+  let updatedLikedPrds;
+
+  if (isAlreadyLiked) {
+    updatedLikedPrds = likedPrds.filter(id => id !== product._id);
+  } else {
+    updatedLikedPrds = [...likedPrds, product._id];
+  }
+
+  // Update state & localStorage immediately
+  setLikedPrds(updatedLikedPrds);
+  setLiked(!isAlreadyLiked);
+  
+  try {
+   const res =  await axiosInstance.post("/user/toggleLikedProduct", {
+      email: auth.email,
+      productId: product._id,
+    });
+    setLikedPrds(res.data.likedProducts);
+  } catch (err) {
+    console.error("Server error:", err);
+    // Optional: Rollback local changes if server fails
+    setLikedPrds(likedPrds);
+    setLiked(isAlreadyLiked);
+  }
+};
+
+useEffect(() => {
+  if(likedPrds)localStorage.setItem("likedProducts", JSON.stringify(likedPrds));
+}, [likedPrds]);
+
+
+
+
+
+
+useEffect(() => {
+  if (product?._id) {
+    setLiked(likedPrds.includes(product._id));
+  }
+}, [likedPrds, product]);
+
+
+
+  
+const handleLiked =() => {
+  if(auth.email){
+    toggleLike();
+  }else{
+    handleNav();
+  }
+
+}
 
   const hundleAddToCard = (newItem) => {
     setItems((prevItems) => {
@@ -41,7 +119,7 @@ function ProductQuickView({ product }) {
   return (
     <div className="ProductQuickView">
       <ProductImages images={product.images} />
-      <ProductsInfo hundleAddToCard={hundleAddToCard} product={product} />
+      <ProductsInfo hundleAddToCard={hundleAddToCard} product={product} liked={liked}  handleLiked={handleLiked}/>
     </div>
   );
 }
@@ -100,7 +178,7 @@ function ProductImages({ images }) {
   );
 }
 
-function ProductsInfo({ product, hundleAddToCard }) {
+function ProductsInfo({ product, hundleAddToCard , liked , handleLiked }) {
   const productAfterDiscount =
     product.price - (product.price * product.discount) / 100;
 
@@ -182,6 +260,8 @@ function ProductsInfo({ product, hundleAddToCard }) {
         product={product}
         hundleAddToCard={hundleAddToCard}
         productAfterDiscount={productAfterDiscount}
+        liked={liked}
+        handleLiked={handleLiked}
       />
       <p className="pi-cat">
         Category:<span>{product.category.name}</span>
@@ -196,7 +276,7 @@ function ProductsInfo({ product, hundleAddToCard }) {
   );
 }
 
-function AddToCardBox({ product, hundleAddToCard, productAfterDiscount }) {
+function AddToCardBox({ product, hundleAddToCard, productAfterDiscount,liked , handleLiked }) {
   const [qnt, setQnt] = useState(1);
 
   return (
@@ -221,11 +301,14 @@ function AddToCardBox({ product, hundleAddToCard, productAfterDiscount }) {
             qnt: qnt,
             price: productAfterDiscount,
           })
+          
         }
+        style={product.stock <= 0?{background:"var(--gray-05)", color:"black"} :{}}
+        disabled={product.stock <= 0}
       >
         Add To Card <IoBagHandleOutline />
       </button>
-      <span className="pi-heart">
+      <span className="pi-heart" style={liked?{background:"var(--primary)", color:"white"}:{}} onClick={()=>handleLiked()}>
         <CiHeart />
       </span>
     </div>

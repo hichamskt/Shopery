@@ -26,6 +26,9 @@ function Shop() {
 
 const { auth } = useAuth();
 
+  useEffect(() => {
+  localStorage.setItem("likedProducts", JSON.stringify(likedPrds));
+}, [likedPrds]);
 
   const {showCard, setShowCard, items , setItems} = useCardContext();
 
@@ -35,7 +38,10 @@ const { auth } = useAuth();
         const response = await axiosInstance.post("/user/getLikedProducts",{
          email:auth.email
       });
-        setLikedPrds(response.data.likedProducts);
+      const productIds = response.data.likedProducts.map(product => product._id);
+      setLikedPrds(productIds);
+      
+        
       } catch (err) {
         console.log(err);
       }
@@ -44,7 +50,7 @@ const { auth } = useAuth();
     fetchData();
   }, []);
 
-  console.log(likedPrds)
+  
   
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +88,7 @@ const { auth } = useAuth();
       {
         isProdctView && <div className="ovr-overlay"  >
       <div className="shop-ov-p"> < RxCross1 className="ov-x" onClick={()=>setIsProductView(false)} />
-        <ProductQuickView product={productOverview} />
+        <ProductQuickView product={productOverview} likedPrds={likedPrds}  setLikedPrds={setLikedPrds}/>
       </div>
       </div>
       }
@@ -93,7 +99,7 @@ const { auth } = useAuth();
           gridTemplateColumns:!showFilter?"1fr":""
         }}>
           <Filter showFilter={showFilter} setShowFilter={setShowFilter} category={category} setCategory={setCategory} setprice={setprice}  price={price} minRating={minRating} setMinRating={setMinRating} tags={tags} setTags={setTags}/>
-          <ShopProducts  products={products} setProductOverView={setProductOverView} setIsProductView={setIsProductView} />
+          <ShopProducts  products={products} setProductOverView={setProductOverView} setIsProductView={setIsProductView}  likedPrds={likedPrds} setLikedPrds={setLikedPrds}/>
         </div>
       </div>
     </div>
@@ -102,7 +108,7 @@ const { auth } = useAuth();
 
 export default Shop;
 
-function ShopProducts({products , setProductOverView , setIsProductView}) {
+function ShopProducts({products , setProductOverView , setIsProductView, likedPrds , setLikedPrds}) {
   return (
     <div>
       <div className="shop-product-header">
@@ -124,7 +130,7 @@ function ShopProducts({products , setProductOverView , setIsProductView}) {
           products.map((product,i)=>(
            
             // <Link to={`/product/${product._id}`} key={i} style={{ textDecoration: "none" , display:"flex" ,width:"100%"}}>
-            <ShopProductCard key={i}  product={product} setProductOverView={setProductOverView} setIsProductView={setIsProductView} />
+            <ShopProductCard key={i}  product={product} setProductOverView={setProductOverView} setIsProductView={setIsProductView} likedPrds={likedPrds} setLikedPrds={setLikedPrds}/>
               //  </Link>
           ))
         }

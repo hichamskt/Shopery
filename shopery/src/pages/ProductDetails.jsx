@@ -17,10 +17,18 @@ import ShoppingCardPopup from "../components/ShoppingCardPopup/ShoppingCardPopup
 function ProductDetails() {
   const [product, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [likedPrds, setLikedPrds] = useState([]);
 
   const { productid } = useParams();
 
   const { showCard, setShowCard, items, setItems } = useCardContext();
+
+  useEffect(() => {
+  const localLiked = JSON.parse(localStorage.getItem("likedProducts")) || [];
+  setLikedPrds(localLiked);
+}, []);
+
+
 
   useEffect(() => {
     const fetchData = async (id) => {
@@ -63,7 +71,7 @@ function ProductDetails() {
         <div style={{
           height:"2rem"
         }}></div>
-        {!loading && <ProductQuickView product={product} />}
+        {!loading && <ProductQuickView product={product}  setLikedPrds={setLikedPrds}  likedPrds={likedPrds}/>}
         <NavBar />
         {!loading && (
           <div className="productoutlerbox">
