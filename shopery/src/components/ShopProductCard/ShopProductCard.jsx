@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../ShopProductCard/ShopProductCard.css";
 import { FiEye } from "react-icons/fi";
 import { CiHeart } from "react-icons/ci";
@@ -6,15 +6,51 @@ import { CiHeart } from "react-icons/ci";
 import { IoBagHandleOutline } from "react-icons/io5";
 import Rating from "../Rating/Rating";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import axiosInstance from "../../axios/axiosInstance";
 
-function ShopProductCard({ product , setProductOverView , setIsProductView  }) {
+function ShopProductCard({ product , setProductOverView , setIsProductView , likedPrds }) {
   const productAfterDiscount = product.price - (product.price * product.discount) / 100;
+  const {auth}= useAuth();
 
+  const [liked,setLiked]=useState(false);
 
   const handlequickview=()=>{
     setProductOverView(product);
     setIsProductView(true);
   }
+useEffect(() => {
+  if (Array.isArray(likedPrds) && product?._id) {
+    setLiked(likedPrds.includes(product._id));
+  }
+}, [likedPrds, product._id]);
+
+
+const toggleLike = async ({ email, productId }) => {
+    try {
+      const res = await axiosInstance.post("/user/toggleLikedProduct", {
+        email,
+        productId:product._id
+      });
+
+      
+      const updatedLiked = res.data.likedProducts.includes(productId);
+      setLiked(updatedLiked);
+    } catch (err) {
+      console.error("Error toggling liked product:", err);
+    }
+  };
+  
+const handleLiked =() => {
+  if(auth.email){
+    toggleLike();
+  }else{
+    console.log("log in ")
+  }
+
+}
+
+
   return (
     <div className="ShopProductCard">
       {product.stock <= 0 ? (
@@ -25,7 +61,7 @@ function ShopProductCard({ product , setProductOverView , setIsProductView  }) {
         ""
       )}
       <div className="productshopimgbox">
-        <span>
+        <span style={liked?{backgroundColor:"var(--primary)" , color: "white"}:{}} onClick={()=>handleLiked()} >
         <CiHeart />
         </span>
         <span onClick={()=>handlequickview()}>

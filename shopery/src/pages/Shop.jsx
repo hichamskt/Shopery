@@ -10,6 +10,7 @@ import ProductQuickView from "../components/ProductQuickView/ProductQuickView";
 import { RxCross1 } from "react-icons/rx";
 import ShoppingCardPopup from "../components/ShoppingCardPopup/ShoppingCardPopup";
 import { useCardContext } from "../contexts/CardContext";
+import useAuth from "../hooks/useAuth";
 
 function Shop() {
   const [products, setProducts] = useState([]);
@@ -20,10 +21,31 @@ function Shop() {
   const [price,setprice]=useState({minPrice:2,maxPrice:10});
   const [minRating,setMinRating]=useState(0);
   const [tags,setTags]=useState([]);
-  
+  const [likedPrds,setLikedPrds]=useState([]);
+
+
+const { auth } = useAuth();
+
 
   const {showCard, setShowCard, items , setItems} = useCardContext();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.post("/user/getLikedProducts",{
+         email:auth.email
+      });
+        setLikedPrds(response.data.likedProducts);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(likedPrds)
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

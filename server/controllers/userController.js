@@ -57,7 +57,7 @@ const updateBillingAddress = async (req, res) => {
       billingphoneNumber,
       companyName,
       zipCode,
-      city
+      city,
     } = req.body;
 
     if (!email) {
@@ -66,7 +66,7 @@ const updateBillingAddress = async (req, res) => {
         success: false,
       });
     }
-    console.log("submited:")
+    console.log("submited:");
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -76,18 +76,15 @@ const updateBillingAddress = async (req, res) => {
       });
     }
 
-    
-      user.billingAdresse= billingAdresse 
-      user.billingRegion= billingRegion
-      user.billingFirstName= billingFirstName
-      user.billingLastName= billingLastName
-      user.billingEmail= billingEmail
-      user.billingphoneNumber= billingphoneNumber
-      user.companyName=companyName
-      user.zipCode=zipCode
-      user.city=city
-
-    
+    user.billingAdresse = billingAdresse;
+    user.billingRegion = billingRegion;
+    user.billingFirstName = billingFirstName;
+    user.billingLastName = billingLastName;
+    user.billingEmail = billingEmail;
+    user.billingphoneNumber = billingphoneNumber;
+    user.companyName = companyName;
+    user.zipCode = zipCode;
+    user.city = city;
 
     const updatedUser = await user.save();
 
@@ -289,7 +286,6 @@ const changePassword = async (req, res) => {
       message: "Password updated successfully.",
       success: true,
     });
-
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -298,7 +294,6 @@ const changePassword = async (req, res) => {
     });
   }
 };
-
 
 const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
@@ -380,6 +375,60 @@ const getUserBillingInfo = async (req, res) => {
   }
 };
 
+const getLikedProducts = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        message: "Email is missing",
+        success: false,
+      });
+    }
+
+    const Products = await User.findOne({ email }).populate("likedProducts");
+
+    return res.status(200).json({
+      likedProducts: Products.likedProducts,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+
+
+const toggleLikedProduct = async (req, res) => {
+  const { email, productId } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const index = user.likedProducts.indexOf(productId);
+
+    if (index === -1) {
+      
+      user.likedProducts.push(productId);
+      await user.save();
+      return res.status(200).json({ message: "Product liked", likedProducts: user.likedProducts });
+    } else {
+      
+      user.likedProducts.splice(index, 1);
+      await user.save();
+      return res.status(200).json({ message: "Product unliked", likedProducts: user.likedProducts });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+
 module.exports = {
   register,
   login,
@@ -389,5 +438,7 @@ module.exports = {
   getUserInfo,
   updateAcountSettings,
   updateBillingAddress,
-  changePassword
+  changePassword,
+  getLikedProducts,
+  toggleLikedProduct
 };

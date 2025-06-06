@@ -6,12 +6,24 @@ import useAuth from "../hooks/useAuth";
 import { axiosPrivate } from "../axios/axiosInstance";
 import Pagination from "../UI/Pagination/Pagination";
 import ProgressTracker from "../UI/ProgressTracker/ProgressTracker";
+import { useLocation } from 'react-router-dom';
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
   const [showOrderDestails, setShowOrderDetail] = useState(false);
   const [orderId,setOrderId]=useState('');
   const { auth } = useAuth();
+
+  const location = useLocation();
+  const { dashOrderId,showDetail} = location.state || {};
+
+ useEffect(() => {
+    if (showDetail) {
+      setOrderId(dashOrderId);
+      setShowOrderDetail(true);
+    }
+  }, [showDetail, dashOrderId]);
+
 
   const [totalPage, setTotalPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
@@ -172,7 +184,7 @@ function OrderDetails({ orderId, setShowOrderDetail }){
     
   }, [orderId]);
 
-  console.log('order',order);
+  
  if (loading) return <p>Loading...</p>;
   if (!order) return <p>Order not found</p>;
   return(
