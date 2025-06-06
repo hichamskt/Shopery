@@ -80,8 +80,8 @@ font-weight: var(--font-weight-400);
   
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top-left-radius: .5rem ;
-  border-top-right-radius: .5rem ;
+  border-radius: .5rem ;
+
    border: 2px solid #e6e6e6;
    
   }
@@ -107,3 +107,31 @@ font-weight: var(--font-weight-400);
   
 }
 
+.ordBox{
+  display: flex;
+  justify-content: space-between;
+   text-transform: capitalize;
+    font-size: var(--font-size-body-small);
+    color: var(--gray-5);
+    border-bottom: 2px solid #e6e6e6;
+    padding: .5rem;
+}
+.ordBox p:last-of-type{
+  font-weight: var(--font-weight-600);
+  color: black;
+}
+
+.ordttlBox{
+  display: flex;
+  justify-content: space-between;
+   text-transform: capitalize;
+   font-size: var(--font-size-body-medium);
+   padding: .5rem;
+  }
+  
+  .ordttlBox  p:last-of-type{
+    font-weight: var(--font-weight-700);
+    font-size: var(--font-size-body-xl);
+
+  color: var(--primary);
+}

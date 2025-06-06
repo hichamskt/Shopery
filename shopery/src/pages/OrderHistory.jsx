@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { axiosPrivate } from "../axios/axiosInstance";
 import Pagination from "../UI/Pagination/Pagination";
+import ProgressTracker from "../UI/ProgressTracker/ProgressTracker";
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
@@ -69,7 +70,7 @@ console.log('orders:',orders)
   return (
     <div className="orderhistory">
       {showOrderDestails?
-      <OrderDetails orderId={orderId} />
+      <OrderDetails orderId={orderId}  setShowOrderDetail={setShowOrderDetail}/>
       :
         <div>
 
@@ -148,7 +149,7 @@ function TableRow({ order, i , handleOrderSelect}) {
 }
 
 
-function OrderDetails({ orderId }){
+function OrderDetails({ orderId, setShowOrderDetail }){
 
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -188,13 +189,14 @@ function OrderDetails({ orderId }){
         <p> · {order.items.length} Products</p>
         </span>
         <div>
-          <button>Back to List</button>
+          <button onClick={()=>setShowOrderDetail(false)}>Back to List</button>
         </div>
       </div>
       <div className="shipingandtotalbox">
         <BillingShipping billingInfos={order.billingInfos}  shippingInfo={order.shippingInfos}/>
-        <Total />
+        <Total  order={order} />
       </div>
+      <ProgressTracker />
     </div>
   )
 }
@@ -240,13 +242,37 @@ function BillingShipping ({billingInfos,shippingInfo}){
     </div>
   )
 }
-function Total (){
+function Total ({order}){
 
 
 
   return(
-    <div>
-total
+    <div className="billingshippingbox" style={{
+      display:'block'
+    }}>
+      <div className="orderhtitl bsttl">
+        ORDER ID #{order._id.slice(-4)}
+        </div> 
+        <div style={{padding:'1rem'}} >
+          <div className="ordBox">
+            <p>Subtotal:</p>
+            <p>${order.totalAmount}</p>
+          </div>
+          <div className="ordBox">
+            <p>Discount:</p>
+            <p>0%</p>
+          </div>
+          <div className="ordBox">
+            <p>Shipping:</p>
+            <p>Free</p>
+          </div>
+          <div className="ordttlBox">
+            <p>Total:</p>
+            <p>${order.totalAmount}</p>
+          </div>
+
+        </div>
+
     </div>
   )
 }

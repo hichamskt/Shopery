@@ -1,0 +1,79 @@
+.pgtrackerbox{
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+.tracker{
+    height: .5rem;
+    width: 80%;
+   background: linear-gradient(to right, var(--primary) 66%, var(--gray-1) 66%);
+   position: relative;
+   display: flex;
+   justify-content: space-between;
+}
+.tracker span{
+    border-radius: 50%;
+     
+   
+    width: 2.5rem;
+    height: 2.5rem;
+    position: absolute;
+    align-items: center;
+    top: -15px;
+   display: flex;
+    justify-content: center;
+
+     
+    /* position: absolute; */
+}
+.tracker span:first-of-type{
+    color: white;
+    background-color: var(--primary);
+    width: 2.5rem;
+    height: 2.5rem;
+    left: -1px;
+    
+   
+}
+
+.tracker span:nth-of-type(2){
+    left: 33%;
+    background-color: white;
+    outline: .2rem dashed var(--primary);
+    
+    color: var(--primary);
+   
+}
+.tracker span:nth-of-type(3){
+    left: 66%;
+    background-color: white;
+   outline: .2rem dashed var(--primary);
+    color: var(--primary);
+}
+.tracker span:nth-of-type(4){
+    left: 97%;
+    background-color: white;
+    outline: .2rem dashed var(--primary);
+     color: var(--primary);
+}
+
+.tracker div{
+    position: absolute;
+    bottom: -50px;
+    font-size: var(--font-size-body-small);
+}
+.tracker div:first-of-type{
+    left: -24px;
+   color: var(--primary);
+}
+.tracker div:nth-of-type(2){
+    left: 32%;
+}
+.tracker div:nth-of-type(3){
+    left: 65%;
+}
+.tracker div:nth-of-type(4){
+    left: 96%;
+}
