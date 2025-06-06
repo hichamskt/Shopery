@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../ProgressTracker/ProgressTracker.css";
 import { FaCheck } from "react-icons/fa";
 
-function ProgressTracker({}) {
+function ProgressTracker({order}) {
   const [greenPercent, setGreenPercent] = useState(0);
-  const order = {
-    status: "Delivered",
-  };
+  
 
   useEffect(() => {
     if (order.status === "pending") setGreenPercent(0);

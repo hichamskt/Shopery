@@ -101,7 +101,7 @@ export default OrderHistory;
 
 function Table({ orders , handleOrderSelect }) {
   return (
-    <table cellPadding="10" cellSpacing="0">
+    <table cellPadding="10" cellSpacing="0" className="tb1">
       <thead>
         <tr>
           <th>Order ID</th>
@@ -196,7 +196,9 @@ function OrderDetails({ orderId, setShowOrderDetail }){
         <BillingShipping billingInfos={order.billingInfos}  shippingInfo={order.shippingInfos}/>
         <Total  order={order} />
       </div>
-      <ProgressTracker />
+      
+      <ProgressTracker order={order} />
+      <OrderProductsTable items={order.items} />
     </div>
   )
 }
@@ -274,5 +276,46 @@ function Total ({order}){
         </div>
 
     </div>
+  )
+}
+
+
+
+function OrderProductsTable({items}){
+
+
+
+  return(
+    <table cellPadding="10" cellSpacing="0" className="orderprTable">
+      <thead>
+        <tr>
+          <th>product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+       {items.map((item, i) => (
+  <ProductTableRow item={item} i={i} />
+))}
+      </tbody>
+    </table>
+  )
+}
+
+function ProductTableRow({i,item}){
+
+  return(
+    <tr key={i}>
+      <td>
+<img src={`${process.env.REACT_APP_BACKEND_URL}${item.productId.images[0]}`} alt="vig" ></img>
+<p>{item.productId.name}</p>
+      </td>
+      <td>${item.price}</td>
+      <td>x{item.qnt}</td>
+      <td>${item.price * item.qnt}</td>
+    </tr>
   )
 }
