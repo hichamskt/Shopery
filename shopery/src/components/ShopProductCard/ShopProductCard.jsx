@@ -8,10 +8,16 @@ import Rating from "../Rating/Rating";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axiosInstance from "../../axios/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 function ShopProductCard({ product , setProductOverView , setIsProductView , likedPrds }) {
   const productAfterDiscount = product.price - (product.price * product.discount) / 100;
   const {auth}= useAuth();
+  const navigate = useNavigate();
+    
+      const handleNav = () => {
+        navigate("/login"); 
+      };
 
   const [liked,setLiked]=useState(false);
 
@@ -26,26 +32,26 @@ useEffect(() => {
 }, [likedPrds, product._id]);
 
 
-const toggleLike = async ({ email, productId }) => {
-    try {
-      const res = await axiosInstance.post("/user/toggleLikedProduct", {
-        email,
-        productId:product._id
-      });
+const toggleLike = async () => {
+  try {
+    const res = await axiosInstance.post("/user/toggleLikedProduct", {
+      email: auth.email,
+      productId: product._id
+    });
 
-      
-      const updatedLiked = res.data.likedProducts.includes(productId);
-      setLiked(updatedLiked);
-    } catch (err) {
-      console.error("Error toggling liked product:", err);
-    }
-  };
+    const updatedLiked = res.data.likedProducts.includes(product._id);
+    setLiked(updatedLiked);
+  } catch (err) {
+    console.error("Error toggling liked product:", err);
+  }
+};
+
   
 const handleLiked =() => {
   if(auth.email){
     toggleLike();
   }else{
-    console.log("log in ")
+    handleNav();
   }
 
 }
