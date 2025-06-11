@@ -1,0 +1,15 @@
+.wishlist{
+     border: 2px solid #e6e6e6;
+  border-radius: 0.5rem;
+  
+  font-size: var(--font-size-body-xl);
+  font-weight: var(--font-weight-500);
+  color: var(--gray-8);
+  position: relative;
+  width: 100%;
+  display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    justify-items: center;
+    padding: 1rem;
+    gap: 1rem;
+}

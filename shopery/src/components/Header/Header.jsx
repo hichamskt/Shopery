@@ -121,6 +121,8 @@ function HeaderTopSide({t,i18n}) {
 
 
 function HeaderMidPart({t}){
+  const navigate = useNavigate();
+
   const { setShowCard, items } = useCardContext();
 
   const total = items?.reduce((total, item) => {
@@ -137,7 +139,7 @@ function HeaderMidPart({t}){
       <button>{t('Search')}</button>
       </div>
       <div className="headermifrigth">
-      <CiHeart />
+      <CiHeart onClick={()=>navigate("/account/wishlist")} />
       
       <div className="headershoppingside">
 

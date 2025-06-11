@@ -144,6 +144,7 @@ function HeaderMidPart({t}){
     return total + item.price * item.qnt;
   }, 0)
 
+const navigate = useNavigate();
 
 
   return(
@@ -155,7 +156,7 @@ function HeaderMidPart({t}){
       <button>{t('Search')}</button>
       </div>
       <div className="headermifrigth">
-      <CiHeart />
+      <CiHeart onClick={()=>navigate("/account/wishlist")} />
       <div className="headershoppingside">
 
         <span className="shopingicong-h" onClick={()=>setShowCard(true)}>
