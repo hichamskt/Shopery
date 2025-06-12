@@ -12,7 +12,7 @@ import useAuth from "../../hooks/useAuth";
 import axiosInstance from "../../axios/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
-function WishlistproductCard({ product , likedPrds , setLikedPrds }) {
+function WishlistproductCard({ product , likedPrds , setLikedPrds , setWishedList , wishedlist }) {
   const productAfterDiscount = product.price - (product.price * product.discount) / 100;
   const {auth}= useAuth();
   const navigate = useNavigate();
@@ -34,15 +34,17 @@ useEffect(() => {
 const toggleLike = async () => {
   const isAlreadyLiked = likedPrds.includes(product._id);
   let updatedLikedPrds;
-
+  let updatedprdcts;
   if (isAlreadyLiked) {
     updatedLikedPrds = likedPrds.filter(id => id !== product._id);
+    updatedprdcts = wishedlist.filter(prd => prd._id !== product._id)
   } else {
     updatedLikedPrds = [...likedPrds, product._id];
   }
 
   
   setLikedPrds(updatedLikedPrds);
+  setWishedList(updatedprdcts);
   setLiked(!isAlreadyLiked);
 
   try {
@@ -83,7 +85,7 @@ const handleLiked =() => {
 
 
   return (
-    <div className="ShopProductCard">
+    <div className="ShopProductCard wishlistcard">
       {product.stock <= 0 ? (
         <p className="shopproduct-tags" style={{backgroundColor:"black",color:"white"}}>Out Of Stock</p>
       ) : product.discount >= 0 ? (

@@ -3,6 +3,7 @@ import "../styles/Wishlist.css";
 import axiosInstance from '../axios/axiosInstance';
 import useAuth from '../hooks/useAuth';
 import WishlistproductCard from '../components/WishlistproductCard/WishlistproductCard';
+import empty_wishlist from "../assets/empty_wishlist.png"
 
 function WishList() {
   const [likedPrds, setLikedPrds] = useState([]);
@@ -31,23 +32,35 @@ function WishList() {
     fetchData();
   }, []);
 
+  
+
   console.log("wishlist:",wishedlist)
   if (loading) {
     return <div className="wishlist-loading">Loading wishlist...</div>; 
   }
 
   return (
+   <div className='wishlistcontainer'>
+  {wishedlist.length > 0 ? (
     <div className="wishlist">
-      {wishedlist.length > 0 ? (
-        wishedlist.map((prd, index) => (
-          <WishlistproductCard  product={prd} key={index} likedPrds={likedPrds} setLikedPrds={setLikedPrds} />
-        ))
-      ) : (
-        <div>No liked products yet.</div>
-      )}
+      {wishedlist.map((prd, index) => (
+        <WishlistproductCard
+          product={prd}
+          key={index}
+          likedPrds={likedPrds}
+          setLikedPrds={setLikedPrds}
+          setWishedList={setWishedList}
+          wishedlist={wishedlist}
+        />
+      ))}
     </div>
-  );
-}
+  ) : (
+    <div className="emptywishlist">
+      <img src={empty_wishlist} alt="empty_wishlist" />
+    </div>
+  )}
+</div> )}
+
 
 export default WishList;
 

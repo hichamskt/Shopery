@@ -61,9 +61,7 @@ const toggleLike = async () => {
 
 
 
-useEffect(() => {
-  localStorage.setItem("likedProducts", JSON.stringify(likedPrds));
-}, [likedPrds]);
+
 
 
 useEffect(() => {
