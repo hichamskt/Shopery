@@ -7,11 +7,13 @@ import { axiosPrivate } from "../axios/axiosInstance";
 import Pagination from "../UI/Pagination/Pagination";
 import ProgressTracker from "../UI/ProgressTracker/ProgressTracker";
 import { useLocation } from 'react-router-dom';
+import Loader from "../UI/Loader/Loader";
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
   const [showOrderDestails, setShowOrderDetail] = useState(false);
   const [orderId,setOrderId]=useState('');
+  const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
 
   const location = useLocation();
@@ -51,7 +53,7 @@ function OrderHistory() {
     setOrderId(orderId);
     setShowOrderDetail(true);
   }
-console.log('orders:',orders)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,7 +70,10 @@ console.log('orders:',orders)
         }
       } catch (err) {
         console.log("Error fetching data:", err);
-      }
+      }finally {
+      setLoading(false); 
+    }
+
     };
 
     fetchData();
@@ -78,6 +83,18 @@ console.log('orders:',orders)
   const indexOfLast = currentPage * 3;
   const indexOfFirst = indexOfLast - 3;
   const currentData = orders?.slice(indexOfFirst, indexOfLast);
+
+  if (loading) return (
+    <div className="orderhistory " 
+     style={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+    >
+      <Loader />
+    </div>
+  )
 
   return (
     <div className="orderhistory">

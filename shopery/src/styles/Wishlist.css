@@ -1,9 +1,9 @@
 .wishlist{
     
   display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 16rem));
+        grid-template-columns: repeat(auto-fit, minmax(3rem, 13rem));
 
-    justify-content: center;
+    justify-content: left;
     padding: 1rem;
     gap: 1rem;
 }
@@ -30,4 +30,13 @@ justify-content: center;
 }
 .emptywishlist img {
   max-width: 300px;
+}
+
+
+@media (max-width:450px) {
+  .wishlist {
+     grid-template-columns: repeat(auto-fit, minmax(3rem, 18rem));
+
+    justify-content: center;
+  }
 }
