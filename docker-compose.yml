@@ -1,0 +1,37 @@
+---
+# docker-compose.yml
+
+
+services:
+  backend:
+    build: ./server
+    container_name: server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/app
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./shopery
+    container_name: client
+    ports:
+      - "3000:80"
+    volumes:
+      - ./shopery:/app
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
