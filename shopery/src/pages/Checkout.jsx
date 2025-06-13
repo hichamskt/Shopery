@@ -222,10 +222,12 @@ function CheckoutPage({ auth, items , userData , setItems , setOrderSent }) {
     }
   };
 
-  console.log("id",auth)
+  
 
   const submitForm = async()=>{
     const total = items?.reduce((total, item) => total + item.price * item.qnt, 0);
+    
+
     try {
       const response = await axiosInstance.post("oreder/createorder", { 
         items,

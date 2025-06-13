@@ -94,7 +94,7 @@ const handleLiked =() => {
         ""
       )}
       <div className="productshopimgbox">
-        <span style={liked?{backgroundColor:"var(--primary)" , color: "white"}:{}} onClick={()=>handleLiked()} >
+        <span style={liked?{backgroundColor:"var(--primary)" , color: "white"}:{}} onClick={()=>handleLiked()} className='heartwishlist' >
         <CiHeart />
         </span>
         

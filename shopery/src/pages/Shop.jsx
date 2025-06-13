@@ -26,9 +26,7 @@ function Shop() {
 
 const { auth } = useAuth();
 
-  useEffect(() => {
-  localStorage.setItem("likedProducts", JSON.stringify(likedPrds));
-}, [likedPrds]);
+
 
   const {showCard, setShowCard, items , setItems} = useCardContext();
 

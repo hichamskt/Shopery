@@ -168,3 +168,10 @@ font-weight: var(--font-weight-400);
   object-fit: contain;
   
 }
+
+
+@media (max-width:750px) {
+    .shipingandtotalbox{
+        grid-template-columns: 1fr;
+    }
+}

@@ -4,6 +4,7 @@ import axiosInstance from '../axios/axiosInstance';
 import useAuth from '../hooks/useAuth';
 import WishlistproductCard from '../components/WishlistproductCard/WishlistproductCard';
 import empty_wishlist from "../assets/empty_wishlist.png"
+import Loader from '../UI/Loader/Loader';
 
 function WishList() {
   const [likedPrds, setLikedPrds] = useState([]);
@@ -34,9 +35,11 @@ function WishList() {
 
   
 
-  console.log("wishlist:",wishedlist)
+  
   if (loading) {
-    return <div className="wishlist-loading">Loading wishlist...</div>; 
+    return <div  className='wishlistcontainer loadcon'>
+    <Loader /> 
+    </div>
   }
 
   return (

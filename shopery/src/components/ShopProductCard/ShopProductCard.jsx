@@ -42,7 +42,7 @@ const toggleLike = async () => {
     updatedLikedPrds = [...likedPrds, product._id];
   }
 
-  // Update state & localStorage immediately
+  
   setLikedPrds(updatedLikedPrds);
   setLiked(!isAlreadyLiked);
 

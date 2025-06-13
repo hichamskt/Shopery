@@ -6,9 +6,37 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { IoBagOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import axiosInstance from "../../axios/axiosInstance";
 
 function Navigation() {
+  const navigate = useNavigate();
+  const {setAuth} = useAuth();
+  
+
+
+  const handleLogout = async () => {
+  try {
+    // Optional: Inform the backend to invalidate token
+    await axiosInstance.get("/user/logout"); // Adjust path if needed
+
+    // Clear auth context or state
+    setAuth([]);
+
+    // Optionally clear localStorage/sessionStorage if used
+    // localStorage.removeItem("accessToken");
+
+    // Navigate to login or home
+    navigate("/login"); // or "/"
+
+  } catch (err) {
+    console.error("Logout failed:", err.message);
+  }
+};
+
+
+
   return (
     <div className="navigation">
       <p className="navigp">Navigation</p>
@@ -31,7 +59,7 @@ function Navigation() {
         <p>Settings</p>
       </NavLink>
 
-      <div>
+      <div onClick={()=> handleLogout()}>
         <IoIosLogOut />
         <p>Log-out</p>
       </div>
