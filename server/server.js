@@ -18,8 +18,10 @@ const orderRoutes = require("./routes/orderRoutes")
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
+
+const allowedOrigins = [process.env.CLIENT_URL];
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: allowedOrigins,
     credentials: true,
 }));
 
@@ -78,3 +80,5 @@ mongoose.connect(DB, {}).then(() =>{
 
 const httpServer = require('http').createServer(app);
 httpServer.listen(process.env.PORT,() => console.log('it work !!!',process.env.PORT ));
+
+
