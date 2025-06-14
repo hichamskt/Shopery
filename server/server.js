@@ -19,11 +19,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 
-const allowedOrigins = [process.env.CLIENT_URL];
+const allowedOrigins = process.env.CLIENT_URL?.split(',') || [];
+
 app.use(cors({
-    origin: allowedOrigins,
-    credentials: true,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
+
 
 app.use(cookieParser());
 
@@ -63,7 +71,9 @@ app.use('/api/product',productRoutes)
 app.use('/api/category',categoryRoutes)
 app.use('/api/user',userRoutes)
 app.use('/api/oreder',orderRoutes)
-
+app.get('/', (req, res) => {
+  res.send('Backend is running 👌');
+});
 
 // protcted routes
 // app.use(verifyJWT);
@@ -79,6 +89,8 @@ mongoose.connect(DB, {}).then(() =>{
 
 
 const httpServer = require('http').createServer(app);
-httpServer.listen(process.env.PORT,() => console.log('it work !!!',process.env.PORT ));
+const PORT = process.env.PORT || 5000;
+httpServer.listen(PORT, () => console.log('Server running on port', PORT));
+
 
 
