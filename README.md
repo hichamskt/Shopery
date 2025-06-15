@@ -83,7 +83,7 @@ Shopery is a modern full-stack e-commerce platform focused on clean design, orga
 git clone https://github.com/hichamskt/Shopery.git
 cd Shopery
 
-
+```
 
 #  2. Environment Variables
 server/.env
