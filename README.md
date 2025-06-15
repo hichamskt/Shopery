@@ -126,23 +126,43 @@ cd shopery && npm install && npm start
 ```
 ## 🔌 API Endpoints
 
-### 🔐 Auth
+### 👤 User
+
 - `POST /api/auth/register` – Register a new user  
 - `POST /api/auth/login` – Log in and receive tokens  
+- `GET /api/auth/refresh` – Refresh access token  
+- `POST /api/auth/changePassword` – Change user password  
+- `GET /api/auth/logout` – Log out and clear refresh token  
+- `POST /api/user/getuserbillinginfo` – Get user billing information  
+- `POST /api/user/getUserInfo` – Get full user profile  
+- `POST /api/user/getLikedProducts` – Fetch user's liked products  
+- `POST /api/user/toggleLikedProduct` – Like or unlike a product  
+- `POST /api/user/updateBillingAddress` – Update billing address  
+- `POST /api/user/updateAcountSettings` – Update account settings
 
-### 🛍️ Products
-- `GET /api/products` – Retrieve all products  
-- `GET /api/products/:id` – Get a product by ID  
-- `POST /api/products` – Create a new product  
-- `PUT /api/products/:id` – Update a product by ID  
-- `DELETE /api/products/:id` – Delete a product by ID  
 
-### 🗂️ Categories
-- `GET /api/categories` – List all categories  
-- `POST /api/categories` – Create a new category  
 
-### 🖼️ Uploads
-- `POST /api/upload` – Upload an image (via Multer)
+### 🛍️ Product
+
+- `POST /api/products/addnewproduct` – Add a new product (with images & brand logo)
+- `GET /api/products/gettopdiscountedproducts` – Get top discounted products
+- `GET /api/products/getallproducts` – Get all products
+- `GET /api/products/filtredProducts` – Get filtered products (based on query)
+- `GET /api/products/getproductbyid/:productid` – Get product by ID
+
+### 📦 Order
+
+- `POST /api/orders/createorder` – Create a new order  
+- `POST /api/orders/getuserorders` – Get all orders for a specific user  
+- `GET /api/orders/getOrderById/:id` – Get details of a specific order by ID
+
+
+### 🗂️ Category
+
+- `POST /api/categories/addnewcategory` – Add a new category (with category image)  
+- `GET /api/categories/getallcategories` – Get all categories  
+- `GET /api/categories/getcategorieswithproductcount` – Get categories along with their product counts
+ 
 
 
 ## 🗃️ Database Models
