@@ -27,7 +27,6 @@ Shopery is a modern full-stack e-commerce platform focused on clean design, orga
 ## 🌟 Features
 
 - User Authentication (Register / Login / Logout)
-- Admin Dashboard for product & category management
 - Image upload support (via `/uploads`)
 - Product filtering and category browsing
 - Mobile-first responsive design
