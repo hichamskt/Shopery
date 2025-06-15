@@ -148,34 +148,154 @@ cd shopery && npm install && npm start
 ## 🗃️ Database Models
 
 ### 🛍️ Product
+
 ```js
 {
-  name: String,
-  price: Number,
+  name: { type: String, required: true },
   description: String,
-  category: String,
+  sku: { type: String, required: true, unique: true },
+  price: { type: Number, required: true },
+  category: { type: ObjectId, ref: 'Category', required: true },
+  stock: { type: Number, default: 0, min: 0 },
+  likedCount: { type: Number, default: 0 },
+  tags: [String],
+  bulletPoint: [String],
   images: [String],
-  inStock: Boolean
+  discount: { type: Number, default: 0 },
+  popularty: { type: Number, default: 0 },
+  branddescription: String,
+  brandLogo: String,
+  weigth: Number,
+  color: String,
+  type: String,
+
+  // Ratings & Reviews
+  rating: [
+    {
+      user_id: { type: ObjectId, ref: 'User' },
+      rating: Number
+    }
+  ],
+  review: [
+    {
+      user_id: { type: ObjectId, ref: 'User' },
+      review: String
+    }
+  ],
+  averageRating: { type: Number, default: 0 },
+
+  status: {
+    type: String,
+    enum: ['Sold', 'Available', 'OutOfStock'],
+    default: 'Available'
+  },
+  createdAt: { type: Date, default: Date.now }
 }
+
 ```
+
 ### 🗂️ Category
+
 ```js
 {
-  name: String,
-  image: String
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  categoryimg: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 }
 ```
 ### 👤 User
+
 ```js
 {
-  username: String,
-  email: String,
-  passwordHash: String,
-  role: { type: String, default: 'user' }
+  firstName: String,
+  lastName: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+  phoneNumber: String,
+  password: {
+    type: String,
+    required: true
+  },
+  images: String,
+  
+  // Billing Info
+  billingAdresse: String,
+  billingRegion: String,
+  billingFirstName: String,
+  billingLastName: String,
+  billingEmail: String,
+  billingphoneNumber: String,
+  companyName: String,
+  streetAdresse: String,
+  city: String,
+  zipCode: String,
+
+  // Relationships & Auth
+  orders: [ObjectId],         // Ref to Order
+  likedProducts: [ObjectId],  // Ref to Product
+  refreshToken: String,
+
+  createdAt: { type: Date, default: Date.now }
 }
+
 ```
 
+### 📦 Order
 
+```js
+{
+  userId: { type: ObjectId, ref: "User" },
+  items: [
+    {
+      productId: { type: ObjectId, ref: 'Product', required: true },
+      qnt: { type: Number, required: true },
+      price: { type: Number, required: true },
+    }
+  ],
+  billingInfos: {
+    billingFirstName: String,
+    billingLastName: String,
+    companyName: String,
+    billingAdresse: String,
+    billingRegion: String,
+    city: String,
+    zipCode: String,
+    billingEmail: String,
+    billingphoneNumber: String,
+    OrderNotes: String
+  },
+  shippingInfos: {
+    shippingFirstName: String,
+    shippingLastName: String,
+    shippingName: String,
+    shippingAdresse: String,
+    shippingRegion: String,
+    shippingCity: String,
+    shippingzipCode: String,
+    shippingEmail: String,
+    shippingphoneNumber: String,
+    shippingNotes: String,
+    shippingCompanyName: String
+  },
+  totalAmount: Number,
+  status: { type: String, default: "Pending" },
+  createdAt: { type: Date, default: Date.now }
+}
+```
 ## 🚀 Deployment
 
 - **Frontend**: Vercel  
