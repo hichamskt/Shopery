@@ -56,7 +56,22 @@ Shopery is a modern full-stack e-commerce platform focused on clean design, orga
 
 ## 📁 Project Structure
 
-<pre> ```bash Shopery/ ├── shopery/ # React frontend │ ├── public/ │ ├── src/ │ │ ├── components/ │ │ ├── pages/ │ │ └── App.jsx │ └── package.json │ ├── server/ # Express backend │ ├── controllers/ │ ├── models/ │ ├── routes/ │ ├── uploads/ │ └── server.js │ ├── docker-compose.yml # Docker setup └── README.md # Project docs ``` </pre>
+<pre> ```bash Shopery/ ├── shopery/ # React frontend
+  │ ├── public/ 
+  │ ├── src/ 
+  │ │ ├── components/
+  │ │ ├── pages/
+  │ │
+  └── App.jsx 
+  │ └── package.json 
+  │ ├── server/ # Express backend 
+  │ ├── controllers/ 
+  │ ├── models/ 
+  │ ├── routes/ 
+  │ ├── uploads/ 
+  │ └── server.js 
+  │ ├── docker-compose.yml # Docker setup 
+  └── README.md # Project docs ``` </pre>
 
 
 ---
