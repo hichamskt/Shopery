@@ -62,6 +62,14 @@ Shopery is a modern full-stack e-commerce platform focused on clean design, orga
   │ ├── src/ 
   │ │ ├── components/
   │ │ ├── pages/
+  │ │ ├── assets/
+  │ │ ├── auth/
+  │ │ ├── axios/
+  │ │ ├── contexts/
+  │ │ ├── hooks/
+  │ │ ├── locales/
+  │ │ ├── styles/
+  │ │ ├── ui/
   │ │
   └── App.jsx 
   │ └── package.json 
