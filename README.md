@@ -87,46 +87,66 @@ cd Shopery
 
 #  2. Environment Variables
 server/.env
+```bash
+### MongoDB connection
+DATABASE_USER=shoperyuser
+DATABASE=shoperydb
+DATABASE_PASSWORD=yourStrongPassword123
+
+### Server port
 PORT=5000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
 
+### JWT Secrets (generate secure values)
+ACCESS_TOKEN_SECRET=youraccesstokensecretstring
+REFRESH_TOKEN_SECRET=yourrefreshtokensecretstring
+
+### URL of your frontend (e.g., Vercel deployment)
+CLIENT_URL=https://shopery.vercel.app
+
+
+```
 shopery/.env
-
+```
+REACT_APP_BACKEND_URL=your-backend-url.com/api
+REACT_APP_BASE_URL=your-frontend
+```
 
 
 # 3. Install Dependencies & Run
 Using Docker:
-
+```bash
 docker-compose up --build
-
+```
 Manual:
-
+```bash
 cd server && npm install && npm start
 cd shopery && npm install && npm start
-
+```
 ## 🔌 API Endpoints
 
-Auth
-POST /api/auth/register
-POST /api/auth/login
+### 🔐 Auth
+- `POST /api/auth/register` – Register a new user  
+- `POST /api/auth/login` – Log in and receive tokens  
 
-Products
-GET /api/products
-GET /api/products/:id
-POST /api/products
-PUT /api/products/:id
-DELETE /api/products/:id
+### 🛍️ Products
+- `GET /api/products` – Retrieve all products  
+- `GET /api/products/:id` – Get a product by ID  
+- `POST /api/products` – Create a new product  
+- `PUT /api/products/:id` – Update a product by ID  
+- `DELETE /api/products/:id` – Delete a product by ID  
 
-Categories
-GET /api/categories
-POST /api/categories
+### 🗂️ Categories
+- `GET /api/categories` – List all categories  
+- `POST /api/categories` – Create a new category  
 
-Uploads
-POST /api/upload — Image upload via Multer
+### 🖼️ Uploads
+- `POST /api/upload` – Upload an image (via Multer)
+
 
 ## 🗃️ Database Models
-Product
+
+### 🛍️ Product
+```js
 {
   name: String,
   price: Number,
@@ -135,18 +155,24 @@ Product
   images: [String],
   inStock: Boolean
 }
-Category
+```
+### 🗂️ Category
+```js
 {
   name: String,
   image: String
 }
-User
+```
+### 👤 User
+```js
 {
   username: String,
   email: String,
   passwordHash: String,
   role: { type: String, default: 'user' }
 }
+```
+
 
 ## 🚀 Deployment
 Frontend: Vercel
