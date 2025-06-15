@@ -6,9 +6,9 @@ Shopery is a modern full-stack e-commerce platform focused on clean design, orga
 
 ## 📌 Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
+- [Overview](##overview)
+- [Features](##features)
+- [Tech Stack](##tech-stack)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
 - [API Endpoints](#api-endpoints)
@@ -56,7 +56,9 @@ Shopery is a modern full-stack e-commerce platform focused on clean design, orga
 
 ## 📁 Project Structure
 
-<pre> ```bash Shopery/ ├── shopery/ # React frontend
+<pre> ```
+  bash Shopery/ 
+  ├── shopery/ # React frontend
   │ ├── public/ 
   │ ├── src/ 
   │ │ ├── components/
@@ -85,7 +87,7 @@ cd Shopery
 
 ```
 
-#  2. Environment Variables
+###  2. Environment Variables
 server/.env
 ```bash
 ### MongoDB connection
@@ -93,14 +95,14 @@ DATABASE_USER=shoperyuser
 DATABASE=shoperydb
 DATABASE_PASSWORD=yourStrongPassword123
 
-### Server port
+#### Server port
 PORT=5000
 
-### JWT Secrets (generate secure values)
+#### JWT Secrets (generate secure values)
 ACCESS_TOKEN_SECRET=youraccesstokensecretstring
 REFRESH_TOKEN_SECRET=yourrefreshtokensecretstring
 
-### URL of your frontend (e.g., Vercel deployment)
+#### URL of your frontend (e.g., Vercel deployment)
 CLIENT_URL=https://shopery.vercel.app
 
 
@@ -112,7 +114,7 @@ REACT_APP_BASE_URL=your-frontend
 ```
 
 
-# 3. Install Dependencies & Run
+### 3. Install Dependencies & Run
 Using Docker:
 ```bash
 docker-compose up --build
@@ -175,16 +177,25 @@ cd shopery && npm install && npm start
 
 
 ## 🚀 Deployment
-Frontend: Vercel
-Backend: Railway
-Uploads: Saved on Railway backend under /uploads
 
-##🔮 Future Improvements
-💳 Stripe/PayPal Integration
-📊 Admin Dashboard & Analytics
-🔔 Email Notifications
-🌍 i18n Support (Multilingual)
+- **Frontend**: Vercel  
+- **Backend**: Railway  
+- **Uploads**: Stored on Railway backend under `/uploads`
 
-##👨‍💻 Author
-Developed by Hicham Skoutti
+---
+
+## 🔮 Future Improvements
+
+- 💳 Stripe/PayPal Integration  
+- 📊 Admin Dashboard & Analytics  
+- 🔔 Email Notifications  
+- 🌍 i18n Support (Multilingual)
+
+---
+
+## 👨‍💻 Author
+
+Developed by **Hicham Skoutti**  
+[GitHub – @hichamskt](https://github.com/hichamskt)
+
 
