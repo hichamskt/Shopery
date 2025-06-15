@@ -61,17 +61,17 @@ function HomePage() {
       <Header />
       <Bannar />
       <Featured />
-      <Heading heading="Popular Categories" navigatto="/" />
+      <Heading heading="Popular Categories" navigatto="/shop" />
       <Categories />
-      <Heading heading="Popular Products" navigatto="/" />
+      <Heading heading="Popular Products" navigatto="/shop" />
       <PopularProducts />
       <SecondBanner />
       <div className="greybackground">
-        <Heading heading="Hot Deals" navigatto="/" />
+        <Heading heading="Hot Deals" navigatto="/shop" />
         <HotDeals />
       </div>
       <DiscountBannar />
-      <Heading heading="Featured Products" navigatto="/" />
+      <Heading heading="Featured Products" navigatto="/shop" />
       <FeaturedProducts />
       <LatestNews />
       <div className="greybackground">

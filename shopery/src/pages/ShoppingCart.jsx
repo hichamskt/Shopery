@@ -10,7 +10,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import Footer from '../components/Footer/Footer'
 function ShoppingCart() {
   const { items, setItems } = useCardContext();
-
+  const navigat = useNavigate();
  useEffect(()=>{
     localStorage.setItem("cardItems", JSON.stringify(items));
   },[items])
@@ -31,7 +31,7 @@ function ShoppingCart() {
         ) : (
           <div className="shoppingcardnoitms">
             <img src={nocard} alt="no items" />
-            <p>You Card Is Empty</p>
+            <p onClick={()=>navigat('/')}>You Card Is Empty</p>
             <NavLink to="/shop">
               <IoIosArrowBack />
               Go To Shop
@@ -47,6 +47,8 @@ function ShoppingCart() {
 export default ShoppingCart;
 
 function ShoppingItemsBox({ items , setItems }) {
+
+  const navigat = useNavigate();
   return (
     <div>
     <div className="shoppingboxtable">
@@ -62,7 +64,7 @@ function ShoppingItemsBox({ items , setItems }) {
         ))}
       </div>
       <div className="shoppingbgbtnbox">
-        <button>Return to shop</button>
+        <button onClick={()=>navigat('/shop')}>Return to shop</button>
       </div>
     </div>
         <CouponCode/>
@@ -115,7 +117,7 @@ function TableRow({ item, setItems }) {
           -
         </button>
         <p>{item.qnt}</p>
-        <button onClick={() => hundleAddQnt(item.sku)}>+</button>
+        <button  onClick={() => hundleAddQnt(item.sku)}>+</button>
       </div>
       <p>${(item.price * item.qnt).toFixed(2)}</p>
       <RxCrossCircled onClick={()=>handleDeleteFromCart(item.sku)} />

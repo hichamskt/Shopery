@@ -10,6 +10,7 @@ import img2 from "../../assets/pay2.png";
 import img3 from "../../assets/pay3.png";
 import img4 from "../../assets/pay4.png";
 import img5 from "../../assets/pay5.png";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
   return (
@@ -63,6 +64,7 @@ function Subscribe() {
 }
 
 function BottomFooter() {
+  const navigate = useNavigate();
   return (
     <div className="greybackground" style={{ backgroundColor: "black" }}>
       <div className="container">
@@ -84,26 +86,26 @@ function BottomFooter() {
             </span>
           </div>
           <ul>
-            <li>My Account</li>
-            <li>My Account</li>
-            <li>Order History</li>
-            <li>Shoping Cart</li>
-            <li>Wishlist</li>
+            <li >My Account</li>
+            <li onClick={()=>navigate('/account')}>My Account</li>
+            <li onClick={()=>navigate('/account/orderhistory')}>Order History</li>
+            <li onClick={()=>navigate('/shoppingcart')}>Shoping Cart</li>
+            <li onClick={()=>navigate('/account/wishlist')}>Wishlist</li>
           </ul>
           <ul>
-            <li>Helps</li>
-            <li>Contact </li>
-            <li>Faqs</li>
+            <li onClick={()=>navigate('/contact')}>Helps</li>
+            <li onClick={()=>navigate('/contact')}>Contact </li>
+            <li onClick={()=>navigate('/faqs')}>Faqs</li>
             <li>Terms & Condition</li>
             <li>Privacy Policy</li>
           </ul>
 
           <ul>
             <li> Proxy</li>
-            <li>About</li>
-            <li>Shop</li>
-            <li>Product</li>
-            <li>rack Order</li>
+            <li onClick={()=>navigate('/about')}>About</li>
+            <li onClick={()=>navigate('/shop')}>Shop</li>
+            <li onClick={()=>navigate('/shop')}>Product</li>
+            <li onClick={()=>navigate('/account/orderhistory')}>track Order</li>
           </ul>
 
           <ul>

@@ -18,17 +18,10 @@ function Navigation() {
 
   const handleLogout = async () => {
   try {
-    // Optional: Inform the backend to invalidate token
-    await axiosInstance.get("/user/logout"); // Adjust path if needed
+    await axiosInstance.get("/user/logout"); 
 
-    // Clear auth context or state
-    setAuth([]);
-
-    // Optionally clear localStorage/sessionStorage if used
-    // localStorage.removeItem("accessToken");
-
-    // Navigate to login or home
-    navigate("/login"); // or "/"
+    setAuth([]);    
+    navigate("/login"); 
 
   } catch (err) {
     console.error("Logout failed:", err.message);

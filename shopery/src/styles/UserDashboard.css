@@ -17,7 +17,10 @@
 }
 
 .prf-box img{
-    width: 100px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 .prflbox p:first-of-type{
     font-size: var(--font-size-body-xl);

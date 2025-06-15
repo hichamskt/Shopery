@@ -11,13 +11,16 @@ import { RxCross1 } from "react-icons/rx";
 import ShoppingCardPopup from "../components/ShoppingCardPopup/ShoppingCardPopup";
 import { useCardContext } from "../contexts/CardContext";
 import useAuth from "../hooks/useAuth";
-
+import { useLocation } from 'react-router-dom';
+import Footer from "../components/Footer/Footer";
 function Shop() {
+  const location = useLocation();
+  const state = location.state;
   const [products, setProducts] = useState([]);
   const [productOverview, setProductOverView] = useState();
   const [isProdctView,setIsProductView]=useState(false);
   const [showFilter,setShowFilter]=useState(true);
-  const [category,setCategory]=useState([]);
+  const [category,setCategory]=useState(state?.cat || []);
   const [price,setprice]=useState({minPrice:2,maxPrice:10});
   const [minRating,setMinRating]=useState(0);
   const [tags,setTags]=useState([]);
@@ -100,6 +103,7 @@ const { auth } = useAuth();
           <ShopProducts  products={products} setProductOverView={setProductOverView} setIsProductView={setIsProductView}  likedPrds={likedPrds} setLikedPrds={setLikedPrds}/>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
